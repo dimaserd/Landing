@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using CrocoLanding.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CrocoLanding.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IWebHostEnvironment env)
         {
-            _logger = logger;
+            _env = env;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var webRoot = _env.WebRootPath;
+            var path = System.IO.Path.Combine(webRoot, "index.html");
+
+            return File(path, "text/html");
         }
 
         public IActionResult Privacy()

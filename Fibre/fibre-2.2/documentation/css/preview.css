@@ -1,0 +1,58 @@
+/*
+Template Name: fibre
+Theme URL: http://www.egotype.com/fibre/
+Description: Landing Page
+Author: Egotype
+Author URL: http://www.egotype.com
+Version: 1.0
+Tags: Landing Page, HTML5, CSS3, Bootstrap, Jquery, Marketing Landing page,
+App Landing page, WebApp Landing page
+*/
+
+/* _____________________________________
+
+   Preview Styles
+   _____________________________________ */
+
+.hero-preview {
+  padding: 43px 0 55px 0;
+}
+
+h3, h4 {
+  font-weight: 400;
+}
+
+
+.preview-logo {
+  margin: 15px auto;
+}
+
+.version-overlay {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.version-overlay img {
+
+  padding-bottom: 5px;
+}
+
+.version-overlay .textbox {
+  width: 100%;
+  height: 35px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 7px;
+  margin-bottom: -30px;
+}
+
+.version-overlay:hover .textbox {
+  margin-bottom: 0;
+}
+
+.textbox {
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}

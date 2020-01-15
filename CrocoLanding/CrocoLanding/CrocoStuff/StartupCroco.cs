@@ -9,12 +9,14 @@ using Croco.WebApplication.Application;
 using CrocoLanding.Implementations;
 using CrocoLanding.Logic;
 using CrocoShop.CrocoStuff;
+using CrocoShop.Model.Contexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Zoo.Core;
 
 namespace CrocoLanding.CrocoStuff
 {
@@ -41,7 +43,7 @@ namespace CrocoLanding.CrocoStuff
             var baseOptions = new EFCrocoApplicationOptions
             {
                 CacheManager = new ApplicationCacheManager(memCache),
-                GetDbContext = () => MyDbContext.Create(Configuration),
+                GetDbContext = () => LandingDbContext.Create(Configuration),
                 RequestContextLogger = new CrocoWebAppRequestContextLogger(),
                 FileOptions = new CrocoFileOptions
                 {

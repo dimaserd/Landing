@@ -1,8 +1,17 @@
+using Croco.Core.Abstractions.Application;
+using CrocoLanding.CrocoStuff;
+using CrocoShop.CrocoStuff;
+using CrocoShop.Model.Contexts;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -10,12 +19,23 @@ namespace CrocoLanding
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Croco = new StartupCroco(new StartUpCrocoOptions
+            {
+                Configuration = configuration,
+                Env = env,
+                ApplicationActions = new List<Action<ICrocoApplication>>
+                {
+                    ApplicationServiceRegistrator.Register
+                },
+            });
         }
 
-        public IConfiguration Configuration { get; }
+        StartupCroco Croco { get; }
+
+        IConfiguration Configuration { get; }
 
         private static void ConfigureJsonSerializer(JsonSerializerOptions settings)
         {
@@ -29,6 +49,14 @@ namespace CrocoLanding
         {
             services.AddControllersWithViews()
                 .AddJsonOptions(options => ConfigureJsonSerializer(options.JsonSerializerOptions));
+
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(LandingDbContext.ConnectionString)));
+
+            //Установка приложения
+            Croco.SetCrocoApplication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

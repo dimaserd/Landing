@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.4">
       <PrivateAssets>all</PrivateAssets>
@@ -17,6 +18,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
     <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.9" />
     <PackageReference Include="NetCroco.WebApplication" Version="1.5.23" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.8" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.8" />
+
   </ItemGroup>
 
   <ItemGroup>

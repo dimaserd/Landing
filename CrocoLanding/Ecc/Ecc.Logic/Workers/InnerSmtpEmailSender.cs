@@ -11,15 +11,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 namespace Ecc.Logic.Workers
 {
     public class InnerSmtpEmailSender : BaseAppWorker
     {
         EmailSettingsModel EmailSettings { get; }
-
-        
 
         public InnerSmtpEmailSender(ICrocoAmbientContext ambientContext) : base(ambientContext)
         {

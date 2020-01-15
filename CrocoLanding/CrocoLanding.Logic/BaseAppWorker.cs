@@ -7,7 +7,6 @@ namespace CrocoLanding.Logic
     {
         public BaseAppWorker(ICrocoAmbientContext ambientContext) : base(ambientContext)
         {
-
         }
     }
 }

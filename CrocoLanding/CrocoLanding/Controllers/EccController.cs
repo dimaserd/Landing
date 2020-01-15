@@ -7,6 +7,7 @@ namespace CrocoLanding.Controllers
     [ApiController]
     public class EccController : ControllerBase
     {
+
         [HttpPost("SendCallBackRequest")]
         public BaseApiResponse SendCallBackRequest([FromForm]CreateCallBackModel model)
         {

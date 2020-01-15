@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NetCroco.Core" Version="1.9.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
+    <ProjectReference Include="..\Ecc.Contract\Ecc.Contract.csproj" />
+  </ItemGroup>
+
 </Project>

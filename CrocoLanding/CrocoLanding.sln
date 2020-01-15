@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecc.Logic", "Ecc\Ecc.Logic\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecc.Contract", "Ecc\Ecc.Contract\Ecc.Contract.csproj", "{3000C9B9-BAD3-4E66-812B-96F29021B417}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrocoLanding.Logic", "CrocoLanding.Logic\CrocoLanding.Logic.csproj", "{F07F2062-F781-493E-802C-D4F58613B2C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{3000C9B9-BAD3-4E66-812B-96F29021B417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3000C9B9-BAD3-4E66-812B-96F29021B417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3000C9B9-BAD3-4E66-812B-96F29021B417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F07F2062-F781-493E-802C-D4F58613B2C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F07F2062-F781-493E-802C-D4F58613B2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F07F2062-F781-493E-802C-D4F58613B2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F07F2062-F781-493E-802C-D4F58613B2C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

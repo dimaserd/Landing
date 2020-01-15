@@ -16,8 +16,7 @@ namespace CrocoLanding.Controllers
 
         public IActionResult Index()
         {
-            var webRoot = _env.WebRootPath;
-            var path = System.IO.Path.Combine(webRoot, "index.html");
+            var path = System.IO.Path.Combine(_env.WebRootPath, "index.html");
 
             return File(path, "text/html");
         }

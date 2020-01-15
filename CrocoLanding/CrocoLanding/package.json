@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bootstrap": "^4.3.1",
+    "typescript": "3.3.3"
+  },
+  "dependencies": {
+    "@microsoft/signalr": "3.1.0",
+    "@types/bootstrap-datepicker": "0.0.13",
+    "@types/jquery": "^3.3.31",
+    "@types/node": "^12.6.9",
+    "@types/popper.js": "^1.11.0",
+    "bootstrap": "^4.3.1",
+    "install": "^0.12.2",
+    "jquery": "^3.4.1"
+  }
+}

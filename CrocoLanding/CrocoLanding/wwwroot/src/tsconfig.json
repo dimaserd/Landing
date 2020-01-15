@@ -1,0 +1,17 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "*": [ "types/*" ]
+    },
+    "target": "es5",
+    "module": "none",
+    "declaration": true,
+    "moduleResolution": "node"
+  }
+}

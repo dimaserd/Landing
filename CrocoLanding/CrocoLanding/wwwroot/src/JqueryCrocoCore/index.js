@@ -319,3 +319,4 @@ var CrocoAppCore = /** @class */ (function () {
     };
     return CrocoAppCore;
 }());
+CrocoAppCore.InitFields();

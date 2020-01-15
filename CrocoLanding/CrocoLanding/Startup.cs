@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace CrocoLanding
 {
@@ -15,10 +17,18 @@ namespace CrocoLanding
 
         public IConfiguration Configuration { get; }
 
+        private static void ConfigureJsonSerializer(JsonSerializerOptions settings)
+        {
+            settings.PropertyNameCaseInsensitive = true;
+            settings.PropertyNamingPolicy = null;
+            settings.Converters.Add(new JsonStringEnumConverter());
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddJsonOptions(options => ConfigureJsonSerializer(options.JsonSerializerOptions));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

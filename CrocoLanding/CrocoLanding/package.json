@@ -10,7 +10,6 @@
     "typescript": "3.3.3"
   },
   "dependencies": {
-    "@microsoft/signalr": "3.1.0",
     "@types/bootstrap-datepicker": "0.0.13",
     "@types/jquery": "^3.3.31",
     "@types/node": "^12.6.9",

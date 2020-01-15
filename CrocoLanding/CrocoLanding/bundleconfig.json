@@ -1,0 +1,50 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/src/Core/index.js",
+    "inputFiles": [
+      "wwwroot/src/Core/Implementations/*.js",
+      "wwwroot/src/Core/*.js",
+      "wwwroot/src/Core/Models/*.js",
+      "wwwroot/src/Core/Services/*.js",
+      "wwwroot/src/Core/Enumerations/*.js",
+      "wwwroot/src/Core/Models/Documentation/*.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/src/JqueryCrocoCore/Implementations.js",
+    "inputFiles": [
+      "wwwroot/src/JqueryCrocoCore/Implementations/*.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+
+  {
+    "outputFileName": "wwwroot/src/JqueryCrocoCore/Init.js",
+    "inputFiles": [
+      "wwwroot/src/JqueryCrocoCore/Init/*.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+
+  {
+    "outputFileName": "wwwroot/src/JqueryCrocoCore/index.js",
+    "inputFiles": [
+      "wwwroot/src/JqueryCrocoCore/Implementations.js",
+      "wwwroot/src/JqueryCrocoCore/Init.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  }
+]

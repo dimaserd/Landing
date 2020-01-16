@@ -1,6 +1,6 @@
 ﻿namespace CrocoLanding.Controllers
 {
-    public class CreateCallBackModel
+    public class CreateCallBackApiModel
     {
         public string EmailOrPhoneNumber { get; set; }
     }

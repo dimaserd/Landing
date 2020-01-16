@@ -3,6 +3,7 @@ using Croco.Core.EventSourcing.Implementations.StatusLog.Models;
 using Croco.Core.Model.Entities;
 using Croco.Core.Model.Entities.Store;
 using CrocoLanding.Model.Abstractions;
+using CrocoLanding.Model.Entities.Ecc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Zoo.Core;
@@ -26,6 +27,8 @@ namespace CrocoShop.Model.Contexts
         {
         }
         #endregion
+
+        public DbSet<CallBackRequest> CallBackRequests { get; set; }
 
         #region Store
 

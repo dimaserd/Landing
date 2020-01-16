@@ -2,10 +2,7 @@
 {
     public class CreateCallBackRequest
     {
-        /// <summary>
-        /// Уникальный идентификатор
-        /// </summary>
-        public string Uid { get; set; }
+        public string Ip { get; set; }
 
         public string EmailOrPhoneNumber { get; set; }
     }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
+    <ProjectReference Include="..\..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
     <ProjectReference Include="..\Ecc.Contract\Ecc.Contract.csproj" />
   </ItemGroup>
 

@@ -86,7 +86,10 @@ namespace CrocoLanding.CrocoStuff
                 CrocoOptions = baseOptions,
             };
 
-            var application = new LandingWebApplication(options);
+            var application = new LandingWebApplication(options) 
+            {
+                IsDevelopment = Env.EnvironmentName == "Development"
+            };
 
             CrocoApp.Application = application;
 

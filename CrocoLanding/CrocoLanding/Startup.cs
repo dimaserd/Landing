@@ -1,4 +1,5 @@
 using Croco.Core.Abstractions.Application;
+using CrocoLanding.Configuration.Hangfire;
 using CrocoLanding.CrocoStuff;
 using CrocoShop.CrocoStuff;
 using CrocoShop.Model.Contexts;
@@ -87,6 +88,8 @@ namespace CrocoLanding
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            HangfireConfiguration.AddHangfire(app, false);
         }
     }
 }

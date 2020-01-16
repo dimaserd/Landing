@@ -4,6 +4,7 @@ using Croco.Core.Models;
 using Ecc.Contract.Models;
 using Ecc.Logic.Workers;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace CrocoLanding.Controllers
@@ -14,7 +15,19 @@ namespace CrocoLanding.Controllers
     {
 
         [HttpPost("SendCallBackRequest")]
-        public Task<BaseApiResponse> SendCallBackRequest([FromForm]CreateCallBackApiModel model)
+        public async Task<BaseApiResponse> SendCallBackRequest([FromForm]CreateCallBackApiModel model)
+        {
+            try
+            {
+                return await SendCallBackRequestInnner(model);
+            }
+            catch(Exception ex)
+            {
+                return new BaseApiResponse(ex);
+            }
+        }
+
+        public Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model)
         {
             var nModel = new CreateCallBackRequest
             {

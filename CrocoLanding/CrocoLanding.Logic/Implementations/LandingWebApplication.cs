@@ -7,5 +7,7 @@ namespace CrocoLanding.Logic
         public LandingWebApplication(CrocoWebApplicationOptions options) : base(options)
         {
         }
+
+        public bool IsDevelopment { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Ecc.Logic.Workers
 
             var hourBefore = dateNow.AddHours(-1);
 
-            if(await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= hourBefore))
+            if(!Application.IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= hourBefore))
             {
                 return new BaseApiResponse(false, "С вашего Ip адреса уже была отправлена заявка в течение часа, если вы устали ждать связи, мы просим прощения");
             }
@@ -52,7 +52,7 @@ namespace Ecc.Logic.Workers
             return res;
         }
 
-        private static void SendEmail(string emailOrPhoneNumber)
+        public static void SendEmail(string emailOrPhoneNumber)
         {
             new CrocoTransactionHandler(() => new SystemCrocoAmbientContext()).ExecuteAndCloseTransactionSafe(amb =>
             {

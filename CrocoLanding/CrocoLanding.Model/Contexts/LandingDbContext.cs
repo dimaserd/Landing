@@ -62,7 +62,13 @@ namespace CrocoShop.Model.Contexts
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {   
+            LoggedApplicationAction.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AuditLog>().Property(x => x.Id).ValueGeneratedOnAdd();
+
+            WebAppRequestContextLog.OnModelCreating(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
         }
     }

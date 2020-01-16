@@ -1,9 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Croco.Core.Data.Implementations.DbAudit.Models;
+using Croco.Core.EventSourcing.Implementations.StatusLog.Models;
+using Croco.Core.Model.Entities;
+using Croco.Core.Model.Entities.Store;
+using CrocoLanding.Model.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Zoo.Core;
 
 namespace CrocoShop.Model.Contexts
 {
-    public class LandingDbContext : DbContext
+    public class LandingDbContext : DbContext, IStoreContext
     {
         public const string ServerConnection = "ServerConnection";
 
@@ -19,6 +25,24 @@ namespace CrocoShop.Model.Contexts
         public LandingDbContext(DbContextOptions<LandingDbContext> options) : base(options)
         {
         }
+        #endregion
+
+        #region Store
+
+        public DbSet<AuditLog> AuditLogs { get; set; }
+
+        public DbSet<IntegrationMessageLog> IntegrationMessageLogs { get; set; }
+
+        public DbSet<IntegrationMessageStatusLog> IntegrationMessageStatusLogs { get; set; }
+
+        public DbSet<LoggedApplicationAction> LoggedApplicationActions { get; set; }
+
+        public DbSet<LoggedUserInterfaceAction> LoggedUserInterfaceActions { get; set; }
+
+        public DbSet<RobotTask> RobotTasks { get; set; }
+
+        public DbSet<WebAppRequestContextLog> WebAppRequestContextLogs { get; set; }
+
         #endregion
 
         public static LandingDbContext Create(IConfiguration configuration)

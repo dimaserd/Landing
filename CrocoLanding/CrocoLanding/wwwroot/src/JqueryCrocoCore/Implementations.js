@@ -131,7 +131,7 @@ var Requester = /** @class */ (function () {
     Requester.prototype.DeleteCompletedRequest = function (link) {
         Requester.GoingRequests = Requester.GoingRequests.filter(function (x) { return x !== link; });
     };
-    Requester.prototype.SendPostRequestWithAnimation = function (link, data, onSuccessFunc, onErrorFunc) {
+    Requester.prototype.PostWithAnimation = function (link, data, onSuccessFunc, onErrorFunc) {
         this.SendAjaxPostInner(link, data, onSuccessFunc, onErrorFunc, true);
     };
     Requester.prototype.UploadFilesToServer = function (inputId, link, onSuccessFunc, onErrorFunc) {

@@ -14,7 +14,7 @@ class Requester implements ICrocoRequester {
         Requester.GoingRequests = Requester.GoingRequests.filter(x => x !== link);
     }
 
-    SendPostRequestWithAnimation<TObject>(link: string, data: Object, onSuccessFunc: (x: TObject) => void, onErrorFunc: Function):void {
+    PostWithAnimation<TObject>(link: string, data: Object, onSuccessFunc: (x: TObject) => void, onErrorFunc: Function):void {
         this.SendAjaxPostInner(link, data, onSuccessFunc, onErrorFunc, true);
     }
 

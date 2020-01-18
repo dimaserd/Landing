@@ -7,7 +7,7 @@ var IndexHandlers = /** @class */ (function () {
         };
         CrocoAppCore.Application.FormDataHelper.CollectDataByPrefix(data, "callbackReq.");
         console.log("SendRequest", data);
-        CrocoAppCore.Application.Requester.Post("/api/Ecc/SendCallBackRequest", data, function (x) {
+        CrocoAppCore.Application.Requester.PostWithAnimation("/api/Ecc/SendCallBackRequest", data, function (x) {
             console.log(x);
         }, null);
     };

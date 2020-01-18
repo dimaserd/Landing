@@ -9,7 +9,7 @@
 
         console.log("SendRequest", data);
 
-        CrocoAppCore.Application.Requester.Post("/api/Ecc/SendCallBackRequest", data, x => {
+        CrocoAppCore.Application.Requester.PostWithAnimation("/api/Ecc/SendCallBackRequest", data, x => {
             console.log(x);
         }, null);
     }

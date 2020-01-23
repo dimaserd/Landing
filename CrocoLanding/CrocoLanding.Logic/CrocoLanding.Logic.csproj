@@ -12,4 +12,8 @@
     <PackageReference Include="NetCroco.WebApplication" Version="1.5.32" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
+  </ItemGroup>
+
 </Project>

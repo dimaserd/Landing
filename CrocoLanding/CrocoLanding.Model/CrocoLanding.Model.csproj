@@ -14,7 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.23" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.32" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Data;
 using Croco.Core.Application;
+using Croco.Core.Implementations.TransactionHandlers;
 using System;
 
 namespace Zoo.Core
@@ -9,12 +10,20 @@ namespace Zoo.Core
     {
         public void LogRequestContext(ICrocoAmbientContext ambientContext)
         {
-            var log = GetLog(ambientContext.RequestContext);
+            
+        }
 
-            ambientContext.RepositoryFactory
-                .GetRepository<WebAppRequestContextLog>().CreateHandled(log);
+        public void LogRequestContext(ICrocoRequestContext requestContext)
+        {
+            CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
+            {
+                var log = GetLog(requestContext);
 
-            ambientContext.RepositoryFactory.SaveChangesAsync<WebAppRequestContextLog>().GetAwaiter().GetResult();
+                amb.RepositoryFactory
+                    .GetRepository<WebAppRequestContextLog>().CreateHandled(log);
+
+                return amb.RepositoryFactory.SaveChangesAsync<WebAppRequestContextLog>();
+            }).GetAwaiter().GetResult();
         }
 
         private WebAppRequestContextLog GetLog(ICrocoRequestContext requestContext)

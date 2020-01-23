@@ -13,5 +13,7 @@ namespace CrocoLanding.Model.Entities.Ecc
 
         [MaxLength(64)]
         public string IpAddress { get; set; }
+
+        public bool IsNotified { get; set; }
     }
 }

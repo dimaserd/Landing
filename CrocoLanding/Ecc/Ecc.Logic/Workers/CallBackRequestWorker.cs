@@ -1,11 +1,9 @@
 ﻿using Croco.Core.Abstractions;
-using Croco.Core.Implementations.AmbientContext;
-using Croco.Core.Implementations.TransactionHandlers;
 using Croco.Core.Models;
 using CrocoLanding.Logic;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Contract.Models;
-using Ecc.Contract.Models.Emails;
+using Ecc.Logic.TaskGivers;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -46,25 +44,10 @@ namespace Ecc.Logic.Workers
 
             if(res.IsSucceeded)
             {
-                Application.JobManager.Enqueue(() => SendEmail(model.EmailOrPhoneNumber));
+                Application.JobManager.Enqueue<SendEmailTaskGiver>();
             }
 
             return res;
-        }
-
-        public static void SendEmail(string emailOrPhoneNumber)
-        {
-            new CrocoTransactionHandler(() => new SystemCrocoAmbientContext()).ExecuteAndCloseTransactionSafe(amb =>
-            {
-                new InnerSmtpEmailSender(amb).SendEmail(new SendEmailModel
-                {
-                    Body = $"Создана заявка на перезвон '{emailOrPhoneNumber}'",
-                    Email = "dimaserd84@gmail.com",
-                    Subject = "Перезвони"
-                }, x => x);
-
-                return Task.CompletedTask;
-            });
         }
     }
 }

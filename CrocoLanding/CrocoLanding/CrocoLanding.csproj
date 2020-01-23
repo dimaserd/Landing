@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.8" />
+    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,10 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
-    <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.9" />
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.23" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.7.8" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.7.8" />
+    <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.15" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.32" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.9" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.9" />
 
   </ItemGroup>
 

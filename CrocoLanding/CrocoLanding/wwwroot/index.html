@@ -65,11 +65,11 @@
              Navigation Header
         ================================= -->
 
-        <header id="nav" class="light-nav">
+        <header id="nav" class="light-nav header-color">
 
             <!-- Sticky Navigation -->
             <!-- for static Navbar: remove navbar-fixed-top; add navbar-static-top and navbar-light -->
-            <nav class="navbar navbar-fixed-top">
+            <nav class="navbar navbar-fixed-top header-color">
                 <div class="container">
                     <div class="navbar-header">
 
@@ -91,8 +91,8 @@
 
                         <!-- Navigation Links -->
                         <ul class="nav navbar-nav navbar-left">
-                            <li><a href="#testimonials" class="smooth-scroll">Демо проекты</a></li>
-                            <li><a href="#newsletter" class="smooth-scroll">Связаться</a></li>
+                            <li><a href="#testimonials" class="smooth-scroll croco-green">Демо проекты</a></li>
+                            <li><a href="#newsletter" class="smooth-scroll croco-green">Связаться</a></li>
                         </ul>
 
                         <!-- Social Links -->
@@ -123,10 +123,10 @@
             <div class="section-overlay bg-color-white"></div>
             <!-- /End Color Overlay -->
 
-            <div class="wrapper-h-xs-lg">
-                <div class="container">
+            <div>
+                <div class="container-full">
 
-                    <img src="images/slider-image.jpg" class="img-responsive reveal-bottom-20"
+                    <img src="images/slider-image.jpg" style="width:100%;display: block;" class="img-responsive reveal-bottom-20"
                          alt="">
 
                     <h4 class="thing_1">CrocoSoft</h4>
@@ -139,12 +139,17 @@
         </section>
 
         <style>
+
+            .header-color{
+                background-color: #212241!important;
+            }
+
             .croco-white {
                 color: white !important;
             }
 
             .croco-green {
-                color: #00c0a8;
+                color: #00c0a8!important;
             }
 
             .thing_1 {

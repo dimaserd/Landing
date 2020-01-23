@@ -12,7 +12,7 @@ namespace CrocoLanding.Model
 
         public LandingDbContext CreateDbContext(string[] args)
         {
-            return LandingDbContext.Create(ServerConnectionString);
+            return LandingDbContext.Create(LocalConnectionString);
         }
 
         public void ExecuteCommand(string commandText)

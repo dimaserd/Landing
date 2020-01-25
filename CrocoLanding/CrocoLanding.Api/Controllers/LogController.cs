@@ -4,6 +4,7 @@ using Croco.WebApplication.Models.Exceptions;
 using Croco.WebApplication.Models.Log;
 using Croco.WebApplication.Models.Log.Search;
 using Croco.WebApplication.Workers.Log;
+using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic;
 using CrocoShop.Model.Contexts;
 using Microsoft.AspNetCore.Http;

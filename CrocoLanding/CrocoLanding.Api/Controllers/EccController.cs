@@ -21,7 +21,8 @@ namespace CrocoLanding.Api.Controllers
         {
             try
             {
-                return await SendCallBackRequestInnner(model);
+                var ip = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                return await SendCallBackRequestInnner(model, ip);
             }
             catch (Exception ex)
             {
@@ -44,12 +45,12 @@ namespace CrocoLanding.Api.Controllers
         }
 
 
-        public Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model)
+        private static Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model, string ip)
         {
             var nModel = new CreateCallBackRequest
             {
                 EmailOrPhoneNumber = model.EmailOrPhoneNumber,
-                Ip = Request.HttpContext.Connection.RemoteIpAddress.ToString()
+                Ip = ip
             };
 
             return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>

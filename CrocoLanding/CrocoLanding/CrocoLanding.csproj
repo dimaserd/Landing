@@ -24,6 +24,8 @@
     <PackageReference Include="NetCroco.WebApplication" Version="1.5.32" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.9" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.0.0" />
 
   </ItemGroup>
 

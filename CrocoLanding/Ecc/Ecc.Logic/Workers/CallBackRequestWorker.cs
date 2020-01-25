@@ -1,10 +1,13 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Models;
+using Croco.Core.Search.Models;
 using CrocoLanding.Logic;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Contract.Models;
 using Ecc.Logic.TaskGivers;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ecc.Logic.Workers
@@ -13,6 +16,11 @@ namespace Ecc.Logic.Workers
     {
         public CallBackRequestWorker(ICrocoAmbientContext ambientContext) : base(ambientContext)
         {
+        }
+
+        public Task<List<CallBackRequest>> GetCallBackRequests()
+        {
+            return Query<CallBackRequest>().OrderByDescending(x => x.CreatedOn).ToListAsync();
         }
 
         public async Task<BaseApiResponse> CreateCallBackRequest(CreateCallBackRequest model)

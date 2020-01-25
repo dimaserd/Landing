@@ -1,4 +1,4 @@
-﻿namespace CrocoLanding.Controllers
+﻿namespace CrocoLanding.Api.Models
 {
     public class CreateCallBackApiModel
     {

@@ -1,13 +1,15 @@
-﻿using Croco.Core.Implementations.AmbientContext;
-using Croco.Core.Implementations.TransactionHandlers;
+﻿using Croco.Core.Implementations.TransactionHandlers;
 using Croco.Core.Models;
+using CrocoLanding.Api.Models;
+using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Contract.Models;
 using Ecc.Logic.Workers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CrocoLanding.Controllers
+namespace CrocoLanding.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,11 +23,26 @@ namespace CrocoLanding.Controllers
             {
                 return await SendCallBackRequestInnner(model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new BaseApiResponse(ex);
             }
         }
+
+        [HttpPost("CallBacks")]
+        public Task<List<CallBackRequest>> GetCallBacks(string pass)
+        {
+            if(pass != "MyPassword")
+            {
+                return Task.FromResult((List<CallBackRequest>)null);
+            }
+
+            return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
+            {
+                return new CallBackRequestWorker(amb).GetCallBackRequests();
+            });
+        }
+
 
         public Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model)
         {
@@ -35,7 +52,7 @@ namespace CrocoLanding.Controllers
                 Ip = Request.HttpContext.Connection.RemoteIpAddress.ToString()
             };
 
-            return new CrocoTransactionHandler(() => new SystemCrocoAmbientContext()).ExecuteAndCloseTransaction(amb =>
+            return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
             {
                 return new CallBackRequestWorker(amb).CreateCallBackRequest(nModel);
             });

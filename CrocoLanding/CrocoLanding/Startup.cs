@@ -1,5 +1,6 @@
 using Croco.Core.Abstractions.Application;
 using CrocoLanding.Configuration.Hangfire;
+using CrocoLanding.Configuration.Swagger;
 using CrocoLanding.CrocoStuff;
 using CrocoShop.CrocoStuff;
 using CrocoShop.Model.Contexts;
@@ -56,6 +57,10 @@ namespace CrocoLanding
 
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(LandingDbContext.ConnectionString)));
 
+            SwaggerConfiguration.ConfigureSwagger(services, new List<string>
+            {
+            });
+
             //Установка приложения
             Croco.SetCrocoApplication(services);
         }
@@ -87,6 +92,16 @@ namespace CrocoLanding
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
             HangfireConfiguration.AddHangfire(app, false);

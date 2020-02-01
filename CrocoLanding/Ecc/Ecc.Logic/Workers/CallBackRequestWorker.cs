@@ -13,6 +13,8 @@ namespace Ecc.Logic.Workers
 {
     public class CallBackRequestWorker : BaseAppWorker
     {
+        readonly int MinutesBefore = 10;
+
         public CallBackRequestWorker(ICrocoAmbientContext ambientContext) : base(ambientContext)
         {
         }
@@ -31,11 +33,11 @@ namespace Ecc.Logic.Workers
                 return validation;
             }
 
-            var hourBefore = Application.DateTimeProvider.Now.AddHours(-1);
+            var dateBefore = Application.DateTimeProvider.Now.AddMinutes(-MinutesBefore);
 
-            if(!Application.IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= hourBefore))
+            if(!Application.IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= dateBefore))
             {
-                return new BaseApiResponse(false, "С вашего Ip адреса уже была отправлена заявка в течение часа, если вы устали ждать связи, мы просим прощения");
+                return new BaseApiResponse(false, $"С вашего Ip адреса уже была отправлена заявка в течение {MinutesBefore}, если вы устали ждать связи, мы просим прощения");
             }
 
             CreateHandled(new CallBackRequest
@@ -44,7 +46,7 @@ namespace Ecc.Logic.Workers
                 IpAddress = model.Ip,
             });
 
-            var res = await TrySaveChangesAndReturnResultAsync("Заявка создана");
+            var res = await TrySaveChangesAndReturnResultAsync("Заявка создана. Мы вам скоро перезвоним");
 
             if(res.IsSucceeded)
             {

@@ -19,9 +19,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
-    <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.15" />
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.32" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.17" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.35" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.9" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />

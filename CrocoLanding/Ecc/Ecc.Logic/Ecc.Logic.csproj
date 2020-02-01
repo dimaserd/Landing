@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetCroco.Core" Version="1.9.31" />
+    <PackageReference Include="NetCroco.Core" Version="1.9.35" />
   </ItemGroup>
 
   <ItemGroup>

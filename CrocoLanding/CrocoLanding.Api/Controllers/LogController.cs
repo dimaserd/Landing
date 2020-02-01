@@ -1,4 +1,4 @@
-﻿using Croco.Core.Models;
+﻿using Croco.Core.Abstractions.Models;
 using Croco.Core.Search.Models;
 using Croco.WebApplication.Models.Exceptions;
 using Croco.WebApplication.Models.Log;
@@ -7,13 +7,9 @@ using Croco.WebApplication.Workers.Log;
 using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic;
 using CrocoShop.Model.Contexts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Zoo.Core;
 
 namespace CrocoLanding.Api.Controllers
 {

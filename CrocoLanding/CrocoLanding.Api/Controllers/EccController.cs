@@ -1,5 +1,5 @@
-﻿using Croco.Core.Implementations.TransactionHandlers;
-using Croco.Core.Models;
+﻿using Croco.Core.Abstractions.Models;
+using Croco.Core.Implementations.TransactionHandlers;
 using CrocoLanding.Api.Models;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Contract.Models;

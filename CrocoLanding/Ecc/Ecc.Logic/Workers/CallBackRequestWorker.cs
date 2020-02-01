@@ -1,6 +1,5 @@
 ﻿using Croco.Core.Abstractions;
-using Croco.Core.Models;
-using Croco.Core.Search.Models;
+using Croco.Core.Abstractions.Models;
 using CrocoLanding.Logic;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Contract.Models;
@@ -32,9 +31,7 @@ namespace Ecc.Logic.Workers
                 return validation;
             }
 
-            var dateNow = Application.DateTimeProvider.Now;
-
-            var hourBefore = dateNow.AddHours(-1);
+            var hourBefore = Application.DateTimeProvider.Now.AddHours(-1);
 
             if(!Application.IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= hourBefore))
             {
@@ -46,7 +43,6 @@ namespace Ecc.Logic.Workers
                 EmailOrPhoneNumber = model.EmailOrPhoneNumber,
                 IpAddress = model.Ip,
             });
-
 
             var res = await TrySaveChangesAndReturnResultAsync("Заявка создана");
 

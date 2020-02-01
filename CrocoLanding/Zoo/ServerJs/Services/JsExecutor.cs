@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Application;
+using Croco.Core.Abstractions.Models;
 using Croco.Core.Application;
 using Croco.Core.Logic.Workers;
-using Croco.Core.Models;
 using Jint;
 using Zoo.ServerJs.Abstractions;
 

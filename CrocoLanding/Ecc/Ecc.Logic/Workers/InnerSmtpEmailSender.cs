@@ -1,7 +1,7 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Files;
-using Croco.Core.Abstractions.Loggers.Models;
-using Croco.Core.Models;
+using Croco.Core.Abstractions.Models;
+using Croco.Core.Abstractions.Models.Log;
 using CrocoLanding.Controllers;
 using CrocoLanding.Logic;
 using Ecc.Contract.Models.Emails;

@@ -1,6 +1,5 @@
 ﻿using Croco.Core.Abstractions.Data.Entities.HaveId;
 using Croco.Core.Model.Abstractions.Entity;
-using Croco.Core.Model.Entities.Application;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 

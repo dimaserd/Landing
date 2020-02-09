@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="System\**" />
+    <Content Remove="System\**" />
+    <EmbeddedResource Remove="System\**" />
+    <None Remove="System\**" />
+    <TypeScriptCompile Remove="System\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\src\App\Handlers.ts" />
   </ItemGroup>
 

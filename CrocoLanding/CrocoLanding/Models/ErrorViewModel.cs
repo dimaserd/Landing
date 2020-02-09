@@ -1,5 +1,3 @@
-using System;
-
 namespace CrocoLanding.Models
 {
     public class ErrorViewModel

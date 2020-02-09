@@ -15,12 +15,12 @@ namespace CrocoLanding.Controllers
         {
             return new EmailSettingsModel
             {
-                FromAddress = "emailer96@mail.ru",
+                FromAddress = "info@crocosoft.ru",
                 IsBodyHtml = true,
-                SmtpClientString = "smtp.mail.ru",
-                SmtpPort = 587,
-                UserName = "emailer96@mail.ru",
-                Password = "ADGwxec135"
+                SmtpClientString = "smtp.yandex.ru",
+                SmtpPort = 25,
+                UserName = "info@crocosoft.ru",
+                Password = "Cthl.rjd"
             };
         }
     }

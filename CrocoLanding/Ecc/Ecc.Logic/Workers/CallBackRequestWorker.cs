@@ -37,7 +37,7 @@ namespace Ecc.Logic.Workers
 
             if(!Application.IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= dateBefore))
             {
-                return new BaseApiResponse(false, $"С вашего Ip адреса уже была отправлена заявка в течение {MinutesBefore}, если вы устали ждать связи, мы просим прощения");
+                return new BaseApiResponse(false, $"С вашего Ip адреса уже была отправлена заявка в течение {MinutesBefore} минут, если вы устали ждать связи, мы просим прощения");
             }
 
             CreateHandled(new CallBackRequest

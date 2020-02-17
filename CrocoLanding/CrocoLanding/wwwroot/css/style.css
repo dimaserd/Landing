@@ -1248,8 +1248,8 @@ textarea.form-control {
 
 .price-marker {
   display: table;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   margin: 25px auto;
   color: #fff;
   background-color: #3aafd6;

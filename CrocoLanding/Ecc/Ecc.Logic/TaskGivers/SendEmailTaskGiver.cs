@@ -12,29 +12,39 @@ namespace Ecc.Logic.TaskGivers
 {
     public class SendEmailTaskGiver : ICrocoTaskGiver
     {
-        public Task GetTask()
+        public async Task GetTask()
         {
-            return CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(async amb =>
+            //Получаю неотправленные заявки на перезвон
+            var callBacks = await CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
             {
                 var callBackRepo = amb.RepositoryFactory.GetRepository<CallBackRequest>();
 
-                var callBacks = await callBackRepo.Query()
+                return callBackRepo.Query()
                     .Where(x => !x.IsNotified).ToListAsync();
+            });
+           
+            //Отправляю сообщения
+            var sender = new SendGridEmailSender();
 
-                var sender = new InnerSmtpEmailSender(amb);
+            var results = await sender.SendEmails(callBacks, x => new SendEmailModel
+            {
+                Body = $"Создана заявка на перезвон '{x.EmailOrPhoneNumber}'",
+                Email = "dimaserd84@gmail.com",
+                Subject = "Перезвони"
+            });
 
-                foreach(var callBack in callBacks)
+            //Обновляю статусы заявок
+            await CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(async amb =>
+            {
+                var callBackRepo = amb.RepositoryFactory.GetRepository<CallBackRequest>();
+
+                foreach (var result in results)
                 {
-                    var result = sender.SendEmail(new SendEmailModel
-                    {
-                        Body = $"Создана заявка на перезвон '{callBack.EmailOrPhoneNumber}'",
-                        Email = "dimaserd84@gmail.com",
-                        Subject = "Перезвони"
-                    }, x => x);
+                    var callBack = result.Item1;
 
                     callBack.IsNotified = result.Item2.IsSucceeded;
 
-                    if(callBack.IsNotified)
+                    if (callBack.IsNotified)
                     {
                         callBackRepo.UpdateHandled(callBack);
                     }

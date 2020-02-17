@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="NetCroco.Core" Version="1.9.35" />
+    <PackageReference Include="Sendgrid" Version="9.12.6" />
   </ItemGroup>
 
   <ItemGroup>

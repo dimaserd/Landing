@@ -5,16 +5,18 @@ using Croco.Core.Abstractions.Models.Log;
 using CrocoLanding.Controllers;
 using CrocoLanding.Logic;
 using Ecc.Contract.Models.Emails;
+using Ecc.Logic.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace Ecc.Logic.Workers
 {
-    public class InnerSmtpEmailSender : BaseAppWorker
+    public class InnerSmtpEmailSender : BaseAppWorker, IEmailSender
     {
         EmailSettingsModel EmailSettings { get; }
 
@@ -23,12 +25,12 @@ namespace Ecc.Logic.Workers
             EmailSettings = Application.SettingsFactory.GetSetting<EmailSettingsModel>();
         }
 
-        public (TModel, BaseApiResponse) SendEmail<TModel>(TModel message, Func<TModel, SendEmailModel> mapper)
+        public Task<List<(TModel, BaseApiResponse)>> SendEmails<TModel>(IEnumerable<TModel> messages, Func<TModel, SendEmailModel> mapper)
         {
-            return SendEmails(new[] { message }, mapper).First();
+            return Task.FromResult(SendEmailsInner(messages, mapper));
         }
 
-        public List<(TModel, BaseApiResponse)> SendEmails<TModel>(IEnumerable<TModel> messages, Func<TModel, SendEmailModel> mapper)
+        private List<(TModel, BaseApiResponse)> SendEmailsInner<TModel>(IEnumerable<TModel> messages, Func<TModel, SendEmailModel> mapper)
         {
             try
             {
@@ -108,5 +110,7 @@ namespace Ecc.Logic.Workers
 
             return new Attachment(ms, Path.GetFileName(fileData.FileName));
         }
+
+        
     }
 }

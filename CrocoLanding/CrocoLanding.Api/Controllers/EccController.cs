@@ -34,7 +34,7 @@ namespace CrocoLanding.Api.Controllers
         [HttpPost("CallBacks")]
         public Task<List<CallBackRequest>> GetCallBacks(string pass)
         {
-            if(pass != "MyPassword")
+            if(pass != ApiConsts.Password)
             {
                 return Task.FromResult((List<CallBackRequest>)null);
             }

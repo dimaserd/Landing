@@ -49,11 +49,34 @@
 </head>
 
 <body data-target="#main-navbar">
-    
+
+    <script type='text/javascript'>
+        (function () {
+            window['yandexChatWidgetCallback'] = function () {
+                try {
+                    window.yandexChatWidget = new Ya.ChatWidget({
+                        guid: '340e032c-e9b4-4818-bad9-ef8b164d349e',
+                        buttonText: '',
+                        title: 'Чат',
+                        theme: 'light',
+                        collapsedDesktop: 'never',
+                        collapsedTouch: 'never'
+                    });
+                } catch (e) { }
+            };
+            var n = document.getElementsByTagName('script')[0],
+                s = document.createElement('script');
+            s.async = true;
+            s.charset = 'UTF-8';
+            s.src = 'https://chat.s3.yandex.net/widget.js';
+            n.parentNode.insertBefore(s, n);
+        })();
+    </script>
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
-        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
             m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
         })
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
@@ -67,7 +90,6 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/57193597" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
-
     <!-- Preloader -->
     <div class="loader bg-white">
         <div class="loader-inner ball-pulse ball-pulse-color">
@@ -82,8 +104,8 @@
 
 
         <!-- ============================
-         Navigation Header
-    ================================= -->
+             Navigation Header
+        ================================= -->
 
         <header id="nav" class="light-nav header-color">
 
@@ -134,8 +156,8 @@
 
 
         <!-- ============================
-           Hero Section
-    ================================= -->
+               Hero Section
+        ================================= -->
 
         <section id="hero-solid" class="hero-p-v3 pos-relative ov-hidden">
 
@@ -234,8 +256,8 @@
 
 
         <!-- ============================
-         Services Section
-    ================================= -->
+             Services Section
+        ================================= -->
 
         <section id="services" class="bg-white section-p-lg">
             <div class="container wrapper-h-xs-lg reveal-bottom-opacity">
@@ -259,15 +281,15 @@
                         <p>
                             осуществляем разработку индивидуальных решений, а также интегрируем программные отдельные модули.
                         </p>
-                    
+
                     </div>
-                    
+
                     <div class="col-sm-6 col-lg-3 wrapper-v-lg text-center">
 
                         <div class="icon-lg icon-color">
                             <i class="fa fa-5x fa-chrome" aria-hidden="true"></i>
                         </div>
-                        
+
                         <h4>Интернет проекты</h4>
 
                         <p>
@@ -286,14 +308,14 @@
                             Защищенные решения для всех распространенных операционных систем, а также реестры, системы учета, контроля, сбора и аналитики данных, ПО.
                         </p>
                     </div>
-                    
+
                     <div class="col-sm-6 col-lg-3  wrapper-v-lg text-center">
 
                         <div class="icon-lg icon-color">
                             <i class="fa fa-5x fa-apple" aria-hidden="true"></i>
                             <i class="fa fa-5x fa-android" aria-hidden="true"></i>
                         </div>
-                        
+
                         <h4>Мобильные приложения</h4>
 
                         <p>
@@ -304,7 +326,7 @@
             </div>
         </section>
 
-        
+
 
         <section id="tech-stack" class="bg-white section-p-lg">
             <div class="container wrapper-h-xs-lg reveal-bottom-opacity">
@@ -408,7 +430,7 @@
                                  alt="">
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6 col-sm-12 wrapper-v-lg">
 
                         <div style="height:40px">
@@ -452,14 +474,14 @@
                                     <span class="price-period">/месяц</span>
                                 </p>
                             </div>
-                            
+
                             <ul class="price-details">
                                 <li>5 Projects</li>
                                 <li>5 GB of Storage</li>
                                 <li>Up to 10 Users</li>
                                 <li>Security Suite</li>
                             </ul>
-                            
+
                             <div class="wrapper-v-md">
                                 <a href="#" class="btn btn-sm btn-border-silver smooth-scroll">
                                     Sign Up
@@ -480,14 +502,14 @@
                                     <span class="price-period">/проект</span>
                                 </p>
                             </div>
-                            
+
                             <ul class="price-details">
                                 <li>50 Projects</li>
                                 <li>10 GB of Storage</li>
                                 <li>Up to 100 Users</li>
                                 <li>Security Suite</li>
                             </ul>
-                            
+
                             <div class="wrapper-v-md">
                                 <a href="#" class="btn btn-sm btn-border-silver smooth-scroll">
                                     Sign Up
@@ -506,7 +528,7 @@
                                     <span class="price-period">/month</span>
                                 </p>
                             </div>
-                            
+
                             <ul class="price-details">
                                 <li>Unlimited</li>
                                 <li>200 GB of Storage</li>
@@ -521,14 +543,13 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </section>-->
-
         <!-- ============================
-         Testimonials Section
-    ================================= -->
+             Testimonials Section
+        ================================= -->
 
         <section id="testimonials" class="bg-white section-p-lg">
             <div class="container wrapper-h-xs-lg reveal-bottom-opacity">
@@ -586,8 +607,8 @@
 
 
         <!-- ============================
-           Newsletter Section
-      ================================= -->
+             Newsletter Section
+        ================================= -->
 
         <section id="newsletter" class="newsletter-image section-p-lg pos-relative">
             <div class="section-overlay bg-white opacity-90"></div>
@@ -644,8 +665,8 @@
 
 
         <!-- ============================
-         Company Section
-    ================================= -->
+             Company Section
+        ================================= -->
 
         <section id="company" class="bg-white section-p-sm">
             <div class="container reveal-bottom-opacity">
@@ -698,8 +719,8 @@
 
 
         <!-- ============================
-         Footer
-    ================================= -->
+             Footer
+        ================================= -->
 
         <footer id="footer" class="bg-dark section-p-sm text-white">
             <div class="container">

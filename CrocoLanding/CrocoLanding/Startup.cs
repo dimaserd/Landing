@@ -62,7 +62,7 @@ namespace CrocoLanding
             });
 
             //Установка приложения
-            Croco.SetCrocoApplication(services);
+            //Croco.SetCrocoApplication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

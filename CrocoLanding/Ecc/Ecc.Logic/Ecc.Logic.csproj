@@ -5,15 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.Core" Version="1.7.9" />
-    <PackageReference Include="NetCroco.Core" Version="1.9.35" />
-    <PackageReference Include="Sendgrid" Version="9.12.6" />
+    <PackageReference Include="RestSharp" Version="106.10.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
-    <ProjectReference Include="..\..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
+    <ProjectReference Include="..\..\Zoo\Zoo.csproj" />
     <ProjectReference Include="..\Ecc.Contract\Ecc.Contract.csproj" />
+    <ProjectReference Include="..\Ecc.Model\Ecc.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ValidationMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ValidationMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

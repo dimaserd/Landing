@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.Core" Version="1.7.9" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.38" />
+    <PackageReference Include="Sendgrid" Version="9.12.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
+    <ProjectReference Include="..\..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
+    <ProjectReference Include="..\..\Ecc\Ecc.Logic\Ecc.Logic.csproj" />
+  </ItemGroup>
+
+</Project>

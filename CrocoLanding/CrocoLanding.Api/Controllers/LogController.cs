@@ -5,7 +5,6 @@ using Croco.WebApplication.Models.Log;
 using Croco.WebApplication.Models.Log.Search;
 using Croco.WebApplication.Workers.Log;
 using CrocoLanding.Api.Controllers.Base;
-using CrocoLanding.Logic;
 using CrocoShop.Model.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -25,11 +24,11 @@ namespace CrocoLanding.Api.Controllers
         {
         }
 
-        ExceptionWorker<LandingWebApplication> ExceptionWorker => new ExceptionWorker<LandingWebApplication>(AmbientContext);
+        ExceptionWorker ExceptionWorker => new ExceptionWorker(AmbientContext);
 
-        UserInterfaceLogWorker<LandingWebApplication> UserInterfaceLogWorker => new UserInterfaceLogWorker<LandingWebApplication>(AmbientContext);
+        UserInterfaceLogWorker UserInterfaceLogWorker => new UserInterfaceLogWorker(AmbientContext);
 
-        LogsSearcher<LandingWebApplication> LogsSearcher => new LogsSearcher<LandingWebApplication>(AmbientContext);
+        LogsSearcher LogsSearcher => new LogsSearcher(AmbientContext);
 
         /// <summary>
         /// Получить исключения на сервере

@@ -10,9 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppLogic\Ecc.Implementation\Ecc.Implementation.csproj" />
     <ProjectReference Include="..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
-    <ProjectReference Include="..\Ecc\Ecc.Contract\Ecc.Contract.csproj" />
-    <ProjectReference Include="..\Ecc\Ecc.Logic\Ecc.Logic.csproj" />
     <ProjectReference Include="..\Zoo\Zoo.csproj" />
   </ItemGroup>
 

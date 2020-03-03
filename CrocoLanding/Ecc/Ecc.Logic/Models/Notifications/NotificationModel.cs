@@ -1,0 +1,36 @@
+﻿using System;
+using System.Linq.Expressions;
+using Ecc.Model.Entities.Interactions;
+using Ecc.Model.Enumerations;
+
+namespace Ecc.Logic.Models.Notifications
+{
+    public class NotificationModel : NotificationIdModel
+    {
+        public string Title { get; set; }
+
+        public string Text { get; set; }
+
+        public string ObjectJson { get; set; }
+
+        public UserNotificationType Type { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime? ReadOn { get; set; }
+
+        public string UserId { get; set; }
+
+        public static Expression<Func<UserNotificationInteraction, NotificationModel>> SelectExpression = x => new NotificationModel
+        {
+            Title = x.TitleText,
+            CreatedOn = x.CreatedOn,
+            ReadOn = x.ReadOn,
+            Id = x.Id,
+            ObjectJson = x.ObjectJson,
+            Text = x.TitleText,
+            Type = x.NotificationType,
+            UserId = x.UserId
+        };
+    }
+}

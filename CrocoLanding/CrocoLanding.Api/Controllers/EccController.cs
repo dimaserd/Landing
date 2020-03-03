@@ -2,8 +2,8 @@
 using Croco.Core.Implementations.TransactionHandlers;
 using CrocoLanding.Api.Models;
 using CrocoLanding.Model.Entities.Ecc;
-using Ecc.Contract.Models;
-using Ecc.Logic.Workers;
+using Ecc.Implementation.Models;
+using Ecc.Implementation.Workers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

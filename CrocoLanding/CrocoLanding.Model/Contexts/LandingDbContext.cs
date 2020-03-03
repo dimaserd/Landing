@@ -4,13 +4,14 @@ using Croco.Core.Model.Entities;
 using Croco.Core.Model.Entities.Store;
 using CrocoLanding.Model.Abstractions;
 using CrocoLanding.Model.Entities.Ecc;
+using Ecc.Model.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Zoo.Core;
 
 namespace CrocoShop.Model.Contexts
 {
-    public class LandingDbContext : DbContext, IStoreContext
+    public partial class LandingDbContext : DbContext, IStoreContext
     {
         public const string ServerConnection = "ServerConnection";
 
@@ -68,6 +69,8 @@ namespace CrocoShop.Model.Contexts
             modelBuilder.Entity<AuditLog>().Property(x => x.Id).ValueGeneratedOnAdd();
 
             WebAppRequestContextLog.OnModelCreating(modelBuilder);
+
+            EccDbContext.OnModelCreating(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -18,18 +18,18 @@
 
   <ItemGroup>
     
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.2" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.17" />
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.35" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.38" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.9" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
@@ -41,8 +41,6 @@
     <ProjectReference Include="..\CrocoLanding.Api\CrocoLanding.Api.csproj" />
     <ProjectReference Include="..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
     <ProjectReference Include="..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
-    <ProjectReference Include="..\Ecc\Ecc.Contract\Ecc.Contract.csproj" />
-    <ProjectReference Include="..\Ecc\Ecc.Logic\Ecc.Logic.csproj" />
     <ProjectReference Include="..\Zoo\Zoo.csproj" />
   </ItemGroup>
 

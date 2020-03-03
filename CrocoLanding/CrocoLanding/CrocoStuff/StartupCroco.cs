@@ -91,9 +91,9 @@ namespace CrocoLanding.CrocoStuff
                 IsDevelopment = Env.EnvironmentName == "Development"
             };
 
-            CrocoApp.Application = application;
+            services.AddSingleton<ICrocoApplication>(application);
 
-            services.AddSingleton(CrocoApp.Application);
+            CrocoApp.Application = application;
         }
     }
 }

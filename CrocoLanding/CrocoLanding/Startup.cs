@@ -62,13 +62,13 @@ namespace CrocoLanding
             });
 
             //Установка приложения
-            //Croco.SetCrocoApplication(services);
+            Croco.SetCrocoApplication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseFileServer();;
+            app.UseFileServer();
 
             if (env.IsDevelopment())
             {

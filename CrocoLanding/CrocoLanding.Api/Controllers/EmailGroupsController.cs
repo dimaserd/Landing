@@ -27,8 +27,9 @@ namespace CrocoLanding.Api.Controllers
         {
         }
 
-        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext, new AppEccFilePathMapper());
+        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
 
+        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, new AppEccEmailListExtractor(), new AppEccFilePathMapper());
 
         /// <summary>
         /// Создать группу эмейлов из файла
@@ -36,7 +37,8 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("CreateGroupFromFile")]
-        public Task<BaseApiResponse> CreateGroupFromFile(CreateEmailGroupFromFile model) => EmailGroupWorker.CreateEmailGroupFromFile(model, new AppEccEmailListExtractor());
+        public Task<BaseApiResponse> CreateGroupFromFile([FromBody]CreateEmailGroupFromFile model)
+            => EmailGroupFromFileCreator.CreateEmailGroupFromFile(model);
 
 
         /// <summary>

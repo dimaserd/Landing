@@ -108,7 +108,7 @@ namespace Ecc.Logic.Core.Workers
             return attachments ?? new List<InteractionAttachment>();
         }
 
-        public (MailMessageInteraction, InteractionStatusLog, List<InteractionAttachment>) ToMailMessage(SendMailMessageToUser message, string email)
+        private (MailMessageInteraction, InteractionStatusLog, List<InteractionAttachment>) ToMailMessage(SendMailMessageToUser message, string email)
         {
             var id = Guid.NewGuid().ToString();
 

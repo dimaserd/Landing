@@ -47,7 +47,7 @@ namespace Ecc.Logic.Workers.Messaging
 
             await SetStatusForInteractions(interactions.Select(x => x.InteractionId), InteractionStatus.InProccess, "In process of sending emails");
 
-            var emailSender = new SmtpEmailSender(AmbientContext, FileService);
+            var emailSender = new MailMessageSender(AmbientContext, FileService);
 
             var updates = await emailSender.SendInteractions(interactions);
 
@@ -55,6 +55,7 @@ namespace Ecc.Logic.Workers.Messaging
 
             semaphore.Release();
         }
+
 
         public Task<MailMessageDetailedModel> GetMailMessageDetailed(string id)
         {

@@ -22,59 +22,8 @@ namespace Ecc.Logic.Workers.Emails
             Name = x.Name
         };
 
-        public IEccFilePathMapper FilePathMapper { get; }
-
-        public EmailGroupWorker(ICrocoAmbientContext ambientContext, IEccFilePathMapper filePathMapper) : base(ambientContext)
+        public EmailGroupWorker(ICrocoAmbientContext ambientContext) : base(ambientContext)
         {
-            FilePathMapper = filePathMapper;
-        }
-
-        
-        public async Task<BaseApiResponse> SendEmailsToGroup(string groupId)
-        {
-            var groupWithEmails = await Query<EmailGroup>()
-                .Include(x => x.Emails)
-                .FirstOrDefaultAsync(x => x.Id == groupId);
-
-            if(groupWithEmails == null)
-            {
-                return new BaseApiResponse(false, "Группа не найдена по указанному идентификатору");
-            }
-
-            return null;
-        }
-
-        public async Task<BaseApiResponse> CreateEmailGroupFromFile(CreateEmailGroupFromFile model, IEccFileEmailsExtractor emailsExtractor)
-        {
-            var validation = ValidateModelAndUserIsAdmin(model);
-
-            if(!validation.IsSucceeded)
-            {
-                return validation;
-            }
-
-            var filePath = FilePathMapper.MapPath(model.FileName);
-
-            if(!File.Exists(filePath))
-            {
-                return new BaseApiResponse(false, $"Файл не найден по пути {filePath}");
-            }
-
-            var emails = emailsExtractor.ExtractEmailsListFromFile(filePath);
-
-            var createGroupResult = await CreateGroup(model);
-
-            if (!createGroupResult.IsSucceeded)
-            {
-                return createGroupResult;
-            }
-
-            CreateHandled(emails.Select(x => new EmailInEmailGroupRelation
-            {
-                EmailGroupId = createGroupResult.ResponseObject
-            }));
-
-            return await TrySaveChangesAndReturnResultAsync("Создана группа эмейлов и экспортированы данные из файла");
         }
 
         public Task<GetListResult<EmailGroupModel>> GetEmailGroups(GetListSearchModel model)

@@ -1,7 +1,6 @@
 ﻿using Croco.Core.Utils;
 using Croco.WebApplication.Abstractions;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,12 +34,12 @@ namespace CrocoLanding.Logic.Implementations
 
         public T GetValue<T>(string key) where T : class
         {
+            var cookie = GetValue(key);
+
             if (typeof(T) == typeof(string))
             {
-                throw new ApplicationException("нельзя использовать перезагрузку с типом string");
+                return cookie as T;
             }
-
-            var cookie = GetValue(key);
 
             if (cookie == null)
             {

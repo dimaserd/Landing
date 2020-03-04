@@ -1,5 +1,4 @@
-﻿using ClosedXML.Excel;
-using Croco.Core.Abstractions;
+﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
 using Croco.Core.Search.Models;
 using Ecc.Contract.Models.EmailGroup;
@@ -8,8 +7,6 @@ using Ecc.Logic.Workers.Base;
 using Ecc.Model.Entities.Email;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -47,37 +44,7 @@ namespace Ecc.Logic.Workers.Emails
             return null;
         }
 
-        static List<string> GetEmails(string filePath)
-        {
-            using var workBook = new XLWorkbook(filePath);
-
-            var sheet = workBook.Worksheets.First();
-
-            var maybeEmails = new List<string>();
-
-            foreach (var row in sheet.Rows())
-            {
-                var cell = row.Cell(2);
-
-                var email = cell.GetString();
-
-                maybeEmails.Add(email);
-            }
-
-            return maybeEmails.Select(x =>
-            {
-                if (x.Contains(","))
-                {
-                    return x.Split(",", StringSplitOptions.RemoveEmptyEntries);
-                }
-
-                return new[] { x };
-            }).SelectMany(x => x)
-            .Select(x => x.Trim())
-            .Where(x => new EmailAddressAttribute().IsValid(x)).ToList();
-        }
-
-        public async Task<BaseApiResponse> CreateEmailGroupFromFile(CreateEmailGroupFromFile model)
+        public async Task<BaseApiResponse> CreateEmailGroupFromFile(CreateEmailGroupFromFile model, IEccFileEmailsExtractor emailsExtractor)
         {
             var validation = ValidateModelAndUserIsAdmin(model);
 
@@ -93,7 +60,7 @@ namespace Ecc.Logic.Workers.Emails
                 return new BaseApiResponse(false, $"Файл не найден по пути {filePath}");
             }
 
-            var emails = GetEmails(filePath);
+            var emails = emailsExtractor.ExtractEmailsListFromFile(filePath);
 
             var createGroupResult = await CreateGroup(model);
 

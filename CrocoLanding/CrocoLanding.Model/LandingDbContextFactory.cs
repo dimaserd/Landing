@@ -1,4 +1,4 @@
-﻿using CrocoShop.Model.Contexts;
+﻿using CrocoLanding.Model.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;

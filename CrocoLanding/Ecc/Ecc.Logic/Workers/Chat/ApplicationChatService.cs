@@ -8,12 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zoo.Ecc.Models.Chat;
 using Croco.Core.Abstractions.Models.Log;
 using Croco.Core.Logic.Workers;
 using Ecc.Model.Entities.Chats;
 using Ecc.Model.Entities.External;
 using Ecc.Logic.Resources;
+using Ecc.Contract.Models.Chat;
 
 namespace Ecc.Logic.Workers.Chat
 {

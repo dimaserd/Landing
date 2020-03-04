@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Zoo\Zoo.csproj" />
     <ProjectReference Include="..\Ecc.Contract\Ecc.Contract.csproj" />
     <ProjectReference Include="..\Ecc.Model\Ecc.Model.csproj" />
   </ItemGroup>

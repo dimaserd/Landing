@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Zoo.Core;
 
-namespace CrocoShop.Model.Contexts
+namespace CrocoLanding.Model.Contexts
 {
-    public partial class LandingDbContext : DbContext, IStoreContext
+    public partial class LandingDbContext : ApplicationDbContext, IStoreContext
     {
         public const string ServerConnection = "ServerConnection";
 
@@ -63,7 +63,7 @@ namespace CrocoShop.Model.Contexts
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {   
+        {
             LoggedApplicationAction.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<AuditLog>().Property(x => x.Id).ValueGeneratedOnAdd();

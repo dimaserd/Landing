@@ -1,6 +1,9 @@
 ﻿using Croco.Core.Application;
 using CrocoLanding.Logic.Extensions;
-using CrocoShop.Model.Contexts;
+using CrocoLanding.Logic.Services;
+using CrocoLanding.Model.Contexts;
+using CrocoLanding.Model.Entities.Clt.Default;
+using Microsoft.AspNetCore.Http;
 
 namespace CrocoLanding.Api.Controllers.Base
 {
@@ -8,13 +11,12 @@ namespace CrocoLanding.Api.Controllers.Base
     /// <summary>
     /// Базовый абстрактный контроллер в котором собраны общие методы и свойства
     /// </summary>
-    public class BaseApiController : CrocoGenericController<LandingDbContext>
+    public class BaseApiController : CrocoGenericController<LandingDbContext, ApplicationUser>
     {
         /// <inheritdoc />
-        public BaseApiController(LandingDbContext context) : base(context, x => x.Identity.GetUserId())
+        public BaseApiController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, x => x.Identity.GetUserId(), httpContextAccessor)
         {
         }
-
 
         /// <inheritdoc />
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using Ecc.Model.Abstractions;
-using Ecc.Model.Consts;
 using Ecc.Model.Entities.Chats;
 using Ecc.Model.Entities.Email;
 using Ecc.Model.Entities.External;
@@ -36,21 +35,8 @@ namespace Ecc.Model.Contexts
 
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Interaction>()
-                .Property(x => x.Id)
-                .ValueGeneratedNever();
-
+            Interaction.OnModelCreating(modelBuilder);
             InteractionAttachment.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Interaction>()
-                .HasIndex(x => new { x.Type })
-                .IsUnique(false);
-
-            modelBuilder.Entity<Interaction>()
-                .HasDiscriminator<string>(nameof(Interaction.Type))
-                .HasValue<UserNotificationInteraction>(EccConsts.InAppNotificationType)
-                .HasValue<MailMessageInteraction>(EccConsts.EmailType)
-                .HasValue<SmsMessageInteraction>(EccConsts.SmsType);
 
             EccFile.OnModelCreating(modelBuilder);
             EccUserGroup.OnModelCreating(modelBuilder);

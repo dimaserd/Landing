@@ -46,7 +46,7 @@ namespace Zoo.Excel.Services
             return listOfDicts.Select(x => x.ToObject<T>()).ToList();
         }
 
-        public static List<Dictionary<string, object>> ToDictionaryList(DataTable dataTable)
+        static List<Dictionary<string, object>> ToDictionaryList(DataTable dataTable)
         {
             var list = new List<Dictionary<string, object>>();
 
@@ -69,7 +69,7 @@ namespace Zoo.Excel.Services
             return list;
         }
 
-        public static List<MyPropertyDescription> GetMyPropertyDescriptions(Type type)
+        static List<MyPropertyDescription> GetMyPropertyDescriptions(Type type)
         {
             var result = new List<MyPropertyDescription>();
 
@@ -87,7 +87,6 @@ namespace Zoo.Excel.Services
 
             return result;
         }
-
 
         public static DataTable ToDataTable<T>(this IList<T> data, string tableName = null, bool displayFromAttr = false)
         {
@@ -122,7 +121,10 @@ namespace Zoo.Excel.Services
 
         private static string GetDisplayNameForProperty(PropertyDescriptor prop)
         {
-            if (prop == null) throw new ArgumentNullException(nameof(prop));
+            if (prop == null) 
+            {
+                throw new ArgumentNullException(nameof(prop));
+            } 
 
             var display = prop.Attributes.OfType<DisplayAttribute>().FirstOrDefault();
 
@@ -143,12 +145,10 @@ namespace Zoo.Excel.Services
 
         public static void SaveDataTableToExcel(DataTable dt, string filePath)
         {
-            using(var ds = new DataSet())
-            {
-                ds.Tables.Add(dt);
+            using var ds = new DataSet();
+            ds.Tables.Add(dt);
 
-                SaveDataSetToExcel(ds, filePath);
-            }
+            SaveDataSetToExcel(ds, filePath);
         }
 
         public static void SaveDataSetToExcel(DataSet ds, string filePath)
@@ -160,56 +160,52 @@ namespace Zoo.Excel.Services
                 throw new Exception("Недопустимое разрешение файла");
             }
 
-            using (var wb = new XLWorkbook())
+            using var wb = new XLWorkbook();
+            foreach (DataTable dt in ds.Tables)
             {
-                foreach (DataTable dt in ds.Tables)
-                {
-                    wb.Worksheets.Add(dt, dt.TableName);
-                }
-
-                wb.SaveAs(filePath);
+                wb.Worksheets.Add(dt, dt.TableName);
             }
+
+            wb.SaveAs(filePath);
         }
 
         public static DataTable ExcelToDataTable(string filePath)
         {
             //Open the Excel file using ClosedXML.
-            using (var workBook = new XLWorkbook(filePath))
+            using var workBook = new XLWorkbook(filePath);
+            //Read the first Sheet from Excel file.
+            var workSheet = workBook.Worksheet(1);
+
+            //Create a new DataTable.
+            var dt = new DataTable();
+
+            //Loop through the Worksheet rows.
+            var firstRow = true;
+            foreach (var row in workSheet.Rows())
             {
-                //Read the first Sheet from Excel file.
-                var workSheet = workBook.Worksheet(1);
-
-                //Create a new DataTable.
-                var dt = new DataTable();
-
-                //Loop through the Worksheet rows.
-                var firstRow = true;
-                foreach (var row in workSheet.Rows())
+                //Use the first row to add columns to DataTable.
+                if (firstRow)
                 {
-                    //Use the first row to add columns to DataTable.
-                    if (firstRow)
+                    foreach (var cell in row.Cells())
                     {
-                        foreach (var cell in row.Cells())
-                        {
-                            dt.Columns.Add(cell.Value.ToString());
-                        }
-                        firstRow = false;
+                        dt.Columns.Add(cell.Value.ToString());
                     }
-                    else
+                    firstRow = false;
+                }
+                else
+                {
+                    //Add rows to DataTable.
+                    dt.Rows.Add();
+                    var i = 0;
+                    foreach (var cell in row.Cells())
                     {
-                        //Add rows to DataTable.
-                        dt.Rows.Add();
-                        var i = 0;
-                        foreach (var cell in row.Cells())
-                        {
-                            dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
-                            i++;
-                        }
+                        dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
+                        i++;
                     }
                 }
-
-                return dt;
             }
+
+            return dt;
         }
     }
 }

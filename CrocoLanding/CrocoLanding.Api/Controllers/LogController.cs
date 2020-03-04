@@ -5,7 +5,9 @@ using Croco.WebApplication.Models.Log;
 using Croco.WebApplication.Models.Log.Search;
 using Croco.WebApplication.Workers.Log;
 using CrocoLanding.Api.Controllers.Base;
-using CrocoShop.Model.Contexts;
+using CrocoLanding.Logic.Services;
+using CrocoLanding.Model.Contexts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,8 +21,7 @@ namespace CrocoLanding.Api.Controllers
     [Route("Api/Log")]
     public class LogController : BaseApiController
     {
-        /// <inheritdoc />
-        public LogController(LandingDbContext context) : base(context)
+        public LogController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
         {
         }
 
@@ -35,7 +36,7 @@ namespace CrocoLanding.Api.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("ServerExceptions"), ProducesDefaultResponseType(typeof(GetListResult<LoggedServerException>))]
+        [HttpPost("ServerExceptions")]
         public Task<GetListResult<LoggedServerException>> GetServerExceptions(SearchServerActions model)
         {
             return ExceptionWorker.GetServerExceptionsAsync(model);
@@ -46,7 +47,7 @@ namespace CrocoLanding.Api.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("ServerLogs"), ProducesDefaultResponseType(typeof(GetListResult<ServerLog>))]
+        [HttpPost("ServerLogs")]
         public Task<GetListResult<ServerLog>> GetServerLogs(SearchServerActions model) => LogsSearcher.GetServerLogsAsync(model);
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace CrocoLanding.Api.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("Exceptions"), ProducesDefaultResponseType(typeof(BaseApiResponse))]
+        [HttpPost("Exceptions")]
         public Task<BaseApiResponse> LogExceptions([FromForm]List<LogUserInterfaceException> model)
             => ExceptionWorker.LogUserInterfaceExceptionsAsync(model);
 
@@ -63,7 +64,7 @@ namespace CrocoLanding.Api.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("Exception"), ProducesDefaultResponseType(typeof(BaseApiResponse))]
+        [HttpPost("Exception")]
         public Task<BaseApiResponse> LogException([FromForm]LogUserInterfaceException model)
             => ExceptionWorker.LogUserInterfaceExceptionAsync(model);
 
@@ -73,7 +74,7 @@ namespace CrocoLanding.Api.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("Action"), ProducesDefaultResponseType(typeof(BaseApiResponse))]
+        [HttpPost("Action")]
         public Task<BaseApiResponse> LogAction([FromForm]LoggedUserInterfaceActionModel model)
             => UserInterfaceLogWorker.LogActionAsync(model);
     }

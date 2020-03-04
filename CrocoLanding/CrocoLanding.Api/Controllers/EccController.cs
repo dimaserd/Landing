@@ -1,9 +1,13 @@
 ﻿using Croco.Core.Abstractions.Models;
 using Croco.Core.Implementations.TransactionHandlers;
+using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Api.Models;
+using CrocoLanding.Logic.Services;
+using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Implementation.Models;
 using Ecc.Implementation.Workers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,8 +17,11 @@ namespace CrocoLanding.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EccController : ControllerBase
+    public class EccController : BaseApiController
     {
+        public EccController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
+        {
+        }
 
         [HttpPost("SendCallBackRequest")]
         public async Task<BaseApiResponse> SendCallBackRequest([FromForm]CreateCallBackApiModel model)

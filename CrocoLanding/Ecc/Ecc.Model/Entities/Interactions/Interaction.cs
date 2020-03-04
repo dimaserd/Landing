@@ -5,6 +5,8 @@ using Croco.Core.Model.Models;
 using Croco.Core.Abstractions.Data.Entities.HaveId;
 using Ecc.Model.Entities.External;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Ecc.Model.Consts;
 
 namespace Ecc.Model.Entities.Interactions
 {
@@ -59,5 +61,22 @@ namespace Ecc.Model.Entities.Interactions
         public virtual ICollection<InteractionStatusLog> Statuses { get; set; }
 
         public virtual ICollection<InteractionAttachment> Attachments { get; set; }
+
+        public static void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Interaction>()
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
+
+            modelBuilder.Entity<Interaction>()
+                .HasIndex(x => new { x.Type })
+                .IsUnique(false);
+
+            modelBuilder.Entity<Interaction>()
+                .HasDiscriminator<string>(nameof(Type))
+                .HasValue<UserNotificationInteraction>(EccConsts.InAppNotificationType)
+                .HasValue<MailMessageInteraction>(EccConsts.EmailType)
+                .HasValue<SmsMessageInteraction>(EccConsts.SmsType);
+        }
     }
 }

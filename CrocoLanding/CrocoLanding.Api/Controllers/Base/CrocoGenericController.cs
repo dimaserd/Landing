@@ -3,7 +3,9 @@ using Croco.Core.Abstractions.Data;
 using Croco.Core.Implementations;
 using Croco.Core.Implementations.AmbientContext;
 using Croco.WebApplication.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,8 +19,9 @@ namespace CrocoLanding.Api.Controllers.Base
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
     /// <typeparam name="TUser"></typeparam>
-    public class CrocoGenericController<TContext> : Controller
+    public class CrocoGenericController<TContext, TUser> : Controller
         where TContext : DbContext
+        where TUser : IdentityUser
     {
         private readonly Func<IPrincipal, string> _getUserIdFunc;
 
@@ -29,9 +32,12 @@ namespace CrocoLanding.Api.Controllers.Base
         private ICrocoDataConnection _dataConnection;
 
         /// <inheritdoc />
-        public CrocoGenericController(TContext context, Func<IPrincipal, string> getUserIdFunc)
+        public CrocoGenericController(TContext context, SignInManager<TUser> signInManager, UserManager<TUser> userManager, Func<IPrincipal, string> getUserIdFunc, IHttpContextAccessor httpContextAccessor)
         {
             Context = context;
+            UserManager = userManager;
+            SignInManager = signInManager;
+            HttpContextAccessor = httpContextAccessor;
             _getUserIdFunc = getUserIdFunc;
         }
 
@@ -99,7 +105,29 @@ namespace CrocoLanding.Api.Controllers.Base
             }
         }
 
-        
+        /// <summary>
+        /// Менеджер авторизации
+        /// </summary>
+        public SignInManager<TUser> SignInManager
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Менеджер для работы с пользователями
+        /// </summary>
+        public UserManager<TUser> UserManager
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Контекст доступа к запросу
+        /// </summary>
+        public IHttpContextAccessor HttpContextAccessor { get; }
+
         #endregion
 
         /// <inheritdoc />
@@ -116,7 +144,7 @@ namespace CrocoLanding.Api.Controllers.Base
             {
                 var toDisposes = new IDisposable[]
                 {
-                    _dataConnection
+                    _dataConnection, UserManager
                 };
 
                 for (var i = 0; i < toDisposes.Length; i++)

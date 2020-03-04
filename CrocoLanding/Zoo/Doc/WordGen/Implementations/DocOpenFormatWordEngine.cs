@@ -18,44 +18,41 @@ namespace Zoo.Doc.WordGen.Implementations
         /// <param name="model"></param>
         public static void ProcessTemplate(DocXDocumentObjectModel model)
         {
-            using (var memStream = new MemoryStream())
+            using var memStream = new MemoryStream();
+
+            var bytes = File.ReadAllBytes(model.DocumentTemplateFileName);
+
+            memStream.Write(bytes, 0, bytes.Length);
+
+            memStream.Seek(0, SeekOrigin.Begin);
+
+            using WordprocessingDocument doc =
+                WordprocessingDocument.Open(memStream, true);
+            var body = doc.MainDocumentPart.Document.Body;
+
+            var paras = FindElemsInElement<Paragraph>(body);
+
+            foreach (var para in paras)
             {
-                var bytes = File.ReadAllBytes(model.DocumentTemplateFileName);
-
-                memStream.Write(bytes, 0, bytes.Length);
-
-                memStream.Seek(0, SeekOrigin.Begin);
-
-                using (WordprocessingDocument doc =
-                    WordprocessingDocument.Open(memStream, true))
+                foreach (var toReplace in model.Replaces)
                 {
-                    var body = doc.MainDocumentPart.Document.Body;
-
-                    var paras = FindElemsInElement<Paragraph>(body);
-
-                    foreach (var para in paras)
+                    if (para.InnerText.Contains(toReplace.Key))
                     {
-                        foreach (var toReplace in model.Replaces)
-                        {
-                            if (para.InnerText.Contains(toReplace.Key))
-                            {
-                                var pRun = para.GetFirstChild<Run>();
+                        var pRun = para.GetFirstChild<Run>();
 
-                                var fRunProp = pRun.GetFirstChild<RunProperties>().CloneNode(true);
+                        var fRunProp = pRun.GetFirstChild<RunProperties>().CloneNode(true);
 
-                                var text = para.InnerText;
+                        var text = para.InnerText;
 
-                                para.RemoveAllChildren<Run>();
-                                para.AppendChild(new Run(fRunProp, new Text(text)));
-                            }
-                        }
+                        para.RemoveAllChildren<Run>();
+                        para.AppendChild(new Run(fRunProp, new Text(text)));
                     }
-
-                    var t = doc.SaveAs(model.DocumentTemplateFileName);
-
-                    t.Dispose();
                 }
             }
+
+            var t = doc.SaveAs(model.DocumentTemplateFileName);
+
+            t.Dispose();
         }
 
         private  static void CheckAndDeleteDestinationFile(string documentSaveFileName)
@@ -78,7 +75,6 @@ namespace Zoo.Doc.WordGen.Implementations
             {
                 CreateInnerMethod(model);
             }
-
         }
 
         private static void CreateInnerMethod(DocXDocumentObjectModel model)
@@ -90,33 +86,30 @@ namespace Zoo.Doc.WordGen.Implementations
             CheckAndDeleteDestinationFile(model.DocumentSaveFileName);
 
 
-            using (var memStream = new MemoryStream())
+            using var memStream = new MemoryStream();
+            var bytes = File.ReadAllBytes(model.DocumentTemplateFileName);
+
+            memStream.Write(bytes, 0, bytes.Length);
+
+            memStream.Seek(0, SeekOrigin.Begin);
+
+            using WordprocessingDocument doc = WordprocessingDocument.Open(memStream, true);
+
+            ProcessTextReplacing(doc, model);
+
+            foreach (var tableModel in model.Tables)
             {
-                var bytes = File.ReadAllBytes(model.DocumentTemplateFileName);
-
-                memStream.Write(bytes, 0, bytes.Length);
-
-                memStream.Seek(0, SeekOrigin.Begin);
-
-                using (WordprocessingDocument doc = WordprocessingDocument.Open(memStream, true))
-                {
-                    ProcessTextReplacing(doc, model);
-
-                    foreach (var tableModel in model.Tables)
-                    {
-                        DocTableInserter.AddTable(doc, tableModel);
-                    }
-
-                    foreach (var image in model.ToReplaceImages)
-                    {
-                        DocImageInserter.InsertAPicture(doc, image);
-                    }
-
-                    var t = doc.SaveAs(model.DocumentSaveFileName);
-
-                    t.Dispose();
-                }
+                DocTableInserter.AddTable(doc, tableModel);
             }
+
+            foreach (var image in model.ToReplaceImages)
+            {
+                DocImageInserter.InsertAPicture(doc, image);
+            }
+
+            var t = doc.SaveAs(model.DocumentSaveFileName);
+
+            t.Dispose();
         }
 
         

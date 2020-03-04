@@ -1,17 +1,20 @@
 ﻿using Croco.Core.Abstractions.Models;
 using Croco.Core.Application;
 using CrocoLanding.Api.Controllers.Base;
-using CrocoShop.Model.Contexts;
+using CrocoLanding.Logic.Services;
+using CrocoLanding.Model.Contexts;
 using Ecc.Logic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrocoLanding.Api.Controllers
 {
     public class ScheduleController : BaseApiController
     {
-        public ScheduleController(LandingDbContext context) : base(context)
+        public ScheduleController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
         {
         }
+
 
         /// <summary>
         /// Активиравать фоновые задачи

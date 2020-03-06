@@ -1,7 +1,10 @@
 ﻿using Croco.Core.Abstractions.Models;
+using Croco.Core.Application;
+using Croco.Core.Extensions;
 using Croco.Core.Implementations.TransactionHandlers;
 using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Api.Models;
+using CrocoLanding.Logic;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Ecc;
@@ -19,6 +22,8 @@ namespace CrocoLanding.Api.Controllers
     [ApiController]
     public class EccController : BaseApiController
     {
+        readonly bool IsDevelopment = CrocoApp.Application.As<LandingWebApplication>().IsDevelopment;
+
         public EccController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
         {
         }
@@ -48,12 +53,12 @@ namespace CrocoLanding.Api.Controllers
 
             return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
             {
-                return new CallBackRequestWorker(amb).GetCallBackRequests();
+                return new CallBackRequestWorker(amb, IsDevelopment).GetCallBackRequests();
             });
         }
 
 
-        private static Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model, string ip)
+        private Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model, string ip)
         {
             var nModel = new CreateCallBackRequest
             {
@@ -63,7 +68,7 @@ namespace CrocoLanding.Api.Controllers
 
             return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
             {
-                return new CallBackRequestWorker(amb).CreateCallBackRequest(nModel);
+                return new CallBackRequestWorker(amb, IsDevelopment).CreateCallBackRequest(nModel);
             });
         }
     }

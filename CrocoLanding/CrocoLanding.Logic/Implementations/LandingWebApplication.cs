@@ -1,8 +1,8 @@
 ﻿using Croco.WebApplication.Application;
 using Ecc.Contract.Models.Emails;
-using Ecc.Contract.Settings;
+using Ecc.Implementation.Services;
+using Ecc.Implementation.Settings;
 using Ecc.Logic.Abstractions;
-using Ecc.Logic.Workers.Emails;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace CrocoLanding.Logic
@@ -37,9 +37,9 @@ namespace CrocoLanding.Logic
 
         public IEmailSender GetEmailSender(GetEmailSenderOptions options)
         {
-            var settings = SettingsFactory.GetSetting<EmailSettingsModel>();
+            var settings = SettingsFactory.GetSetting<SendGridEmailSettings>();
 
-            return new InnerSmtpEmailSender(options.AmbientContext, settings, options.Attachments);
+            return new SendGridEmailSender(settings);
         }
 
 

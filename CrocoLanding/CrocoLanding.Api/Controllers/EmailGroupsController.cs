@@ -4,7 +4,6 @@ using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Contract.Models.EmailGroup;
-using Ecc.Implementation.Services;
 using Ecc.Logic.Workers.Emails;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -27,9 +26,9 @@ namespace CrocoLanding.Api.Controllers
         {
         }
 
-        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
+        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(SystemAmbientContext);
 
-        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, new AppEccEmailListExtractor(), new AppEccFilePathMapper());
+        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
 
         /// <summary>
         /// Создать группу эмейлов из файла

@@ -4,7 +4,6 @@ using Ecc.Contract.Models.EmailGroup;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Base;
 using Ecc.Model.Entities.Email;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,15 +11,11 @@ namespace Ecc.Logic.Workers.Emails
 {
     public class EmailGroupFromFileCreator : BaseEccWorker
     {
-        IEccFilePathMapper FilePathMapper { get; }
-
         IEccFileEmailsExtractor EmailsExtractor { get; }
 
-
-        public EmailGroupFromFileCreator(ICrocoAmbientContext context, IEccFileEmailsExtractor emailsExtractor, IEccFilePathMapper filePathMapper) : base(context)
+        public EmailGroupFromFileCreator(ICrocoAmbientContext context, IEccFileEmailsExtractor emailsExtractor) : base(context)
         {
             EmailsExtractor = emailsExtractor;
-            FilePathMapper = filePathMapper;
         }
 
         
@@ -33,14 +28,12 @@ namespace Ecc.Logic.Workers.Emails
                 return validation;
             }
 
-            var filePath = FilePathMapper.MapPath(model.FileName);
+            var emailsResult = EmailsExtractor.ExtractEmailsListFromFile(model.FilePath);
 
-            if (!File.Exists(filePath))
+            if(!emailsResult.IsSucceeded)
             {
-                return new BaseApiResponse(false, $"Файл не найден по пути {filePath}");
+                return new BaseApiResponse(emailsResult);
             }
-
-            var emails = EmailsExtractor.ExtractEmailsListFromFile(filePath);
 
             var createGroupResult = await new EmailGroupWorker(AmbientContext).CreateGroup(model);
 
@@ -49,7 +42,7 @@ namespace Ecc.Logic.Workers.Emails
                 return createGroupResult;
             }
 
-            CreateHandled(emails.Select(x => new EmailInEmailGroupRelation
+            CreateHandled(emailsResult.ResponseObject.Select(x => new EmailInEmailGroupRelation
             {
                 EmailGroupId = createGroupResult.ResponseObject
             }));

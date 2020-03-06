@@ -30,6 +30,8 @@ namespace CrocoLanding
     {
         public const string DevelopmentEnvironmentName = "Development";
 
+        const string SpaPath = "wwwroot";
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -59,6 +61,11 @@ namespace CrocoLanding
         {
             services.AddControllersWithViews();
 
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = SpaPath;
+            });
+
             services.Configure<FormOptions>(options =>
             {
                 options.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
@@ -80,7 +87,6 @@ namespace CrocoLanding
             {
                 options.UseSqlServer(
                     Configuration.GetConnectionString(LandingDbContext.ConnectionString));
-
             });
 
             
@@ -154,6 +160,12 @@ namespace CrocoLanding
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = SpaPath;
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

@@ -1,7 +1,6 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
 using Croco.Core.Logic.Workers;
-using CrocoLanding.Logic;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Implementation.Models;
 using Ecc.Implementation.TaskGivers;
@@ -12,12 +11,15 @@ using System.Threading.Tasks;
 
 namespace Ecc.Implementation.Workers
 {
-    public class CallBackRequestWorker : BaseAppWorker
+    public class CallBackRequestWorker : BaseCrocoWorker
     {
         readonly int MinutesBefore = 10;
 
-        public CallBackRequestWorker(ICrocoAmbientContext ambientContext) : base(ambientContext)
+        bool IsDevelopment { get; }
+
+        public CallBackRequestWorker(ICrocoAmbientContext ambientContext, bool isDevelopment) : base(ambientContext)
         {
+            IsDevelopment = isDevelopment;
         }
 
         public Task<List<CallBackRequest>> GetCallBackRequests()
@@ -36,7 +38,7 @@ namespace Ecc.Implementation.Workers
 
             var dateBefore = Application.DateTimeProvider.Now.AddMinutes(-MinutesBefore);
 
-            if (!Application.IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= dateBefore))
+            if (!IsDevelopment && await Query<CallBackRequest>().AnyAsync(x => x.IpAddress == model.Ip && x.CreatedOn >= dateBefore))
             {
                 return new BaseApiResponse(false, $"С вашего Ip адреса уже была отправлена заявка в течение {MinutesBefore} минут, если вы устали ждать связи, мы просим прощения");
             }

@@ -1,16 +1,23 @@
 ﻿using ClosedXML.Excel;
+using Croco.Core.Abstractions.Models;
 using Ecc.Logic.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 
 namespace CrocoLanding.Logic.Services
 {
     public class AppEccEmailListExtractor : IEccFileEmailsExtractor
     {
-        public List<string> ExtractEmailsListFromFile(string filePath)
+        public BaseApiResponse<List<string>> ExtractEmailsListFromFile(string filePath)
         {
+            if(!File.Exists(filePath))
+            {
+                return new BaseApiResponse<List<string>>(false, "Файл не существует по указанному пути");
+            }
+
             using var workBook = new XLWorkbook(filePath);
 
             var sheet = workBook.Worksheets.First();
@@ -26,7 +33,7 @@ namespace CrocoLanding.Logic.Services
                 maybeEmails.Add(email);
             }
 
-            return maybeEmails.Select(x =>
+            var res = maybeEmails.Select(x =>
             {
                 if (x.Contains(","))
                 {
@@ -37,6 +44,8 @@ namespace CrocoLanding.Logic.Services
             }).SelectMany(x => x)
             .Select(x => x.Trim())
             .Where(x => new EmailAddressAttribute().IsValid(x)).ToList();
+
+            return new BaseApiResponse<List<string>>(true, "Ok", res);
         }
     }
 }

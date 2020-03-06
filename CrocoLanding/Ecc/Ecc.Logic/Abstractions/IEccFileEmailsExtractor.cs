@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Croco.Core.Abstractions.Models;
+using System.Collections.Generic;
 
 namespace Ecc.Logic.Abstractions
 {
@@ -9,6 +10,6 @@ namespace Ecc.Logic.Abstractions
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        List<string> ExtractEmailsListFromFile(string filePath);
+        BaseApiResponse<List<string>> ExtractEmailsListFromFile(string filePath);
     }
 }

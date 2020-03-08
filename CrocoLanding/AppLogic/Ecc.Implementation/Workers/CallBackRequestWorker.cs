@@ -53,7 +53,7 @@ namespace Ecc.Implementation.Workers
 
             if (res.IsSucceeded)
             {
-                Application.JobManager.Enqueue<SendEmailTaskGiverByCallBackRequest>();
+                Application.JobManager.Enqueue<SendEmailTaskGiverByCallBackRequest>(srv => srv.GetTask());
             }
 
             return res;

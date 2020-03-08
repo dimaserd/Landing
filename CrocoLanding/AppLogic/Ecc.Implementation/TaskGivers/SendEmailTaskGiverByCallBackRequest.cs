@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Ecc.Implementation.TaskGivers
 {
-    public class SendEmailTaskGiverByCallBackRequest : ICrocoTaskGiver
+    public class SendEmailTaskGiverByCallBackRequest
     {
         public async Task GetTask()
         {

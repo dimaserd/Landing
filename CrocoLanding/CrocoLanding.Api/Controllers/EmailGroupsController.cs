@@ -9,6 +9,7 @@ using Ecc.Implementation.TaskGivers;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Emails;
 using Hangfire;
+using Hangfire.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -40,8 +41,12 @@ namespace CrocoLanding.Api.Controllers
         public IEccPixelUrlProvider UrlProvider { get; }
 
         [HttpPost("Test")]
-        public BaseApiResponse Test()
+        public BaseApiResponse Test(string jobId, string cronExpression)
         {
+            var manager = new RecurringJobManager();
+
+            manager.AddOrUpdate(jobId, Job.FromExpression<SendEmailTaskGiver>(t => t.GetTask()), cronExpression);
+
             BackgroundJob.Enqueue<SendEmailTaskGiver>(taskGiver => taskGiver.GetTask());
 
             return new BaseApiResponse(true, "Ok");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ecc.Implementation.TaskGivers
 {
-    public class SendEmailTaskGiver : ICrocoTaskGiver
+    public class SendEmailTaskGiver
     {
         public SendEmailTaskGiver(IEccFileService fileService, IEmailSenderProvider senderProvider)
         {
@@ -19,11 +19,6 @@ namespace Ecc.Implementation.TaskGivers
 
         public Task GetTask()
         {
-            if(2 > 0)
-            {
-
-            }
-
             return CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(amb =>
             {
                 return new MailDistributionInteractionWorker(amb, FileService, SenderProvider).SendEmailsAsync();

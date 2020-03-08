@@ -9,7 +9,9 @@ using Croco.WebApplication.Application;
 using CrocoLanding.Implementations;
 using CrocoLanding.Logic;
 using CrocoLanding.Model.Contexts;
-using CrocoShop.CrocoStuff;
+using Ecc.Implementation.Services;
+using Ecc.Implementation.Settings;
+using Ecc.Logic.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -90,6 +92,16 @@ namespace CrocoLanding.CrocoStuff
             {
                 IsDevelopment = Env.EnvironmentName == "Development"
             };
+
+            services.AddTransient<IEccPixelUrlProvider, AppEccPixelUrlProvider>(srv => new AppEccPixelUrlProvider(options.ApplicationUrl));
+            services.AddTransient<IEmailSenderProvider, AppEmailSenderProvider>(srv =>
+            {
+                var setting = srv.GetService<ICrocoApplication>().SettingsFactory.GetSetting<SendGridEmailSettings>();
+
+                return new AppEmailSenderProvider(setting);
+            });
+
+            services.AddTransient<IEccFileService, AppEccFileService>();
 
             services.AddSingleton<ICrocoApplication>(application);
 

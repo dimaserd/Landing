@@ -7,7 +7,6 @@ using CrocoLanding.Implementations;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Clt.Default;
-using CrocoShop.CrocoStuff;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

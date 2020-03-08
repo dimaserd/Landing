@@ -1,13 +1,9 @@
 ﻿using Croco.WebApplication.Application;
-using Ecc.Contract.Models.Emails;
-using Ecc.Implementation.Services;
-using Ecc.Implementation.Settings;
-using Ecc.Logic.Abstractions;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace CrocoLanding.Logic
 {
-    public class LandingWebApplication : CrocoWebApplication, IEccApplication
+    public class LandingWebApplication : CrocoWebApplication
     {
         public LandingWebApplication(CrocoWebApplicationOptions options) : base(options)
         {
@@ -24,24 +20,6 @@ namespace CrocoLanding.Logic
         {
             return GetMimeMapping(fileName).StartsWith("image/");
         }
-
-        /// <summary>
-        /// Получить адрес для установки пикселя для определения прочитанности писем
-        /// </summary>
-        /// <param name="emailId"></param>
-        /// <returns></returns>
-        public string GetPixelEmailUrl(string emailId)
-        {
-            return $"{ApplicationUrl}/Img/{emailId}.jpg";
-        }
-
-        public IEmailSender GetEmailSender(GetEmailSenderOptions options)
-        {
-            var settings = SettingsFactory.GetSetting<SendGridEmailSettings>();
-
-            return new SendGridEmailSender(settings);
-        }
-
 
         public bool IsDevelopment { get; set; }
     }

@@ -2,12 +2,10 @@
 using Croco.Core.Abstractions.Models;
 using Croco.Core.Search.Models;
 using Ecc.Contract.Models.EmailGroup;
-using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Base;
 using Ecc.Model.Entities.Email;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;

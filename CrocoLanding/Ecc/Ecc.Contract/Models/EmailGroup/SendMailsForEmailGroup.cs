@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Croco.Core.Search.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Ecc.Contract.Models.EmailGroup
 {
-    public class SendMailsForEmailGroup
+    public class SendMailsForEmailGroup : GetListSearchModel
     {
         public string EmailGroupId { get; set; }
 

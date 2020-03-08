@@ -7,6 +7,7 @@ using Ecc.Logic.Core.Workers;
 using Ecc.Logic.Workers.Base;
 using Ecc.Model.Entities.Email;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,9 +44,16 @@ namespace Ecc.Logic.Workers.Emails
                 return new BaseApiResponse(false, "Эмейлы не существуют в данной группе");
             }
 
+            IEnumerable<EmailInEmailGroupRelation> emails = group.Emails.OrderBy(x => x.Email);
+            
+            if(model.Count.HasValue && model.Count.Value > 0)
+            {
+                emails = emails.Skip(model.OffSet).Take(model.Count.Value);
+            }
+            
             var sender = new EmailDelayedSender(AmbientContext, UrlProvider);
 
-            return await sender.SendEmails(group.Emails.Select(x => new SendMailMessage
+            return await sender.SendEmails(emails.Select(x => new SendMailMessage
             {
                 Email = x.Email,
                 Body = model.Body,
@@ -53,6 +61,5 @@ namespace Ecc.Logic.Workers.Emails
                 AttachmentFileIds = model.AttachmentFileIds
             }));
         }
-
     }
 }

@@ -28,8 +28,8 @@ namespace CrocoLanding.Controllers.Base
         public BaseController(LandingDbContext context, ApplicationUserManager userManager, ApplicationSignInManager signInManager, IHttpContextAccessor httpContextAccessor)
             : base(context, signInManager, userManager, x => x.GetUserId(), httpContextAccessor)
         {
-
         }
+
         #endregion
 
         #region Поля
@@ -60,11 +60,6 @@ namespace CrocoLanding.Controllers.Base
 
             return _currentUser;
         }
-
-        /// <summary>
-        /// Идентификатор текущего залогиненного пользователя
-        /// </summary>
-        protected string UserId => User.Identity.GetUserId();
 
         #endregion
 

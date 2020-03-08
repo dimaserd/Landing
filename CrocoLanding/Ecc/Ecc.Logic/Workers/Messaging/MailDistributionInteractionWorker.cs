@@ -20,10 +20,12 @@ namespace Ecc.Logic.Workers.Messaging
         private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
         IEccFileService FileService { get; }
+        IEmailSenderProvider SenderProvider { get; }
 
-        public MailDistributionInteractionWorker(ICrocoAmbientContext ambientContext, IEccFileService fileService) : base(ambientContext)
+        public MailDistributionInteractionWorker(ICrocoAmbientContext ambientContext, IEccFileService fileService, IEmailSenderProvider senderProvider) : base(ambientContext)
         {
             FileService = fileService;
+            SenderProvider = senderProvider;
         }
 
         public async Task SendEmailsAsync()
@@ -47,7 +49,7 @@ namespace Ecc.Logic.Workers.Messaging
 
             await SetStatusForInteractions(interactions.Select(x => x.InteractionId), InteractionStatus.InProccess, "In process of sending emails");
 
-            var emailSender = new MailMessageSender(AmbientContext, FileService);
+            var emailSender = new MailMessageSender(AmbientContext, FileService, SenderProvider);
 
             var updates = await emailSender.SendInteractions(interactions);
 

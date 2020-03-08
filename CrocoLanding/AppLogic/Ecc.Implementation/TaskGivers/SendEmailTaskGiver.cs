@@ -1,65 +1,32 @@
-﻿using Croco.Core.Abstractions.Models.Log;
-using Croco.Core.Abstractions.RecurringJobs;
-using Croco.Core.Application;
+﻿using Croco.Core.Abstractions.RecurringJobs;
 using Croco.Core.Implementations.TransactionHandlers;
-using CrocoLanding.Model.Entities.Ecc;
-using Ecc.Contract.Models.Emails;
-using Ecc.Implementation.Services;
-using Ecc.Implementation.Settings;
-using Ecc.Implementation.Workers;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Ecc.Logic.Abstractions;
+using Ecc.Logic.Workers.Messaging;
 using System.Threading.Tasks;
 
 namespace Ecc.Implementation.TaskGivers
 {
     public class SendEmailTaskGiver : ICrocoTaskGiver
     {
-        public async Task GetTask()
+        public SendEmailTaskGiver(IEccFileService fileService, IEmailSenderProvider senderProvider)
         {
-            //Получаю неотправленные заявки на перезвон
-            var callBacks = await CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
+            FileService = fileService;
+            SenderProvider = senderProvider;
+        }
+
+        IEccFileService FileService { get; }
+        IEmailSenderProvider SenderProvider { get; }
+
+        public Task GetTask()
+        {
+            if(2 > 0)
             {
-                var callBackRepo = amb.RepositoryFactory.GetRepository<CallBackRequest>();
 
-                return callBackRepo.Query()
-                    .Where(x => !x.IsNotified).ToListAsync();
-            });
+            }
 
-            var setting = CrocoApp.Application.SettingsFactory.GetSetting<SendGridEmailSettings>();
-
-            //Отправляю сообщения
-            var sender = new SendGridEmailSender(setting);
-
-            var results = await sender.SendEmails(callBacks, x => new SendEmailModel
+            return CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(amb =>
             {
-                Body = $"Создана заявка на перезвон '{x.EmailOrPhoneNumber}'",
-                Email = "dimaserd84@gmail.com",
-                Subject = "Перезвони"
-            });
-
-            //Обновляю статусы заявок
-            await CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(async amb =>
-            {
-                var callBackRepo = amb.RepositoryFactory.GetRepository<CallBackRequest>();
-
-                foreach (var result in results)
-                {
-                    var callBack = result.Item1;
-
-                    callBack.IsNotified = result.Item2.IsSucceeded;
-
-                    if (callBack.IsNotified)
-                    {
-                        callBackRepo.UpdateHandled(callBack);
-                    }
-                    else
-                    {
-                        amb.Logger.LogWarn("SendEmailTaskGiver.GetTask.SendEmail.IsNotSucceeded", "Письмо не отправилось", new LogNode("Message", result.Item1));
-                    }
-                }
-
-                await amb.RepositoryFactory.SaveChangesAsync();
+                return new MailDistributionInteractionWorker(amb, FileService, SenderProvider).SendEmailsAsync();
             });
         }
     }

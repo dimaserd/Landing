@@ -5,7 +5,7 @@ namespace Ecc.Logic.Abstractions
     /// <summary>
     /// Абстракция для приложения с внешними рассылками
     /// </summary>
-    public interface IEccApplication
+    public interface IEmailSenderProvider
     {
         /// <summary>
         /// Получить рассыльщик для электронной почты

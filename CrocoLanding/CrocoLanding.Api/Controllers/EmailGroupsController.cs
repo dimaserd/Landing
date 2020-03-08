@@ -4,7 +4,11 @@ using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Contract.Models.EmailGroup;
+using Ecc.Implementation.Services;
+using Ecc.Implementation.TaskGivers;
+using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Emails;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -22,13 +26,32 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="context"></param>
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
-        public EmailGroupsController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager) : base(context, signInManager, userManager, null)
+        public EmailGroupsController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IEccPixelUrlProvider urlProvider) : base(context, signInManager, userManager, null)
         {
+            UrlProvider = urlProvider;
         }
+
+        EmailGroupSender Sender => new EmailGroupSender(SystemAmbientContext, UrlProvider);
 
         EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(SystemAmbientContext);
 
         EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
+
+        public IEccPixelUrlProvider UrlProvider { get; }
+
+        [HttpPost("Test")]
+        public BaseApiResponse Test()
+        {
+            BackgroundJob.Enqueue<SendEmailTaskGiver>(taskGiver => taskGiver.GetTask());
+
+            return new BaseApiResponse(true, "Ok");
+        }
+
+        [HttpPost("Send")]
+        public Task<BaseApiResponse> Send(SendMailsForEmailGroup model)
+        {
+            return Sender.StartEmailDistributionForGroup(model);
+        }
 
         /// <summary>
         /// Создать группу эмейлов из файла

@@ -9,7 +9,7 @@ namespace Ecc.Logic
     {
         public static void AddJobs(ICrocoApplication application)
         {
-            application.AddJob<SendEmailTaskGiver>(Cron.Minutely());
+            application.AddJob<SendEmailTaskGiverByCallBackRequest>(Cron.Minutely());
         }
     }
 }

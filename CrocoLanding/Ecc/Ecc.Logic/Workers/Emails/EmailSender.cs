@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Croco.Core.Abstractions;
@@ -18,26 +17,19 @@ namespace Ecc.Logic.Workers.Emails
     public class SmtpEmailSender : BaseCrocoWorker
     {
         IEccFileService FileService { get; }
+        IEmailSenderProvider SenderProvider { get; }
 
-        public SmtpEmailSender(ICrocoAmbientContext ambientContext, IEccFileService fileService) : base(ambientContext)
+        public SmtpEmailSender(ICrocoAmbientContext ambientContext, IEccFileService fileService, IEmailSenderProvider senderProvider) : base(ambientContext)
         {
             FileService = fileService;
+            SenderProvider = senderProvider;
         }
 
         public async Task<List<UpdateInteractionStatus>> SendInteractions(List<SendEmailModelWithInteractionId> messages)
         {
             var fileIds = messages.SelectMany(x => x.EmailModel.AttachmentFileIds).ToArray();
 
-            if (!(Application is IEccApplication eccApp))
-            {
-                var ex = new Exception($"Глобальное приложение не реализует интерфейс {nameof(IEccApplication)}");
-
-                Logger.LogException(ex);
-
-                throw ex;
-            }
-
-            var sender = eccApp.GetEmailSender(new GetEmailSenderOptions 
+            var sender = SenderProvider.GetEmailSender(new GetEmailSenderOptions 
             {
                 AmbientContext = AmbientContext,
                 //Устанавливаю вложения, получая их из базы данных

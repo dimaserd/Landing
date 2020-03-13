@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.2" />
-    <PackageReference Include="NetCroco.Core" Version="1.9.39" />
+    <PackageReference Include="NetCroco.Core" Version="1.9.41" />
   </ItemGroup>
   
 </Project>

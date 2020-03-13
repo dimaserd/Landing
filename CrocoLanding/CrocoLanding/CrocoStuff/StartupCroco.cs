@@ -2,6 +2,7 @@
 using Croco.Core.Application;
 using Croco.Core.Application.Options;
 using Croco.Core.Common.Enumerations;
+using Croco.Core.EventSourcing.Implementations.StatusLog;
 using Croco.Core.Extensions.Implementations;
 using Croco.Core.Hangfire.Extensions;
 using Croco.Core.Logic.Models.Files;
@@ -29,14 +30,17 @@ namespace CrocoLanding.CrocoStuff
 
         public List<Action<ICrocoApplication>> ApplicationActions { get; }
 
+        public List<Action<ICrocoApplicationOptions>> BuildActions { get; }
+
         public StartupCroco(StartUpCrocoOptions options)
         {
             Configuration = options.Configuration;
             Env = options.Env;
             ApplicationActions = options.ApplicationActions;
+            BuildActions = options.BuildActions;
         }
 
-        public void SetCrocoApplication(IServiceCollection services)
+        public void RegisterCrocoApplication(IServiceCollection services)
         {
             var memCache = new MemoryCache(new MemoryCacheOptions());
 
@@ -79,12 +83,13 @@ namespace CrocoLanding.CrocoStuff
             }.GetApplicationOptions();
 
 
-            baseOptions.AddDelayedApplicationLogger()
-                .AddHangfireEventSourcerAndJobManager();
+            baseOptions
+                .AddHangfireEventSourcerAndJobManager(new CrocoServiceRegistrator(services), new DatabaseCrocoMessageStateHandler(baseOptions.DateTimeProvider))
+                .AddDelayedApplicationLogger();
 
             var options = new CrocoWebApplicationOptions()
             {
-                ApplicationUrl = "https://findtask.ru",
+                ApplicationUrl = "https://crocosoft.ru",
                 CrocoOptions = baseOptions,
             };
 
@@ -104,8 +109,19 @@ namespace CrocoLanding.CrocoStuff
             services.AddTransient<IEccFileService, AppEccFileService>();
 
             services.AddSingleton<ICrocoApplication>(application);
+        }
 
-            CrocoApp.Application = application;
+        public void SetCrocoActivatorAndApplication(IServiceProvider serviceProvider)
+        {
+            CrocoApp.Activator = new CrocoActivator(serviceProvider);
+
+            var app = serviceProvider.GetService<ICrocoApplication>();
+
+            //Некоторые действия требуют уже установленного глобального приложения
+            //Поэтому сначала устанавливаем глобальное приложение
+            CrocoApp.Application = app;
+
+            ApplicationActions?.ForEach(x => x(app));
         }
     }
 }

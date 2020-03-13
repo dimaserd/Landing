@@ -125,11 +125,11 @@ namespace CrocoLanding
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(LandingDbContext.ConnectionString)));
 
             //Установка приложения
-            Croco.SetCrocoApplication(services);
+            Croco.RegisterCrocoApplication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
 
@@ -177,7 +177,8 @@ namespace CrocoLanding
 
             app.ConfigureExceptionHandler(new ApplicationLoggerManager());
 
-            HangfireConfiguration.AddHangfire(app, serviceProvider, env.EnvironmentName == DevelopmentEnvironmentName);
+            HangfireConfiguration.AddHangfire(app, env.EnvironmentName == DevelopmentEnvironmentName);
+            Croco.SetCrocoActivatorAndApplication(app.ApplicationServices);
         }
     }
 }

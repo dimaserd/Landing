@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Hangfire.Core" Version="1.7.9" />
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.39" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.41" />
     <PackageReference Include="Sendgrid" Version="9.13.0" />
   </ItemGroup>
 

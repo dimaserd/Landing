@@ -13,5 +13,7 @@ namespace CrocoLanding.CrocoStuff
         public IWebHostEnvironment Env { get; set; }
 
         public List<Action<ICrocoApplication>> ApplicationActions { get; set; } = new List<Action<ICrocoApplication>>();
+
+        public List<Action<ICrocoApplicationOptions>> BuildActions { get; set; } = new List<Action<ICrocoApplicationOptions>>();
     }
 }

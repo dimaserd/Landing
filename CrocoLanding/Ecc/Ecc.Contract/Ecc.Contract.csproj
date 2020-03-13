@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.39" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.41" />
   </ItemGroup>
 </Project>

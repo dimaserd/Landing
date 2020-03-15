@@ -18,8 +18,7 @@ using System.Threading.Tasks;
 
 namespace CrocoLanding.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]"), ApiController]
     public class EccController : BaseApiController
     {
         readonly bool IsDevelopment = CrocoApp.Application.As<LandingWebApplication>().IsDevelopment;

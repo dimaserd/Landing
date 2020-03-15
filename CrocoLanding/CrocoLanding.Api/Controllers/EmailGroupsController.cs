@@ -4,7 +4,6 @@ using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Contract.Models.EmailGroup;
-using Ecc.Implementation.Services;
 using Ecc.Implementation.TaskGivers;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Emails;

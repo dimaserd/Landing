@@ -1,0 +1,53 @@
+V.5.0.2 – date 01/03/2019
+-Stampready
+	- Added groups for sections. 
+	- Added ability to duplicate sections.
+	- Fixed issue with extra paddings in social icons.
+
+--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+V.5.0.1 – date 05/02/2019
+-Stampready
+	- Stampready released a new builder. You can enable/disable it in your stampready account settings.
+	- Added special outlook background tags. Now you can change background images for outlook without code editing.
+	- Added ability to change body background color in Stampready editor for Boxed version of the template.
+
+--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+V.4.0.9 – date 10/01/2019
+- Added video section to Template-1.html.
+- Fixed bug with mailchimp drag function, which cause problems with sections order.
+
+V.4.0.8 – 03/12/2018
+- Sections with navigation nav centred vertically.
+
+V.4.0.7 – 29/11/2018
+- Removed unnecessary margin:0 auto; style from templates head.
+- Removed special outlook tag: '<!--[if (gte mso 9)|(IE)]></table><table width="800" align="center" border="0" cellpadding="0" cellspacing="0"><![endif]-->'. Some users report about spaces between sections in outlook.
+- Fixed buttons for mailchimp editor. Mailchimp replaces template <a></a> tag by their own, so we deleted this tags from all links.
+
+V.4.0.6 – 28/11/2018
+- Added *|MC:SUBJECT|* into the mailchimps template title. This tag displays the campaign's subject line.
+- Fixed bug with logos. Now you can add logo with any height and width.
+- Fixed problem with buttons in mailchimp. After adding link in mailchimp editor some buttons losing their styles.
+- Removed unnecessary table-layout:fixed; style from templates head.
+
+V.4.0.5 – 21/11/2018
+- Fixed bug with button border radius. 
+- Changed reset css in the head of the template .Added "table {border-spacing:0;table-layout:fixed;margin:0 auto;} table td {border-collapse: collapse;}" instead 
+"table, td {border-collapse: collapse;}"
+
+V.4.0.4 – 17/11/2018
+- Changed reset css in the head of the template .Added "table, td {border-collapse: collapse;}" instead "table {border-spacing: 0;-mso-table-lspace: 0pt;mso-table-rspace: 0pt;} and table td {border-collapse: collapse;}". Old reset css cause resizing issue in mail.ru app.
+
+V.4.0.3 – 03/11/2018
+- Fixed bug with iphone email formating. (addet <meta name="x-apple-disable-message-reformatting"> in template head)
+- Added a new short meta tag instead of 4 old meta tags (<meta name="format-detection" content="telephone=no,address=no,email=no,date=no">) 
+
+V.4.0.2 – 25/10/2018
+- According to our clients bug reports, support of outlook background images is very difficult to implement, and most of the clients don't edit code manually for properly displaying background images in outlook, which can lead to the wrong Outlook email rendering. So we decided to remove this feature from our template. For now, instead of background image in outlook you will get a grey squere and text over it. 
+- Stampready data-tags was removed from clean HTML versions
+
+V.4.0.1 – 19/10/2018
+- Added StampreadyToCm method. Now you can edit template in stampready and then export it into CampaignMonitor compatible file
+- Added a new method for adding background images in Mailchimp

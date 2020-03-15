@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Croco.Core.Abstractions;
-using Croco.Core.Search.Models;
 using Clt.Contract.Models.Common;
 using Clt.Logic.Models;
 using Clt.Logic.Extensions;

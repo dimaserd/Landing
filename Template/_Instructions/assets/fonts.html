@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Fonts</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="path/to/image.jpg">
+	<!-- css -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!-- css -->
+	<!-- js -->
+	<script src="js/jquery.min.js"></script>
+	<!-- js -->
+	<!-- fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+	<!-- fonts -->
+</head>
+<body data-spy="scroll" data-offset="0" data-target="#theMenu">
+	<!-- Menu -->
+	<nav class="menu" id="theMenu">
+		<div class="menu-wrap inner-menu">
+			<h1 class="logo">Stampready</h1>
+			<a href="../index.html" class="smoothScroll">home</a>
+			<a href="stampready.html" class="smoothScroll ">stampready</a>
+			<a href="mailchimp.html" class="smoothScroll">Mailchimp</a>
+			<a href="campaignmonitor.html" class="smoothScroll">campaignmonitor</a>
+			<a href="fonts.html" class="smoothScroll active">How to change font</a>
+		</div>
+		<!-- Menu button -->
+		<div id="menuToggle" class="inner-toggle">
+			<i class="icon-reorder"></i>
+		</div>
+	</nav>
+	<!-- Menu -->
+	<!-- Stampready -->
+	<div class="instruction-container">
+		<div class="instruction-main-title">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h2>How to change font</h2>
+						<div class="video-ins">
+							<a href="https://youtu.be/z9mfFsER0bc">Video instruction</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="instr-sub-title">
+						<h3>Font changing</h3>
+						<p>You can change font in email template. But you can do it only through code editing.</p>
+					</div>
+					<div class="important-info">
+						<p><strong>Attention:</strong>&nbsp;&nbsp;&nbsp;You can use only <a href="https://fonts.google.com" style="text-decoration: none; border-bottom: 1px solid #ffffff; color: #ffffff;">Google fonts</a>. Also you should change font before uploading to editor.</p>
+					</div>
+					<!-- instr -->
+					<div class="separate-line" style="margin-top: 17px; margin-bottom: 3px;"></div>
+					<div class="instr-sub-title">
+						<h4>Instructions</h4>
+						<ul class="instructions">
+							<li>Choose template that you need from <span class="text-high">/Main files/</span>. It could be <span class="text-high">/Stampready/TemplateName.zip</span>, <span class="text-high">/Mailchimp/Template/TemplateName.html</span>, <span class="text-high">/Mailchimp/OutlookSupport/TemplateName.html</span>, <span class="text-high">/Mailchimp/StampreadyToMailchimp.zip</span> or <span class="text-high">/CampaignMonitor/index.html</span></li>
+							
+							<li style="padding-top: 10px;">If you choose <span class="text-high">/Stampready/TemplateName.zip</span> or <span class="text-high">/Mailchimp/StampreadyToMailchimp.zip</span>, you should firstly unzip this files</li>
+
+							<li style="padding-top: 10px;">Open index.html (or TemplateName.html) file from unzipped folder or from another chosen folder. For code editing better to use free <a href="https://www.sublimetext.com" style="text-decoration: none; border-bottom: 1px solid #333333; color: #333333;">Sublime Text</a> editor</li>
+							<li style="padding-top: 10px;">Find links to the old fonts and delete them. In template can be 1 or 2 fonts. Also, there are 2 types of links:
+<br/><br/>
+Fisrt:
+<pre style="padding: 8px 15px 8px 15px"><code class="hljs xml"><code><span class="hljs-meta">&lt;</span></code><span class="hljs-meta">link href="https://fonts.googleapis.com/css?family=Hind:400,500|Montserrat:400,500,600,700,900" rel="stylesheet"&gt;</span></code></pre>
+
+Second:
+<pre style="padding: 8px 15px 8px 15px"><code>@import url('https://fonts.googleapis.com/css?family=Hind:400,500|Montserrat:400,500,600,700,900');</code></pre>
+
+Screenshot:
+<br/><img src="img/fonts/fonts.jpg" style="width: 100%; height: auto;" alt=""></li>
+							<li style="padding-top: 10px;">Find fonts that you need in <a href="https://fonts.google.com" style="text-decoration: none; border-bottom: 1px solid #333333; color: #333333;">Google fonts</a> and copy first links from STANDART and second from @IMPORT.</li>
+Screenshot:
+<br/>
+<img src="img/fonts/gFonts-1.jpg" style="width: 40%; height: auto; float: left; padding-right: 20px;" alt="">
+<img src="img/fonts/gFonts-2.jpg" style="width: 40%; height: auto;" alt="">
+</li>
+							<li style="padding-top: 10px;">Paste it instead deleted template fonts.</li>
+							<li style="padding-top: 10px;">Then, in Sublime text click CTRL + F (Find function) and find "font-family". Then highlight all style, for example:<br/>
+								<span class="text-high-link">font-family: 'Hind', Arial, Helvetica, sans-serif;</span></li>
+								<li style="padding-top: 10px;">Click ALT + F3 (highlight all styles in document) and change font name inside quotes<span class="text-high-link">''</span>. Here is an example for Roboto font, you should get:</li>
+								<span class="text-high-link">font-family: 'Roboto', Arial, Helvetica, sans-serif;</span></li>
+							<li style="padding-top: 10px;">If template using more then 1 font, then find second and do the same.</li>
+							<li style="padding-top: 10px;">Save template</li>
+							<li style="padding-top: 10px;">If you edit unzipped files, that zip it again!</li>
+							<li style="padding-top: 10px;">Upload to editor.</li>
+						</ul>
+					</div>
+					<!-- instr -->
+				</div>		
+			</div>
+		</div>
+	</div>
+	<!-- Stampready -->
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p>© 2017 Themescode. All rights reserved.</p>
+				</div>	
+			</div>
+		</div>
+	</footer>
+	<!-- Footer -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

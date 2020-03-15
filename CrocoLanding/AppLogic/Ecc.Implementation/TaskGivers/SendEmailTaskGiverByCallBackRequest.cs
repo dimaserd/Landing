@@ -1,5 +1,4 @@
 ﻿using Croco.Core.Abstractions.Models.Log;
-using Croco.Core.Abstractions.RecurringJobs;
 using Croco.Core.Application;
 using Croco.Core.Implementations.TransactionHandlers;
 using CrocoLanding.Model.Entities.Ecc;

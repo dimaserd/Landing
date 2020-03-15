@@ -1,5 +1,4 @@
-﻿using Croco.Core.Abstractions.RecurringJobs;
-using Croco.Core.Implementations.TransactionHandlers;
+﻿using Croco.Core.Implementations.TransactionHandlers;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Messaging;
 using System.Threading.Tasks;

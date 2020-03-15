@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>CampaignMonitor</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="path/to/image.jpg">
+	<!-- css -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!-- css -->
+	<!-- js -->
+	<script src="js/jquery.min.js"></script>
+	<!-- js -->
+	<!-- fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+	<!-- fonts -->
+</head>
+<body data-spy="scroll" data-offset="0" data-target="#theMenu">
+	<!-- Menu -->
+	<nav class="menu" id="theMenu">
+		<div class="menu-wrap inner-menu">
+			<h1 class="logo">CampaignMonitor</h1>
+			<a href="../index.html" class="smoothScroll">home</a>
+			<a href="stampready.html" class="smoothScroll">stampready</a>
+			<a href="mailchimp.html" class="smoothScroll">Mailchimp</a>
+			<a href="campaignmonitor.html" class="smoothScroll active">campaignmonitor</a>
+			<a href="fonts.html" class="smoothScroll">How to change font</a>
+		</div>
+		<!-- Menu button -->
+		<div id="menuToggle" class="inner-toggle">
+			<i class="icon-reorder"></i>
+		</div>
+	</nav>
+	<!-- Menu -->
+	<!-- section -->
+	<div class="instruction-container">
+		<div class="instruction-main-title">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h2 style="margin-bottom: 4px">CampaignMonitor</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="instr-sub-title">
+						<h3>CampaignMonitor Integration</h3>
+						<p>You can edit this template in CampaignMonitor builder.</p>
+					</div>
+					<div class="separate-line" style="margin-top: 17px; margin-bottom: 3px;"></div>
+					<div class="instr-sub-title">
+						<h4>Structure</h4>
+						<p>
+							You will find CampaignMonitor-integrated template in <span class="text-high">MainFiles/CampaignMonitor</span> folder.
+							<br/><br/>
+							Template named as <span class="text-high">/TemplateName.html</span>. You can upload only this file into CampaignMonitor builder. Another folders in <span class="text-high">/MainFiles</span> folder created for another editors!
+						</p>
+					</div>
+					<div class="separate-line" style="margin-top: 40px; margin-bottom: 2px"></div>
+					<div class="instr-sub-title">
+						<h4>Uploading to CampaignMonitor</h4>
+						<div class="important-info red">
+						<p><strong>Attention:</strong>&nbsp;&nbsp;&nbsp;Before uploading template to CampaignMonitor, you should change background images, becouse CampaignMonitor editor doesn't provide this function! How do that, see in <a href="#cust" style="color:#ffffff; border-bottom:1px solid #ffffff;">Customisation</a></p>
+						</div>
+						<p>
+							Login or register in CampaignMonitor. Go to <span class="text-high-link">Author Dashboard > My templates</span> and click <span class="text-high-link">Create a new template > Opload own HTML</span>. Paste template name and then import <span class="text-high-link">TemplateName.html</span>and <span class="text-high-link">images.zip</span> from <span class="text-high">MainFiles/CampaignMonitor/</span> folder. After template loads, you will see it in "Templates" page. Click on "settings icon" and chose "Create campaign".
+						</p>
+					</div>
+					<div id="cust" class="separate-line" style="margin-top: 45px; margin-bottom: 2px"></div>
+					<div class="instr-sub-title">
+						<h4>Customisation</h4>
+						<p>
+							For changing background images, you should open <span class="text-high">/TemplateName.html</span> from <span class="text-high">MainFiles/CampaignMonitor</span> folder. in in text editor and paste links manually. You can use free SublimeText editor. Also, you should open <span class="text-high">/TemplateName.html</span> in browser for watching on changes.
+							<br/>
+							After you open template in text editor, click <span class="text-high-link">CTRL + F</span> and input in search field <span class="text-high">background-image</span>.<br/><br/>
+							You will find code like in image. Paste link to your background image into <span class="text-high-link">background-image=" yourLink "</span>: 
+							<img src="img/mailchimp/mailchimp-3.jpg" width="100%" style="padding-top: 7px" height="auto" alt="img">
+							Then paste your link into <span class="text-high-link">background=" yourLink "</span>: 
+							<img src="img/mailchimp/mailchimp-2.jpg" width="100%" style="padding-top: 7px" height="auto" alt="img"><br/><br/>
+						</p>
+						<br/>
+						<p>
+							<strong>Then find another background images and change their links!</strong> 
+						</p>
+					</div>
+					<div class="separate-line" style="margin-top: 36px; margin-bottom: 2px"></div>
+					<!-- known bugs -->
+					<div class="instr-sub-title">
+						<h4 id="bugs">Known bugs</h4>
+						<div class="important-info red">
+						<p><strong>Attention:</strong>&nbsp;&nbsp;&nbsp;If you have bugs with builder, first of all try to disable browser plugins, such us AdBlock and Grammarly! This plugins may have conflict with builder!</p>
+						</div>
+					</div>
+					<!-- known bugs -->
+					<div class="separate-line" style="margin-top: 45px; margin-bottom: 2px"></div>
+					<div class="instr-sub-title">
+						<h4>Testing</h4>
+						<p>
+							Always test campaigns before sending! After customization, you can see mobile preview or send test email directly from stampready!
+						</p>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</div>
+	<!-- section -->
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p>© 2017 Themescode. All rights reserved.</p>
+				</div>	
+			</div>
+		</div>
+	</footer>
+	<!-- Footer -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@ using CrocoLanding.Implementations;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Clt.Default;
+using Ecc.Implementation;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,7 @@ namespace CrocoLanding
                 Env = env,
                 ApplicationActions = new List<Action<ICrocoApplication>>
                 {
+                    EccServiceRegistrator.AddJobs,
                 },
             });
         }
@@ -103,6 +105,8 @@ namespace CrocoLanding
             {
             });
 
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(LandingDbContext.ConnectionString)));
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromDays(5);
@@ -122,8 +126,7 @@ namespace CrocoLanding
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(LandingDbContext.ConnectionString)));
-
+            
             //Установка приложения
             Croco.RegisterCrocoApplication(services);
         }

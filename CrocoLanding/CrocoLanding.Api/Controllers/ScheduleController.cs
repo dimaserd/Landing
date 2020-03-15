@@ -3,7 +3,8 @@ using Croco.Core.Application;
 using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
-using Ecc.Logic;
+using Ecc.Implementation;
+using Hangfire;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,12 @@ namespace CrocoLanding.Api.Controllers
         }
 
 
+        [HttpPost("MonitoringApi")]
+        public object Monitoring()
+        {
+            return JobStorage.Current.GetMonitoringApi().ScheduledJobs(0, 50);
+        }
+
         /// <summary>
         /// Активиравать фоновые задачи
         /// </summary>
@@ -23,7 +30,8 @@ namespace CrocoLanding.Api.Controllers
         [HttpPost(nameof(ActivateJobs))]
         public BaseApiResponse ActivateJobs(string password)
         {
-            if(password != ApiConsts.Password)
+
+            if (password != ApiConsts.Password)
             {
                 return new BaseApiResponse(false, "Пароль указан неверно");
             }

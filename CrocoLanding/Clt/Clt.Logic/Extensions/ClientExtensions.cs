@@ -1,12 +1,8 @@
-﻿using Croco.Core.Application;
-using Croco.Core.Common.Enumerations;
-using System.Linq;
+﻿using System.Linq;
 using Clt.Contract.Models.Common;
 using System.Linq.Expressions;
 using Clt.Logic.Models;
 using System;
-using Clt.Contract.Models.Users;
-using Clt.Logic.Settings;
 using CrocoLanding.Model.Entities.Clt.Default;
 using CrocoLanding.Model.Entities.Clt;
 

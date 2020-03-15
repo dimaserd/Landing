@@ -129,6 +129,7 @@ namespace CrocoLanding.CrocoStuff
             });
 
             services.AddTransient<IEccFileService, AppEccFileService>();
+            services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
 
             services.AddSingleton<ICrocoApplication>(application);
         }

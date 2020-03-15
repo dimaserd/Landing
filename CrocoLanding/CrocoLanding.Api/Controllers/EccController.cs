@@ -8,8 +8,11 @@ using CrocoLanding.Logic;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Ecc;
+using Ecc.Contract.Models;
 using Ecc.Implementation.Models;
 using Ecc.Implementation.Workers;
+using Ecc.Logic.Abstractions;
+using Ecc.Logic.Workers.Messaging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,9 +26,20 @@ namespace CrocoLanding.Api.Controllers
     {
         readonly bool IsDevelopment = CrocoApp.Application.As<LandingWebApplication>().IsDevelopment;
 
-        public EccController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
+        
+        public EccController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, 
+            IHttpContextAccessor httpContextAccessor,
+            IEccPixelUrlProvider pixelUrlProvider, IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, httpContextAccessor)
         {
+            PixelUrlProvider = pixelUrlProvider;
+            FilePathMapper = filePathMapper;
         }
+
+        EmailSender EmailSender => new EmailSender(AmbientContext, PixelUrlProvider, FilePathMapper);
+
+        IEccPixelUrlProvider PixelUrlProvider { get; }
+        IEccFilePathMapper FilePathMapper { get; }
+        
 
         [HttpPost("SendCallBackRequest")]
         public async Task<BaseApiResponse> SendCallBackRequest([FromForm]CreateCallBackApiModel model)
@@ -56,6 +70,43 @@ namespace CrocoLanding.Api.Controllers
             });
         }
 
+
+        /// <summary>
+        /// Отправить email через шаблон
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("SendEmailViaTemplate")]
+        public Task<BaseApiResponse> SendEmailViaTemplate([FromBody]SendMailMessageViaHtmlTemplate model) => EmailSender.SendEmailViaTemplate(model);
+
+        /// <summary>
+        /// Отправить email через шаблон
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpPost("SendEmailViaTemplate/ToAddress")]
+        public Task<BaseApiResponse> SendEmailViaTemplateToAddress(string email)
+        {
+            var app = CrocoApp.Application.As<LandingWebApplication>();
+
+            var dirName = "MailTemplates";
+
+            return EmailSender.SendEmailViaTemplate(new SendMailMessageViaHtmlTemplate
+            {
+                Email = email,
+                AttachmentFileIds = null,
+                Replacings = new List<Replacing>
+                {
+                    new Replacing
+                    {
+                        Key = "src=\"images/check.png\"",
+                        Value = $"src=\"{app.ApplicationUrl}/{dirName}/images/check.png\""
+                    }
+                },
+                Subject = "Предложение о сотрудничестве от CrocoSoft",
+                TemplateFilePath = $"/{dirName}/MyTemplate.html"
+            });
+        }
 
         private Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model, string ip)
         {

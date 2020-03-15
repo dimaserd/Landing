@@ -8,6 +8,8 @@ using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Clt.Default;
 using Ecc.Implementation;
+using Ecc.Implementation.Services;
+using Ecc.Logic.Abstractions;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -90,7 +92,6 @@ namespace CrocoLanding
                     Configuration.GetConnectionString(LandingDbContext.ConnectionString));
             });
 
-            
             services.AddIdentity<ApplicationUser, ApplicationRole>(opts =>
             {
                 opts.Password.RequiredLength = 5;

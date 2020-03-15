@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Croco.Core.Abstractions.Models;
+using Croco.Core.Application;
 using Ecc.Logic.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace CrocoLanding.Logic.Services
     {
         public BaseApiResponse<List<string>> ExtractEmailsListFromFile(string filePath)
         {
+            filePath = CrocoApp.Application.MapPath(filePath);
+
             if(!File.Exists(filePath))
             {
                 return new BaseApiResponse<List<string>>(false, "Файл не существует по указанному пути");

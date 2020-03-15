@@ -37,6 +37,8 @@ namespace CrocoLanding.Api.Controllers
 
         EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
 
+        EmailGroupSender EmailGroupSender => new EmailGroupSender(AmbientContext, UrlProvider);
+
         public IEccPixelUrlProvider UrlProvider { get; }
 
         [HttpPost("Test")]
@@ -91,5 +93,8 @@ namespace CrocoLanding.Api.Controllers
         /// <returns></returns>
         [HttpPost("AddEmail")]
         public Task<BaseApiResponse> AddEmailToGroup([FromBody]AddEmailToEmailGroup model) => EmailGroupWorker.AddEmailToGroup(model);
+
+        [HttpPost("Send")]
+        public Task<BaseApiResponse> SendByGroup([FromBody]SendMailsForEmailGroup model) => EmailGroupSender.StartEmailDistributionForGroup(model);
     }
 }

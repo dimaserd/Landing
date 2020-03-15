@@ -7,7 +7,7 @@ namespace Ecc.Implementation.Services
     {
         public string MapPath(string filePath)
         {
-            return CrocoApp.Application.MapPath(filePath);
+            return CrocoApp.Application.MapPath($"/wwwroot{filePath}");
         }
     }
 }

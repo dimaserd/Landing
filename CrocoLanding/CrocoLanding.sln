@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5E2170
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmn.Enums", "Common\Cmn.Enums\Cmn.Enums.csproj", "{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clt.Logic.Core", "Clt\Clt.Logic.Core\Clt.Logic.Core.csproj", "{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +108,7 @@ Global
 		{4703D8C6-6351-4165-BA29-F1900BEDB391} = {B4A7451E-088F-42A8-B6EB-E2AF2CCF65A1}
 		{76EFD0BF-0ACE-41E6-A961-4F6F354EE8AD} = {B4A7451E-088F-42A8-B6EB-E2AF2CCF65A1}
 		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212} = {5E217082-7B64-45F6-98DB-9F9F483B33C2}
+		{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09} = {B4A7451E-088F-42A8-B6EB-E2AF2CCF65A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0442B5F-5405-49D9-BE55-C2608812E971}

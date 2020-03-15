@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Clt.Logic.Models.Account
+namespace Clt.Contract.Models.Account
 {
     public class ResetPasswordByAdminModel
     {

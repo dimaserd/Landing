@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Croco.Core.Abstractions.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Clt.Logic.Models.Account;
 using Croco.Core.Abstractions;
 using System.Linq.Expressions;
 using CrocoLanding.Logic;
 using CrocoLanding.Model.Entities.Clt.Default;
+using Clt.Contract.Models.Account;
 
 namespace Clt.Logic.Workers.Users
 {

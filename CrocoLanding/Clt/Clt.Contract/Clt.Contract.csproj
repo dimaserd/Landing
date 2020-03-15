@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Cmn.Enums\Cmn.Enums.csproj" />
+    <PackageReference Include="NetCroco.Core.Abstractions" Version="1.1.23" />
   </ItemGroup>
 
 </Project>

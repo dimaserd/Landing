@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Cmn.Enums;
 
 namespace Clt.Contract.Models.Common
 {
@@ -56,31 +54,5 @@ namespace Clt.Contract.Models.Common
         public string PasswordHash { get; set; }
 
         public DateTime CreatedOn { get; set; }
-
-        public bool HasRight(UserRight right)
-        {
-            if(RoleNames == null)
-            {
-                throw new ApplicationException("Роли не установлены");
-            }
-
-            return RoleNames.Any(x => x == right.ToString());
-        }
-
-        public List<UserRight> GetRights()
-        {
-            return RoleNames.Select(x => 
-            {
-                UserRight? res = null;
-
-                if(Enum.TryParse(x, out UserRight result))
-                {
-                    res = result;
-                }
-
-                return res;
-            }).Where(x => x.HasValue)
-            .Select(x => x.Value).ToList();
-        }
     }
 }

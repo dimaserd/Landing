@@ -6,41 +6,21 @@ using Clt.Contract.Events;
 using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
 using Clt.Contract.Models.Account;
-using CrocoShop.Logic.Workers.Base;
 using Microsoft.AspNetCore.Identity;
 using Clt.Logic.Workers.Users;
-using Clt.Logic.Abstractions;
 using Cmn.Enums;
-using Clt.Contract.Models.Common;
-using Clt.Logic.Helpers;
 using Clt.Logic.Extensions;
-using CrocoShop.Logic.Settings.Statics;
-using CrocoShop.Logic.Settings;
-using CrocoShop.Model.Entities.Clt.Default;
-using CrocoShop.Model.Entities.Clt;
-using CrocoShop.Logic.Resources;
-using Prd.Model.Entities.External;
 using Ecc.Model.Entities.External;
+using CrocoLanding.Model.Entities.Clt.Default;
+using CrocoLanding.Logic.Settings.Statics;
+using CrocoLanding.Model.Entities.Clt;
+using CrocoLanding.Logic;
+using Clt.Logic.Settings;
 
 namespace Clt.Logic.Workers.Account
 {
-    public class AccountManager : BaseWorker
+    public class AccountManager : BaseAppWorker
     {
-        private  async Task CreateRolesAsync(RoleManager<ApplicationRole> roleManager)
-        {
-            var roles = UserHelper.GetAllRights().Select(x => x.ToString()).ToArray();
-
-            foreach (var role in roles)
-            {
-                if (!await roleManager.RoleExistsAsync(role))
-                {
-                    await roleManager.CreateAsync(new ApplicationRole { Name = role, ConcurrencyStamp = Guid.NewGuid().ToString() });
-                }
-            }
-
-            new BaseApiResponse(true, "Роли созданы");
-        }
-
         /// <summary>
         /// Создается пользователь Root в системе и ему присваиваются все необходимые права
         /// </summary>
@@ -49,7 +29,7 @@ namespace Clt.Logic.Workers.Account
         /// <returns></returns>
         public async Task<BaseApiResponse> InitAsync(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            await CreateRolesAsync(roleManager);
+            await RoleFromEnumCreator.CreateRolesAsync<UserRight, ApplicationRole>(roleManager);
             
             var maybeRoot = await userManager.FindByEmailAsync(RightsSettings.RootEmail);
 
@@ -72,11 +52,6 @@ namespace Clt.Logic.Workers.Account
                     Name = RightsSettings.RootEmail
                 });
 
-                CreateHandled(new PrdClient
-                {
-                    Id = maybeRoot.Id
-                });
-
                 CreateHandled(new EccUser
                 {
                     Id = maybeRoot.Id
@@ -93,61 +68,7 @@ namespace Clt.Logic.Workers.Account
             return new BaseApiResponse(true, "Пользователь root создан");
         }
 
-        public BaseApiResponse<ApplicationUserBaseModel> CheckUserChanges(IApplicationAuthenticationManager authenticationManager, SignInManager<ApplicationUser> signInManager)
-        {
-            if(!IsAuthenticated)
-            {
-                return new BaseApiResponse<ApplicationUserBaseModel>(true, "Вы не авторизованы в системе", null);
-            }
-
-            return new BaseApiResponse<ApplicationUserBaseModel>(true, "", null);
-
-            //TODO Implement CheckUserChanges
-        }
-
         #region Методы изменения
-
-        public async Task<BaseApiResponse> ChangePasswordAsync(ChangeUserPasswordModel model, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
-        {
-            if (!IsAuthenticated)
-            {
-                return new BaseApiResponse(false, ValidationMessages.YouAreNotAuthorized);
-            }
-
-            var validation = ValidateModel(model);
-
-            if(!validation.IsSucceeded)
-            {
-                return validation;
-            }
-
-            if(model.NewPassword == model.OldPassword)
-            {
-                return new BaseApiResponse(false, "Новый и старый пароль совпадют");
-            }
-
-            var user = await userManager.FindByIdAsync(UserId);
-
-            if(user == null)
-            {
-                return new BaseApiResponse(false, "Пользователь не найден по указанному идентификатору");
-            }
-
-            var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-
-            if (!result.Succeeded)
-            {
-                return new BaseApiResponse(false, "Неправильно указан старый пароль");
-            }
-
-            if (user != null)
-            {
-                await signInManager.SignInAsync(user, true);
-            }
-
-            return new BaseApiResponse(true, "Ваш пароль изменен");
-        }
-        
 
 
         #endregion

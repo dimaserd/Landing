@@ -6,6 +6,9 @@ using System.Linq.Expressions;
 using Clt.Logic.Models;
 using System;
 using Clt.Contract.Models.Users;
+using Clt.Logic.Settings;
+using CrocoLanding.Model.Entities.Clt.Default;
+using CrocoLanding.Model.Entities.Clt;
 
 namespace Clt.Logic.Extensions
 {
@@ -21,7 +24,6 @@ namespace Clt.Logic.Extensions
             BirthDate = x.Client.BirthDate,
             Patronymic = x.Client.Patronymic,
             Sex = x.Client.Sex,
-            AvatarFileId = x.Client.AvatarFileId,
             Id = x.User.Id,
             Email = x.User.Email,
             PhoneNumber = x.User.PhoneNumber,
@@ -33,14 +35,33 @@ namespace Clt.Logic.Extensions
             RoleNames = x.User.Roles.Select(t => t.Role.Name).ToList()
         };
 
-        public static string GetAvatarLink(this ClientModel user, ImageSizeType imageSizeType)
+        public static IQueryable<ClientJoinedWithApplicationUser> GetInitialJoinedQuery(IQueryable<ApplicationUser> usersQuery, IQueryable<Client> clientsQuery)
         {
-            var imageId = user?.AvatarFileId;
-
-            return imageId.HasValue ? CrocoApp.Application.FileCopyWorker.GetVirtualResizedImageLocalPath(imageId.Value, imageSizeType) : null;
+            return from u in usersQuery
+                   join c in clientsQuery on u.Id equals c.Id
+                   select new ClientJoinedWithApplicationUser
+                   {
+                       User = u,
+                       Client = c
+                   };
         }
 
-        
+        /// <summary>
+        /// Из модели DTO в сущность
+        /// </summary>
+        /// <returns></returns>
+        public static ApplicationUser ToEntity(this ApplicationUserBaseModel model)
+        {
+            return new ApplicationUser
+            {
+                Id = model.Id,
+                PhoneNumber = model.PhoneNumber,
+                Email = model.Email,
+                EmailConfirmed = model.EmailConfirmed,
+                SecurityStamp = model.SecurityStamp
+            };
+        }
+
 
         public static bool Compare(ApplicationUserBaseModel user1, ApplicationUserBaseModel user2)
         {

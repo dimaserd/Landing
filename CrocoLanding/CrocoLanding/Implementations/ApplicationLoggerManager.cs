@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Croco.Core.Implementations.AmbientContext;
 using Croco.Core.Implementations.TransactionHandlers;
 using CrocoLanding.Abstractions;
 
@@ -15,7 +14,7 @@ namespace CrocoLanding.Implementations
                 return Task.CompletedTask;
             }
 
-            return new CrocoTransactionHandler(() => new SystemCrocoAmbientContext()).ExecuteAndCloseTransaction(ctx =>
+            return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(ctx =>
             {
                 ctx.Logger.LogException(ex);
 

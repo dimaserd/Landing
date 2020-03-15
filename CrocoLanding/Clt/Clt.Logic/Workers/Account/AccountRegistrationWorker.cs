@@ -5,23 +5,22 @@ using System.Threading.Tasks;
 using Clt.Contract.Events;
 using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
-using CrocoShop.Logic.Services;
-using CrocoShop.Logic.Workers.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Cmn.Enums;
-using CrocoShop.Logic.Settings;
 using Clt.Contract.Models.Account;
 using Clt.Contract.Models.Users;
-using CrocoShop.Model.Entities.Clt.Default;
-using CrocoShop.Model.Entities.Clt;
 using Clt.Logic.Extensions;
-using Prd.Model.Entities.External;
 using Ecc.Model.Entities.External;
+using CrocoLanding.Model.Entities.Clt.Default;
+using Clt.Logic.Settings;
+using CrocoLanding.Logic.Services;
+using CrocoLanding.Model.Entities.Clt;
+using CrocoLanding.Logic;
 
 namespace Clt.Logic.Workers.Account
 {
-    public class AccountRegistrationWorker : BaseWorker
+    public class AccountRegistrationWorker : BaseAppWorker
     {
         #region Методы регистрации
         public async Task<BaseApiResponse<RegisteredUser>> RegisterAndSignInAsync(RegisterModel model, bool createRandomPassword, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
@@ -89,7 +88,7 @@ namespace Clt.Logic.Workers.Account
                 model.Password = "testpass";
             }
 
-            var result = await RegisterHelpMethodAsync(model, userManager, new List<UserRight> { UserRight.Customer });
+            var result = await RegisterHelpMethodAsync(model, userManager, new List<UserRight>());
 
             if (!result.IsSucceeded)
             {
@@ -169,13 +168,12 @@ namespace Clt.Logic.Workers.Account
                 return new BaseApiResponse<ApplicationUser>(false, result.Errors.ToList().First().Description);
             }
 
-            userManager.AddRight(user, UserRight.Customer);
 
             if (userRights != null)
             {
                 var rightsThatCantBeAdded = new[]
                 {
-                    UserRight.SuperAdmin, UserRight.Admin, UserRight.Root, UserRight.Seller
+                    UserRight.Admin, UserRight.Root
                 };
 
                 foreach (var right in userRights.Where(x => !rightsThatCantBeAdded.Contains(x)))
@@ -193,12 +191,6 @@ namespace Clt.Logic.Workers.Account
                 Surname = model.Surname,
                 Patronymic = model.Patronymic,
                 PhoneNumber = model.PhoneNumber
-            });
-
-            //Создается пользователь для продуктового контекста
-            CreateHandled(new PrdClient
-            {
-                Id = user.Id
             });
 
             //Создается пользователь для сервиса рассылок

@@ -1,5 +1,5 @@
 ﻿using Cmn.Enums;
-using CrocoShop.Model.Entities.Clt.Default;
+using CrocoLanding.Model.Entities.Clt.Default;
 using Microsoft.AspNetCore.Identity;
 
 namespace Clt.Logic.Extensions

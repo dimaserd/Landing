@@ -138,7 +138,7 @@ namespace CrocoLanding.Api.Controllers.Base
         protected override void Dispose(bool disposing)
         {
             //Закрываю транзакцию, чтобы выполнились отложенные действия
-            Connection.OnTransactionClosed().GetAwaiter().GetResult();
+            Connection.CloseAsync().GetAwaiter().GetResult();
 
             if (disposing)
             {

@@ -3,9 +3,11 @@ using Croco.Core.Application;
 using Croco.Core.Application.Options;
 using Croco.Core.Common.Enumerations;
 using Croco.Core.EventSourcing.Implementations.StatusLog;
+using Croco.Core.Extensions;
 using Croco.Core.Extensions.Implementations;
 using Croco.Core.Hangfire.Extensions;
 using Croco.Core.Logic.Models.Files;
+using Croco.Core.Model.Entities.Store;
 using Croco.WebApplication.Application;
 using CrocoLanding.Implementations;
 using CrocoLanding.Logic;
@@ -38,6 +40,26 @@ namespace CrocoLanding.CrocoStuff
             Env = options.Env;
             ApplicationActions = options.ApplicationActions;
             BuildActions = options.BuildActions;
+        }
+
+        static readonly List<LoggedApplicationAction> Logs = new Lazy<List<LoggedApplicationAction>>().Value;
+
+        static readonly object LogsLocker = new object();
+
+        static void LogAction(LoggedApplicationAction log)
+        {
+            lock (LogsLocker)
+            {
+                Logs.Add(log);
+
+                if (Logs.Count == 10)
+                {
+                    CrocoApp.Application.EventSourcer.Publisher
+                        .PublishAsync(SystemCrocoExtensions.GetRequestContext(), Logs).GetAwaiter().GetResult();
+
+                    Logs.Clear();
+                }
+            }
         }
 
         public void RegisterCrocoApplication(IServiceCollection services)
@@ -79,13 +101,13 @@ namespace CrocoLanding.CrocoStuff
                     },
                 },
                 RootPath = Env.ContentRootPath,
-                AfterInitActions = ApplicationActions
             }.GetApplicationOptions();
 
+            baseOptions.StateHandler = new DatabaseCrocoMessageStateHandler(baseOptions.DateTimeProvider);
 
             baseOptions
-                .AddHangfireEventSourcerAndJobManager(new CrocoServiceRegistrator(services), new DatabaseCrocoMessageStateHandler(baseOptions.DateTimeProvider))
-                .AddDelayedApplicationLogger();
+                .AddHangfireEventSourcerAndJobManager(new CrocoServiceRegistrator(services))
+                .AddDelayedApplicationLogger(LogAction);
 
             var options = new CrocoWebApplicationOptions()
             {

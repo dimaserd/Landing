@@ -1,30 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetCroco.Core.Abstractions" Version="1.1.15" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Common\Cmn.Enums\Cmn.Enums.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources\AnnotationsErrorMessages.Designer.cs">
-      <DependentUpon>AnnotationsErrorMessages.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\AnnotationsErrorMessages.resx">
-      <LastGenOutput>AnnotationsErrorMessages.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

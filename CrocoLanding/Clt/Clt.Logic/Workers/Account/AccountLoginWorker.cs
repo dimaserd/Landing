@@ -2,24 +2,21 @@
 using System.Threading.Tasks;
 using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
-using CrocoShop.Logic.Extensions;
 using Clt.Contract.Models.Account;
-using CrocoShop.Logic.Workers.Base;
-using Clt.Logic.Workers.Users;
 using Clt.Logic.Models.Account;
 using Clt.Logic.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Clt.Contract.Models.Common;
-using Cmn.Enums;
-using CrocoShop.Logic.Settings.Statics;
-using CrocoShop.Logic.Settings;
-using CrocoShop.Model.Entities.Clt.Default;
-using CrocoShop.Model.Entities.Clt;
+using CrocoLanding.Model.Entities.Clt.Default;
+using Croco.Core.Logic.Workers;
+using CrocoLanding.Model.Entities.Clt;
+using CrocoLanding.Logic.Settings.Statics;
+using Clt.Logic.Settings;
+using Clt.Logic.Workers.Users;
 
 namespace Clt.Logic.Workers.Account
 {
-    public class AccountLoginWorker : BaseWorker
+    public class AccountLoginWorker : BaseCrocoWorker
     {
         public async Task<BaseApiResponse<LoginResultModel>> LoginAsync(LoginModel model, SignInManager<ApplicationUser> signInManager)
         {
@@ -128,32 +125,6 @@ namespace Clt.Logic.Workers.Account
             }
 
             return await LoginAsync(LoginModel.GetModel(model, user.Email), signInManager);
-        }
-
-        public async Task<BaseApiResponse> LoginAsUserAsync(UserIdModel model, SignInManager<ApplicationUser> signInManager)
-        {
-            var validation = ValidateModel(model);
-
-            if (!validation.IsSucceeded)
-            {
-                return validation;
-            }
-            
-            if(!User.HasRight(UserRight.Root))
-            {
-                return new BaseApiResponse(false, "У вас недостаточно прав для логинирования за другого пользователя");
-            }
-
-            var user = await signInManager.UserManager.FindByIdAsync(model.Id);
-
-            if(user == null)
-            {
-                return new BaseApiResponse(false, "Пользователь не найден по укаанному идентификатору");
-            }
-
-            await signInManager.SignInAsync(user, true);
-
-            return new BaseApiResponse(true, $"Вы залогинены как {user.Email}");
         }
 
         /// <summary>

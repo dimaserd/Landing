@@ -1,8 +1,7 @@
 ﻿using Croco.Core.Data.Implementations.DbAudit.Models;
-using Croco.Core.EventSourcing.Implementations.StatusLog.Models;
-using Croco.Core.Model.Entities;
 using Croco.Core.Model.Entities.Store;
 using CrocoLanding.Model.Abstractions;
+using CrocoLanding.Model.Entities.Clt;
 using CrocoLanding.Model.Entities.Ecc;
 using Ecc.Model.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -31,23 +30,7 @@ namespace CrocoLanding.Model.Contexts
 
         public DbSet<CallBackRequest> CallBackRequests { get; set; }
 
-        #region Store
-
-        public DbSet<AuditLog> AuditLogs { get; set; }
-
-        public DbSet<IntegrationMessageLog> IntegrationMessageLogs { get; set; }
-
-        public DbSet<IntegrationMessageStatusLog> IntegrationMessageStatusLogs { get; set; }
-
-        public DbSet<LoggedApplicationAction> LoggedApplicationActions { get; set; }
-
-        public DbSet<LoggedUserInterfaceAction> LoggedUserInterfaceActions { get; set; }
-
-        public DbSet<RobotTask> RobotTasks { get; set; }
-
-        public DbSet<WebAppRequestContextLog> WebAppRequestContextLogs { get; set; }
-
-        #endregion
+        public DbSet<Client> Clients { get; set; }
 
         public static LandingDbContext Create(IConfiguration configuration)
         {

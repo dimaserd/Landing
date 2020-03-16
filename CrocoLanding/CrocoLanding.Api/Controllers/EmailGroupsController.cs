@@ -4,11 +4,9 @@ using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Contract.Models.EmailGroup;
-using Ecc.Implementation.TaskGivers;
+using Ecc.Implementation.Services;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Emails;
-using Hangfire;
-using Hangfire.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -37,27 +35,16 @@ namespace CrocoLanding.Api.Controllers
 
         EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
 
-        EmailGroupSender EmailGroupSender => new EmailGroupSender(AmbientContext, UrlProvider);
-
         public IEccPixelUrlProvider UrlProvider { get; }
-
-        [HttpPost("Test")]
-        public BaseApiResponse Test(string jobId, string cronExpression)
-        {
-            var manager = new RecurringJobManager();
-
-            manager.AddOrUpdate(jobId, Job.FromExpression<SendEmailTaskGiver>(t => t.GetTask()), cronExpression);
-
-            BackgroundJob.Enqueue<SendEmailTaskGiver>(taskGiver => taskGiver.GetTask());
-
-            return new BaseApiResponse(true, "Ok");
-        }
 
         [HttpPost("Send")]
         public Task<BaseApiResponse> Send(SendMailsForEmailGroup model)
         {
             return Sender.StartEmailDistributionForGroup(model);
         }
+
+        [HttpPost("AppendEmails")]
+        public Task<BaseApiResponse> AppendEmails([FromBody]AppendEmailsFromFileToGroup model) => EmailGroupFromFileCreator.ApppendEmailsToGroup(model);
 
         /// <summary>
         /// Создать группу эмейлов из файла
@@ -93,8 +80,5 @@ namespace CrocoLanding.Api.Controllers
         /// <returns></returns>
         [HttpPost("AddEmail")]
         public Task<BaseApiResponse> AddEmailToGroup([FromBody]AddEmailToEmailGroup model) => EmailGroupWorker.AddEmailToGroup(model);
-
-        [HttpPost("Send")]
-        public Task<BaseApiResponse> SendByGroup([FromBody]SendMailsForEmailGroup model) => EmailGroupSender.StartEmailDistributionForGroup(model);
     }
 }

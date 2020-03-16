@@ -43,9 +43,9 @@ namespace Ecc.Logic.Workers.Emails
                 return new BaseApiResponse(emailsResult);
             }
 
-            var emailsInGroup = emailGroup.Emails.Select(x => x.Email).ToList();
+            var emailsInGroup = emailGroup.Emails.Select(x => x.Email).ToDictionary(x => x);
 
-            var emailsToAddToGroup = emailsResult.ResponseObject.Where(x => !emailsInGroup.Contains(x)).Select(x => new EmailInEmailGroupRelation
+            var emailsToAddToGroup = emailsResult.ResponseObject.Where(x => !emailsInGroup.ContainsKey(x)).Select(x => new EmailInEmailGroupRelation
             {
                 EmailGroupId = model.EmailGroupId,
                 Email = x,

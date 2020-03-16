@@ -79,19 +79,13 @@ namespace CrocoLanding.Api.Controllers
         [HttpPost("SendEmailViaTemplate")]
         public Task<BaseApiResponse> SendEmailViaTemplate([FromBody]SendMailMessageViaHtmlTemplate model) => EmailSender.SendEmailViaTemplate(model);
 
-        /// <summary>
-        /// Отправить email через шаблон
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        [HttpPost("SendEmailViaTemplate/ToAddress")]
-        public Task<BaseApiResponse> SendEmailViaTemplateToAddress(string email)
+        public static SendMailMessageViaHtmlTemplate GetTestModel(string email)
         {
             var app = CrocoApp.Application.As<LandingWebApplication>();
 
             var dirName = "MailTemplates";
 
-            return EmailSender.SendEmailViaTemplate(new SendMailMessageViaHtmlTemplate
+            return new SendMailMessageViaHtmlTemplate
             {
                 Email = email,
                 AttachmentFileIds = null,
@@ -105,7 +99,18 @@ namespace CrocoLanding.Api.Controllers
                 },
                 Subject = "Предложение о сотрудничестве от CrocoSoft",
                 TemplateFilePath = $"/{dirName}/MyTemplate.html"
-            });
+            };
+        }
+
+        /// <summary>
+        /// Отправить email через шаблон
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpPost("SendEmailViaTemplate/ToAddress")]
+        public Task<BaseApiResponse> SendEmailViaTemplateToAddress(string email)
+        {
+            return EmailSender.SendEmailViaTemplate(GetTestModel(email));
         }
 
         private Task<BaseApiResponse> SendCallBackRequestInnner(CreateCallBackApiModel model, string ip)

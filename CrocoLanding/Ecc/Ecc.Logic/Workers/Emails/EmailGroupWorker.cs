@@ -56,7 +56,7 @@ namespace Ecc.Logic.Workers.Emails
             return await TrySaveChangesAndReturnResultAsync("Группа эмейлов создана", id);
         }
 
-        public async Task<BaseApiResponse> AddEmailToGroup(AddEmailToEmailGroup model)
+        public async Task<BaseApiResponse> AddEmailsToGroup(AddEmailsToEmailGroup model)
         {
             var validation = ValidateModelAndUserIsAdmin(model);
 
@@ -65,25 +65,25 @@ namespace Ecc.Logic.Workers.Emails
                 return validation;
             }
 
-            if(!await Query<EmailGroup>().AnyAsync(x => x.Id == model.EmailGroupId))
+            var emailGroup = await Query<EmailGroup>().Include(x => x.Emails).FirstOrDefaultAsync(x => x.Id == model.EmailGroupId);
+
+            if (emailGroup == null)
             {
                 return new BaseApiResponse(false, "Группа для эмелов не найдена по указанному идентификатору");
             }
 
-            var repo = GetRepository<EmailInEmailGroupRelation>();
+            var emailsInGroup = emailGroup.Emails.Select(x => x.Email).ToDictionary(x => x);
 
-            if (await repo.Query().AnyAsync(x => x.EmailGroupId == model.EmailGroupId && x.Email == model.Email))
+            var emailsToAdd = model.Emails.Where(x => !emailsInGroup.ContainsKey(x)).Select(x => new EmailInEmailGroupRelation
             {
-                return new BaseApiResponse(false, "Эмейл уже добавлен к данной группе");
-            }
+                Id = Guid.NewGuid().ToString(),
+                EmailGroupId = emailGroup.Id,
+                Email = x
+            }).ToList();
 
-            repo.CreateHandled(new EmailInEmailGroupRelation
-            {
-                Email = model.Email,
-                EmailGroupId = model.EmailGroupId
-            });
+            CreateHandled(emailsToAdd);
 
-            return await TrySaveChangesAndReturnResultAsync("Email добавлен в группу");
+            return await TrySaveChangesAndReturnResultAsync("Электронные адреса добавлены в группу");
         }
     }
 }

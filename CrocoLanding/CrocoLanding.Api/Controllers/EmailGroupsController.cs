@@ -6,6 +6,7 @@ using CrocoLanding.Model.Contexts;
 using Ecc.Contract.Models.EmailGroup;
 using Ecc.Implementation.Services;
 using Ecc.Logic.Abstractions;
+using Ecc.Logic.Extensions;
 using Ecc.Logic.Workers.Emails;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -24,9 +25,11 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="context"></param>
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
-        public EmailGroupsController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IEccPixelUrlProvider urlProvider) : base(context, signInManager, userManager, null)
+        public EmailGroupsController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, 
+            IEccPixelUrlProvider urlProvider, IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, null)
         {
             UrlProvider = urlProvider;
+            FilePathMapper = filePathMapper;
         }
 
         EmailGroupSender Sender => new EmailGroupSender(SystemAmbientContext, UrlProvider);
@@ -36,11 +39,36 @@ namespace CrocoLanding.Api.Controllers
         EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
 
         public IEccPixelUrlProvider UrlProvider { get; }
+        public IEccFilePathMapper FilePathMapper { get; }
 
         [HttpPost("Send")]
         public Task<BaseApiResponse> Send(SendMailsForEmailGroup model)
         {
             return Sender.StartEmailDistributionForGroup(model);
+        }
+
+        [HttpPost("Send/ViaTemplate")]
+        public async Task<BaseApiResponse> SendViaTemplate(string emailGroupId, int? count = 50, int offSet = 0)
+        {
+            var testModel = EccController.GetTestModel("somemail@mail.com");
+
+            var nModel = testModel.ToSendEmailModel(FilePathMapper);
+
+            if(!nModel.IsSucceeded)
+            {
+                return nModel;
+            }
+
+            var m = nModel.ResponseObject;
+
+            return await Sender.StartEmailDistributionForGroup(new SendMailsForEmailGroup 
+            {
+                Body = m.Body,
+                Subject = m.Subject,
+                Count = count,
+                EmailGroupId = emailGroupId,
+                OffSet = offSet
+            });
         }
 
         [HttpPost("AppendEmails")]
@@ -78,7 +106,7 @@ namespace CrocoLanding.Api.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("AddEmail")]
-        public Task<BaseApiResponse> AddEmailToGroup([FromBody]AddEmailToEmailGroup model) => EmailGroupWorker.AddEmailToGroup(model);
+        [HttpPost("AddEmails")]
+        public Task<BaseApiResponse> AddEmailToGroup([FromBody]AddEmailsToEmailGroup model) => EmailGroupWorker.AddEmailsToGroup(model);
     }
 }

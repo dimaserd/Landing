@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CrocoLanding.Api.Controllers
 {
+    [Route("api/[controller]"), ApiController]
     public class ScheduleController : BaseApiController
     {
         public ScheduleController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)

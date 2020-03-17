@@ -29,6 +29,27 @@ namespace Ecc.Logic.Workers.Emails
             return GetListResult<EmailGroupModel>.GetAsync(model, Query<EmailGroup>().OrderByDescending(x => x.CreatedOn), SelectExpression);
         }
 
+
+        public async Task<BaseApiResponse> RemoveGroup(string id)
+        {
+            if (!IsUserAdmin())
+            {
+                return new BaseApiResponse(false, "У вас недостаточно прав");
+            }
+
+            var emailGroup = await Query<EmailGroup>().Include(x => x.Emails).FirstOrDefaultAsync(x => x.Id == id);
+            
+            if(emailGroup == null)
+            {
+                return new BaseApiResponse(false, "Группа не найдена по указанному идентификатору");
+            }
+
+            DeleteHandled(emailGroup.Emails.ToList());
+            DeleteHandled(emailGroup);
+
+            return await TrySaveChangesAndReturnResultAsync("Группа для эмелов удалена");
+        }
+
         public async Task<BaseApiResponse<string>> CreateGroup(CreateEmailGroup model)
         {
             var validation = ValidateModelAndUserIsAdmin(model);

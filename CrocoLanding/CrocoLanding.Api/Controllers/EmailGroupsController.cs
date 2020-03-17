@@ -16,7 +16,7 @@ namespace CrocoLanding.Api.Controllers
     /// <summary>
     /// Группы для эмейлов
     /// </summary>
-    [Route("Api/EmailGroup")]
+    [Route("api/[controller]"), ApiController]
     public class EmailGroupsController : BaseApiController
     {
         /// <summary>
@@ -45,6 +45,12 @@ namespace CrocoLanding.Api.Controllers
         public Task<BaseApiResponse> Send(SendMailsForEmailGroup model)
         {
             return Sender.StartEmailDistributionForGroup(model);
+        }
+
+        [HttpPost("Remove")]
+        public Task<BaseApiResponse> RemoveGroup(string id)
+        {
+            return EmailGroupWorker.RemoveGroup(id);
         }
 
         [HttpPost("Send/ViaTemplate")]

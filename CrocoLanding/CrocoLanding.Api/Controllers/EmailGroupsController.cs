@@ -32,11 +32,11 @@ namespace CrocoLanding.Api.Controllers
             FilePathMapper = filePathMapper;
         }
 
-        EmailGroupSender Sender => new EmailGroupSender(SystemAmbientContext, UrlProvider);
+        EmailGroupSender Sender => new EmailGroupSender(AmbientContext, UrlProvider);
 
-        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(SystemAmbientContext);
+        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
 
-        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
+        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, new AppEccEmailListExtractor());
 
         public IEccPixelUrlProvider UrlProvider { get; }
         public IEccFilePathMapper FilePathMapper { get; }

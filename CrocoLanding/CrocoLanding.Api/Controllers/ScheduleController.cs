@@ -31,7 +31,6 @@ namespace CrocoLanding.Api.Controllers
         [HttpPost(nameof(ActivateJobs))]
         public BaseApiResponse ActivateJobs(string password)
         {
-
             if (password != ApiConsts.Password)
             {
                 return new BaseApiResponse(false, "Пароль указан неверно");

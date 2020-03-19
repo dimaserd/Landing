@@ -26,19 +26,17 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
         public EmailGroupsController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, 
-            IEccPixelUrlProvider urlProvider, IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, null)
+            IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, null)
         {
-            UrlProvider = urlProvider;
             FilePathMapper = filePathMapper;
         }
 
-        EmailGroupSender Sender => new EmailGroupSender(AmbientContext, UrlProvider);
+        EmailGroupSender Sender => new EmailGroupSender(AmbientContext);
 
         EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
 
         EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, new AppEccEmailListExtractor());
 
-        public IEccPixelUrlProvider UrlProvider { get; }
         public IEccFilePathMapper FilePathMapper { get; }
 
         [HttpPost("Send")]

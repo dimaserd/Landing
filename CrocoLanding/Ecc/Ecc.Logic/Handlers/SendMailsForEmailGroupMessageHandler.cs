@@ -7,6 +7,7 @@ using Ecc.Logic.Abstractions;
 using Ecc.Logic.Core.Workers;
 using Ecc.Model.Entities.Email;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,7 +45,7 @@ namespace Ecc.Logic.Handlers
 
             if (!eamilsInGroupSafeValue.IsSucceeded)
             {
-                throw new System.Exception("Не удалось получить список эмейлов из группы");
+                throw new Exception("Не удалось получить список эмейлов из группы");
             }
 
             var emails = eamilsInGroupSafeValue.Value;

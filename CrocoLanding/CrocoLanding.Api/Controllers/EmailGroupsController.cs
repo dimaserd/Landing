@@ -80,15 +80,6 @@ namespace CrocoLanding.Api.Controllers
         [HttpPost("AppendEmails")]
         public Task<BaseApiResponse> AppendEmails([FromBody]AppendEmailsFromFileToGroup model) => EmailGroupFromFileCreator.ApppendEmailsToGroup(model);
 
-        /// <summary>
-        /// Создать группу эмейлов из файла
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost("CreateGroupFromFile")]
-        public Task<BaseApiResponse> CreateGroupFromFile([FromBody]CreateEmailGroupFromFile model)
-            => EmailGroupFromFileCreator.CreateEmailGroupFromFile(model);
-
 
         /// <summary>
         /// Получить группы

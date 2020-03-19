@@ -8,6 +8,7 @@ namespace Ecc.Logic
     {
         public static void AddMessageHandlers(ICrocoApplicationOptions applicationOptions)
         {
+            applicationOptions.EventSourceOptions.AddMessageHandler<AppendEmailsFromFileToGroup, AppendEmailsFromFileToGroupMessageHandler>();
             applicationOptions.EventSourceOptions.AddMessageHandler<SendMailsForEmailGroup, SendMailsForEmailGroupMessageHandler>();
         }
     }

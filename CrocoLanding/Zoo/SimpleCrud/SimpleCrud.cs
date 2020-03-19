@@ -24,7 +24,5 @@ namespace Zoo.SimpleCrud
         {
             return GetListResult<TModel>.GetAsync(model, Query<TEntity>().OrderBy(x => x.Id), SelectExpression);
         }
-
-
     }
 }

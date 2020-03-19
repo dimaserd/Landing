@@ -39,12 +39,10 @@ namespace Ecc.Implementation.Services
 
             var logger = CrocoApp.Application.LoggerProvider.GetLogger(Guid.NewGuid().ToString());
 
-            var str = response.Body.ReadAsStringAsync();
-
             logger.LogInfo($"{nameof(SendGridEmailSender)}.{nameof(Execute)}.", "Ответ от запроса к SendGridEmailSender",
-                new LogNode("Model", model), new LogNode("Response", str), new LogNode("ResponseStatusCode", response.StatusCode));
+                new LogNode("Model", model), new LogNode("ResponseStatusCode", response.StatusCode));
 
-            return (model, new BaseApiResponse(response.StatusCode == System.Net.HttpStatusCode.OK, response.StatusCode.ToString()));
+            return (model, new BaseApiResponse(response.StatusCode == System.Net.HttpStatusCode.Accepted, response.StatusCode.ToString()));
         }
 
         public async Task<List<(TModel, BaseApiResponse)>> SendEmails<TModel>(IEnumerable<TModel> messages, Func<TModel, SendEmailModel> mapper)

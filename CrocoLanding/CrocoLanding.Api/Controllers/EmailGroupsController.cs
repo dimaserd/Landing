@@ -4,7 +4,6 @@ using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Contract.Models.EmailGroup;
-using Ecc.Implementation.Services;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Extensions;
 using Ecc.Logic.Workers.Emails;
@@ -19,6 +18,10 @@ namespace CrocoLanding.Api.Controllers
     [Route("api/[controller]"), ApiController]
     public class EmailGroupsController : BaseApiController
     {
+        IEccFilePathMapper FilePathMapper { get; }
+        IEccFileEmailsExtractor FileEmailsExtractor { get; }
+
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -26,18 +29,17 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
         public EmailGroupsController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, 
-            IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, null)
+            IEccFilePathMapper filePathMapper, IEccFileEmailsExtractor fileEmailsExtractor) : base(context, signInManager, userManager, null)
         {
             FilePathMapper = filePathMapper;
+            FileEmailsExtractor = fileEmailsExtractor;
         }
 
         EmailGroupSender Sender => new EmailGroupSender(AmbientContext);
 
         EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
 
-        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, new AppEccEmailListExtractor());
-
-        public IEccFilePathMapper FilePathMapper { get; }
+        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, FileEmailsExtractor);
 
         [HttpPost("Send")]
         public Task<BaseApiResponse> Send(SendMailsForEmailGroup model)

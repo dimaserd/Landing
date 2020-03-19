@@ -109,6 +109,11 @@ namespace CrocoLanding.CrocoStuff
                 .AddHangfireEventSourcerAndJobManager(new CrocoServiceRegistrator(services))
                 .AddDelayedApplicationLogger(LogAction);
 
+            foreach(var buildAction in BuildActions)
+            {
+                buildAction(baseOptions);
+            }
+
             var options = new CrocoWebApplicationOptions()
             {
                 ApplicationUrl = "https://crocosoft.ru",
@@ -130,6 +135,7 @@ namespace CrocoLanding.CrocoStuff
 
             services.AddTransient<IEccFileService, AppEccFileService>();
             services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
+            services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
 
             services.AddSingleton<ICrocoApplication>(application);
         }

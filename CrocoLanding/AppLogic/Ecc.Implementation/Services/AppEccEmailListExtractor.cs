@@ -1,5 +1,5 @@
-﻿using Croco.Core.Abstractions.Models;
-using Croco.Core.Application;
+﻿using Croco.Core.Abstractions.Application;
+using Croco.Core.Abstractions.Models;
 using Croco.Core.Utils;
 using Ecc.Logic.Abstractions;
 using System.Collections.Generic;
@@ -10,7 +10,14 @@ namespace Ecc.Implementation.Services
 {
     public class AppEccEmailListExtractor : IEccFileEmailsExtractor
     {
-        static string MapPath(string filePath) => CrocoApp.Application.MapPath(filePath);
+        public AppEccEmailListExtractor(ICrocoApplication app)
+        {
+            App = app;
+        }
+
+        ICrocoApplication App { get; }
+
+        string MapPath(string filePath) => App.MapPath(filePath);
 
         public async Task<BaseApiResponse<List<string>>> ExtractEmailsListFromFile(string filePath)
         {

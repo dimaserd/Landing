@@ -9,6 +9,7 @@ using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Clt.Default;
 using Ecc.Implementation;
 using Ecc.Implementation.Services;
+using Ecc.Logic;
 using Ecc.Logic.Abstractions;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
@@ -41,6 +42,10 @@ namespace CrocoLanding
             {
                 Configuration = configuration,
                 Env = env,
+                BuildActions = new List<Action<ICrocoApplicationOptions>>
+                {
+                    EccLogicRegistrator.AddMessageHandlers
+                },
                 ApplicationActions = new List<Action<ICrocoApplication>>
                 {
                     EccServiceRegistrator.AddJobs,

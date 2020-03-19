@@ -16,7 +16,7 @@ namespace CrocoLanding.Implementations
 
             return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(ctx =>
             {
-                ctx.Logger.LogException(ex);
+                ctx.Logger.LogException("ApplicationLoggerManager.LogExceptionAsync", ex);
 
                 return Task.CompletedTask;
             });

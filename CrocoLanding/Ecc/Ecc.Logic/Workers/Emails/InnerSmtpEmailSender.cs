@@ -48,7 +48,7 @@ namespace Ecc.Logic.Workers.Emails
             }
             catch (Exception ex)
             {                
-                Logger.LogException(ex);
+                Logger.LogException("InnerSmtpEmailSender.SendEmailsInner.OnException", ex);
                 Logger.LogWarn("InnerSmtpEmailSender.SendEmails.BeforeError", "Произошла ошибка при инициализации SmtpClient при отправке email",
                     new LogNode("EmailSettings", EmailSettings));
 
@@ -86,7 +86,7 @@ namespace Ecc.Logic.Workers.Emails
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogException(ex);
+                    Logger.LogException("InnerSmtpEmailSender.SendSingleEmail.Exception", ex);
                     Logger.LogWarn("InnerSmtpEmailSender.SendSingleEmail.Exception", "Произошла ошибка при отправке emzil сообщения через SmtpClient",
                     new LogNode("EmailSettings", EmailSettings), new LogNode("EmailModel", emailModel));
                     return new BaseApiResponse(ex);

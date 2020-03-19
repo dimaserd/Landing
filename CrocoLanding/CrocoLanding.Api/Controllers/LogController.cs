@@ -18,7 +18,7 @@ namespace CrocoLanding.Api.Controllers
     /// <summary>
     /// Контроллер предоставляющий методы логгирования
     /// </summary>
-    [Route("Api/Log")]
+    [Route("api/[controller]"), ApiController]
     public class LogController : BaseApiController
     {
         public LogController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
@@ -37,7 +37,7 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("ServerExceptions")]
-        public Task<GetListResult<LoggedServerException>> GetServerExceptions(SearchServerActions model)
+        public Task<GetListResult<LoggedServerException>> GetServerExceptions([FromBody]SearchServerActions model)
         {
             return ExceptionWorker.GetServerExceptionsAsync(model);
         }
@@ -48,7 +48,7 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("ServerLogs")]
-        public Task<GetListResult<ServerLog>> GetServerLogs(SearchServerActions model) => LogsSearcher.GetServerLogsAsync(model);
+        public Task<GetListResult<ServerLog>> GetServerLogs([FromBody]SearchServerActions model) => LogsSearcher.GetServerLogsAsync(model);
 
         /// <summary>
         /// Залогировать исключения

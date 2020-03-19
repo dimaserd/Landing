@@ -25,7 +25,7 @@ namespace Ecc.Logic.Workers.IntegratedApps
         
         private BaseApiResponse RaiseAndReturnException(Exception ex)
         {
-            Logger.LogException(ex);
+            Logger.LogException("IntegratedAppWorker.OnException", ex);
 
             return new BaseApiResponse(false, ex.Message);
         }
@@ -282,7 +282,7 @@ namespace Ecc.Logic.Workers.IntegratedApps
             }
             catch (Exception error)
             {
-                Logger.LogException(error);
+                Logger.LogException("IntegratedAppWorker.GetSendNotificationTaskForIosApp.OnException", error);
             }
         }
     }

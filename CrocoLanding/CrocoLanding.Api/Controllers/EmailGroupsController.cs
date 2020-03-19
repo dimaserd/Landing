@@ -16,7 +16,7 @@ namespace CrocoLanding.Api.Controllers
     /// <summary>
     /// Группы для эмейлов
     /// </summary>
-    [Route("Api/EmailGroup")]
+    [Route("api/[controller]"), ApiController]
     public class EmailGroupsController : BaseApiController
     {
         /// <summary>
@@ -32,11 +32,11 @@ namespace CrocoLanding.Api.Controllers
             FilePathMapper = filePathMapper;
         }
 
-        EmailGroupSender Sender => new EmailGroupSender(SystemAmbientContext, UrlProvider);
+        EmailGroupSender Sender => new EmailGroupSender(AmbientContext, UrlProvider);
 
-        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(SystemAmbientContext);
+        EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
 
-        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(SystemAmbientContext, new AppEccEmailListExtractor());
+        EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, new AppEccEmailListExtractor());
 
         public IEccPixelUrlProvider UrlProvider { get; }
         public IEccFilePathMapper FilePathMapper { get; }
@@ -45,6 +45,12 @@ namespace CrocoLanding.Api.Controllers
         public Task<BaseApiResponse> Send(SendMailsForEmailGroup model)
         {
             return Sender.StartEmailDistributionForGroup(model);
+        }
+
+        [HttpPost("Remove")]
+        public Task<BaseApiResponse> RemoveGroup(string id)
+        {
+            return EmailGroupWorker.RemoveGroup(id);
         }
 
         [HttpPost("Send/ViaTemplate")]

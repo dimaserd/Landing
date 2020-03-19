@@ -45,7 +45,7 @@ namespace Clt.Logic.Workers.Account
             {
                 if(user != null && client == null)
                 {
-                    Logger.LogException(new Exception($"There is user without client {user.Id}"));
+                    Logger.LogException("AccountLoginWorker.LoginAsync.Exception", new Exception($"There is user without client {user.Id}"));
                 }
 
                 return new BaseApiResponse<LoginResultModel>(false, "Неудачная попытка входа", new LoginResultModel { Result = LoginResult.UnSuccessfulAttempt });
@@ -93,7 +93,7 @@ namespace Clt.Logic.Workers.Account
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex);
+                Logger.LogException("ExceptionOccured", ex);
 
                 return new BaseApiResponse<LoginResultModel>(false, ex.Message);
             }

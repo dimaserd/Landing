@@ -1,4 +1,6 @@
 ﻿using Croco.Core.Abstractions.Models;
+using Croco.Core.Abstractions.Models.Log;
+using Croco.Core.Application;
 using Ecc.Contract.Models.Emails;
 using Ecc.Implementation.Settings;
 using Ecc.Logic.Abstractions;
@@ -34,6 +36,13 @@ namespace Ecc.Implementation.Services
             var msg = MailHelper.CreateSingleEmail(from, to, mappedModel.Subject, mappedModel.Body, mappedModel.Body);
 
             var response = await Client.SendEmailAsync(msg);
+
+            var logger = CrocoApp.Application.LoggerProvider.GetLogger(Guid.NewGuid().ToString());
+
+            var str = response.Body.ReadAsStringAsync();
+
+            logger.LogInfo($"{nameof(SendGridEmailSender)}.{nameof(Execute)}.", "Ответ от запроса к SendGridEmailSender",
+                new LogNode("Model", model), new LogNode("Response", str), new LogNode("ResponseStatusCode", response.StatusCode));
 
             return (model, new BaseApiResponse(response.StatusCode == System.Net.HttpStatusCode.OK, response.StatusCode.ToString()));
         }

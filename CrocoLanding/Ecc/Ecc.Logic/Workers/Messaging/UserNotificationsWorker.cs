@@ -91,16 +91,11 @@ namespace Ecc.Logic.Workers.Messaging
                 .FirstOrDefaultAsync(x => x.UserId == UserId);
         }
 
-        public async Task<BaseApiResponse> MarkNotificationAsReadAsync(NotificationIdModel model)
+        public async Task<BaseApiResponse> MarkNotificationAsReadAsync(string id)
         {
-            if (model == null)
-            {
-                return new BaseApiResponse(false, "Вы подали пустую модель");
-            }
-
             var repo = GetRepository<UserNotificationInteraction>();
 
-            var notification = await repo.Query().FirstOrDefaultAsync(x => x.UserId == UserId && x.Id == model.Id);
+            var notification = await repo.Query().FirstOrDefaultAsync(x => x.UserId == UserId && x.Id == id);
 
             if (notification == null)
             {

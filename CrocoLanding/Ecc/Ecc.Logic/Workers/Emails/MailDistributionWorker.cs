@@ -10,6 +10,7 @@ using Ecc.Logic.Models.Messaging;
 using Ecc.Model.Entities.Ecc.Messaging;
 using Ecc.Model.Entities.External;
 using Ecc.Logic.Workers.Base;
+using Ecc.Logic.Resources;
 
 namespace Ecc.Logic.Workers.Emails
 {
@@ -98,20 +99,18 @@ namespace Ecc.Logic.Workers.Emails
             return await TrySaveChangesAndReturnResultAsync("Группа пользователей удалена из рассылки");
         }
 
-        public async Task<BaseApiResponse> RemoveMailDistributionAsync(MailDistributionIdModel model)
+        public async Task<BaseApiResponse> RemoveMailDistributionAsync(string id)
         {
-            var validation = ValidateModelAndUserIsAdmin(model);
-
-            if (!validation.IsSucceeded)
+            if (!IsUserAdmin())
             {
-                return validation;
+                return new BaseApiResponse(false, ValidationMessages.YouAreNotAnAdministrator);
             }
 
             var repo = GetRepository<MailDistribution>();
 
             var elem = await repo.Query()
                 .Include(x => x.UserGroups)
-                .FirstOrDefaultAsync(x => x.Id == model.Id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (elem == null)
             {

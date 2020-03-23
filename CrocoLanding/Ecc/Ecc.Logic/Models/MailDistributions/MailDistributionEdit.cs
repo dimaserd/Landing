@@ -2,8 +2,10 @@
 
 namespace Ecc.Logic.Models.MailDistributions
 {
-    public class MailDistributionEdit : MailDistributionIdModel
+    public class MailDistributionEdit
     {
+        public string Id { get; set; }
+
         [Required(ErrorMessage = "Название рассылки не может быть пустым")]
         public string Name { get; set; }
 

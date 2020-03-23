@@ -42,7 +42,6 @@ namespace Ecc.Logic.Handlers
                 return initQuery.Select(x => x.Email).ToListAsync();
             });
                 
-
             if (!eamilsInGroupSafeValue.IsSucceeded)
             {
                 throw new Exception("Не удалось получить список эмейлов из группы");

@@ -5,8 +5,13 @@ using Ecc.Model.Enumerations;
 
 namespace Ecc.Logic.Models.Notifications
 {
-    public class NotificationModel : NotificationIdModel
+    public class NotificationModel
     {
+        /// <summary>
+        /// Идентификатор уведомления
+        /// </summary>
+        public string Id { get; set; }
+
         public string Title { get; set; }
 
         public string Text { get; set; }

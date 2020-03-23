@@ -2,6 +2,7 @@
 using Ecc.Model.Entities.Chats;
 using Ecc.Model.Entities.Email;
 using Ecc.Model.Entities.IntegratedApps;
+using Ecc.Model.Entities.LinkCatch;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrocoLanding.Model.Contexts
@@ -31,5 +32,8 @@ namespace CrocoLanding.Model.Contexts
         public DbSet<EccChatMessageAttachment> ChatMessageAttachments { get; set; }
         #endregion
 
+        public DbSet<EmailLinkCatch> EmailLinkCatches { get; set; }
+
+        public DbSet<EmailLinkCatchRedirect> EmailLinkCatchRedirects { get; set; }
     }
 }

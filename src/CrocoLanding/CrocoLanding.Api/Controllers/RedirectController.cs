@@ -15,6 +15,7 @@ namespace CrocoLanding.Api.Controllers
         {
         }
 
+        [HttpGet("To")]
         public async Task<IActionResult> To(string id)
         {
             var service = new RedirectToUrlService(AmbientContext);

@@ -1,34 +1,38 @@
 ﻿using Ecc.Model.Entities.Chats;
 using Ecc.Model.Entities.Email;
 using Ecc.Model.Entities.IntegratedApps;
+using Ecc.Model.Entities.LinkCatch;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecc.Model.Abstractions
 {
     public interface IEccDbContext
     {
-        public DbSet<IntegratedApp> IntegratedApps { get; set; }
+        DbSet<IntegratedApp> IntegratedApps { get; set; }
 
-        public DbSet<IntegratedAppUserSetting> IntegratedAppUserSettings { get; set; }
+        DbSet<IntegratedAppUserSetting> IntegratedAppUserSettings { get; set; }
 
-        public DbSet<EmailGroup> EmailGroups { get; set; }
+        DbSet<EmailGroup> EmailGroups { get; set; }
 
-        public DbSet<EmailInEmailGroupRelation> EmailInEmailGroupRelations { get; set; }
+        DbSet<EmailInEmailGroupRelation> EmailInEmailGroupRelations { get; set; }
 
         /// <summary>
         /// Шаблоны Email сообщений
         /// </summary>
-        public DbSet<EmailTemplate> EmailTemplates { get; set; }
+        DbSet<EmailTemplate> EmailTemplates { get; set; }
 
         #region Сообщения и чаты
-        public DbSet<EccChat> Chats { get; set; }
+        DbSet<EccChat> Chats { get; set; }
 
-        public DbSet<EccChatMessage> ChatMessages { get; set; }
+        DbSet<EccChatMessage> ChatMessages { get; set; }
 
-        public DbSet<EccChatUserRelation> ChatUserRelations { get; set; }
+        DbSet<EccChatUserRelation> ChatUserRelations { get; set; }
 
-        public DbSet<EccChatMessageAttachment> ChatMessageAttachments { get; set; }
+        DbSet<EccChatMessageAttachment> ChatMessageAttachments { get; set; }
         #endregion
 
+        DbSet<EmailLinkCatch> EmailLinkCatches { get; set; }
+
+        DbSet<EmailLinkCatchRedirect> EmailLinkCatchRedirects { get; set; }
     }
 }

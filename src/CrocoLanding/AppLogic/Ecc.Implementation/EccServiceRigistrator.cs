@@ -29,7 +29,7 @@ namespace Ecc.Implementation
             services.AddTransient<IEccFileService, AppEccFileService>();
             services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
             services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
-            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>();
+            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>(srv => new AppEccEmailLinkSubstitutor($"{applicationUrl}/Redirect/To/{{0}}"));
         }
     }
 }

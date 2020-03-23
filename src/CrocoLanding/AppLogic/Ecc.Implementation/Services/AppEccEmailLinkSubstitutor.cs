@@ -28,7 +28,9 @@ namespace Ecc.Implementation.Services
         {
             var list = new List<(string, string)>();
 
-            var matches = Regex.Matches(body, @"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
+            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            var matches = regex.Matches(body);
 
             foreach (Match item in matches)
             {

@@ -20,11 +20,11 @@ namespace Ecc.Logic.Workers.Emails
 {
     public class InnerSmtpEmailSender : BaseCrocoWorker, IEmailSender
     {
-        EmailSettingsModel EmailSettings { get; }
+        SmtpEmailSettingsModel EmailSettings { get; }
 
         List<EccFileData> Attachments { get; }
 
-        public InnerSmtpEmailSender(ICrocoAmbientContext ambientContext, EmailSettingsModel settings, List<EccFileData> attachments = null) : base(ambientContext)
+        public InnerSmtpEmailSender(ICrocoAmbientContext ambientContext, SmtpEmailSettingsModel settings, List<EccFileData> attachments = null) : base(ambientContext)
         {
             Attachments = attachments ?? new List<EccFileData>();
             EmailSettings = settings;

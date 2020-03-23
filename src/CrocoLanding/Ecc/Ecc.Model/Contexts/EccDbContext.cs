@@ -4,6 +4,7 @@ using Ecc.Model.Entities.Email;
 using Ecc.Model.Entities.External;
 using Ecc.Model.Entities.IntegratedApps;
 using Ecc.Model.Entities.Interactions;
+using Ecc.Model.Entities.LinkCatch;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecc.Model.Contexts
@@ -32,6 +33,10 @@ namespace Ecc.Model.Contexts
 
         public DbSet<EccChatMessageAttachment> ChatMessageAttachments { get; set; }
         #endregion
+
+        public DbSet<EmailLinkCatch> EmailLinkCatches { get; set; }
+
+        public DbSet<EmailLinkCatchRedirect> EmailLinkCatchRedirects { get; set; }
 
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {

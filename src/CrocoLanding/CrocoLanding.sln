@@ -27,15 +27,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecc.Model", "Ecc\Ecc.Model\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clt", "Clt", "{B4A7451E-088F-42A8-B6EB-E2AF2CCF65A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clt.Contract", "Clt\Clt.Contract\Clt.Contract.csproj", "{4703D8C6-6351-4165-BA29-F1900BEDB391}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clt.Contract", "Clt\Clt.Contract\Clt.Contract.csproj", "{4703D8C6-6351-4165-BA29-F1900BEDB391}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clt.Logic", "Clt\Clt.Logic\Clt.Logic.csproj", "{76EFD0BF-0ACE-41E6-A961-4F6F354EE8AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clt.Logic", "Clt\Clt.Logic\Clt.Logic.csproj", "{76EFD0BF-0ACE-41E6-A961-4F6F354EE8AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5E217082-7B64-45F6-98DB-9F9F483B33C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmn.Enums", "Common\Cmn.Enums\Cmn.Enums.csproj", "{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clt.Logic.Core", "Clt\Clt.Logic.Core\Clt.Logic.Core.csproj", "{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clt.Logic.Core", "Clt\Clt.Logic.Core\Clt.Logic.Core.csproj", "{5CCD3FBE-D840-4A4E-AA03-7E50CA4AAC09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

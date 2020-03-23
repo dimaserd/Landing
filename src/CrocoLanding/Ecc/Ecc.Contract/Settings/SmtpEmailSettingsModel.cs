@@ -1,6 +1,6 @@
 ﻿namespace Ecc.Contract.Settings
 {
-    public class EmailSettingsModel
+    public class SmtpEmailSettingsModel
     {
         public string FromAddress { get; set; }
         public bool IsBodyHtml { get; set; }
@@ -9,7 +9,7 @@
         public string UserName { get; set; }
         public string Password { get; set; }
 
-        public EmailSettingsModel()
+        public SmtpEmailSettingsModel()
         {
             FromAddress = "info@crocosoft.ru";
             IsBodyHtml = true;

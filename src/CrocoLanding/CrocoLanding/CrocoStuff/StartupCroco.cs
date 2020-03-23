@@ -12,9 +12,6 @@ using Croco.WebApplication.Application;
 using CrocoLanding.Implementations;
 using CrocoLanding.Logic;
 using CrocoLanding.Model.Contexts;
-using Ecc.Implementation.Services;
-using Ecc.Implementation.Settings;
-using Ecc.Logic.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -27,12 +24,14 @@ namespace CrocoLanding.CrocoStuff
 {
     public class StartupCroco
     {
-        public IConfiguration Configuration { get; }
-        public IWebHostEnvironment Env { get; }
+        IConfiguration Configuration { get; }
+        IWebHostEnvironment Env { get; }
 
-        public List<Action<ICrocoApplication>> ApplicationActions { get; }
+        List<Action<ICrocoApplication>> ApplicationActions { get; }
 
-        public List<Action<ICrocoApplicationOptions>> BuildActions { get; }
+        List<Action<ICrocoApplicationOptions>> BuildActions { get; }
+        List<Action<IServiceCollection>> ServiceRegistrations { get; }
+        string ApplicationUrl { get; }
 
         public StartupCroco(StartUpCrocoOptions options)
         {
@@ -40,6 +39,8 @@ namespace CrocoLanding.CrocoStuff
             Env = options.Env;
             ApplicationActions = options.ApplicationActions;
             BuildActions = options.BuildActions;
+            ServiceRegistrations = options.ServiceRegistrations;
+            ApplicationUrl = options.ApplicationUrl;
         }
 
         static readonly List<LoggedApplicationAction> Logs = new Lazy<List<LoggedApplicationAction>>().Value;
@@ -64,6 +65,9 @@ namespace CrocoLanding.CrocoStuff
 
         public void RegisterCrocoApplication(IServiceCollection services)
         {
+            //Регистрация сервисов
+            ServiceRegistrations.ForEach(x => x(services));
+
             var memCache = new MemoryCache(new MemoryCacheOptions());
 
             services.AddSingleton<IMemoryCache, MemoryCache>(s => memCache);
@@ -116,7 +120,7 @@ namespace CrocoLanding.CrocoStuff
 
             var options = new CrocoWebApplicationOptions()
             {
-                ApplicationUrl = "https://crocosoft.ru",
+                ApplicationUrl = ApplicationUrl,
                 CrocoOptions = baseOptions,
             };
 
@@ -124,18 +128,6 @@ namespace CrocoLanding.CrocoStuff
             {
                 IsDevelopment = Env.EnvironmentName == "Development"
             };
-
-            services.AddTransient<IEccPixelUrlProvider, AppEccPixelUrlProvider>(srv => new AppEccPixelUrlProvider(options.ApplicationUrl));
-            services.AddTransient<IEmailSenderProvider, AppEmailSenderProvider>(srv =>
-            {
-                var setting = srv.GetService<ICrocoApplication>().SettingsFactory.GetSetting<SendGridEmailSettings>();
-
-                return new AppEmailSenderProvider(setting);
-            });
-
-            services.AddTransient<IEccFileService, AppEccFileService>();
-            services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
-            services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
 
             services.AddSingleton<ICrocoApplication>(application);
         }

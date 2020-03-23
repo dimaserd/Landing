@@ -33,6 +33,8 @@ namespace CrocoLanding
 
         const string SpaPath = "wwwroot";
 
+        const string AppUrl = "https://crocosoft.ru";
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -48,6 +50,11 @@ namespace CrocoLanding
                 {
                     EccServiceRegistrator.AddJobs,
                 },
+                ServiceRegistrations = new List<Action<IServiceCollection>>
+                {
+                    srv => EccServiceRegistrator.ConfigureServices(srv, AppUrl)
+                },
+                ApplicationUrl = AppUrl
             });
         }
 

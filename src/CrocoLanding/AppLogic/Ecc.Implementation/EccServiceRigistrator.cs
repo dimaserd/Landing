@@ -1,6 +1,10 @@
 ﻿using Croco.Core.Abstractions.Application;
+using Ecc.Implementation.Services;
+using Ecc.Implementation.Settings;
 using Ecc.Implementation.TaskGivers;
+using Ecc.Logic.Abstractions;
 using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ecc.Implementation
 {
@@ -10,6 +14,22 @@ namespace Ecc.Implementation
         {
             application.JobManager.AddJob<SendEmailTaskGiverByCallBackRequest>(nameof(SendEmailTaskGiverByCallBackRequest), Cron.Minutely(), srv => srv.GetTask());
             application.JobManager.AddJob<SendEmailTaskGiver>(nameof(SendEmailTaskGiver), Cron.Minutely(), srv => srv.GetTask());
+        }
+
+        public static void ConfigureServices(IServiceCollection services, string applicationUrl)
+        {
+            services.AddTransient<IEccPixelUrlProvider, AppEccPixelUrlProvider>(srv => new AppEccPixelUrlProvider(applicationUrl));
+            services.AddTransient<IEmailSenderProvider, AppEmailSenderProvider>(srv =>
+            {
+                var setting = srv.GetService<ICrocoApplication>().SettingsFactory.GetSetting<SendGridEmailSettings>();
+
+                return new AppEmailSenderProvider(setting);
+            });
+
+            services.AddTransient<IEccFileService, AppEccFileService>();
+            services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
+            services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
+            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>();
         }
     }
 }

@@ -15,7 +15,7 @@ using CrocoLanding.Model.Entities.Clt.Default;
 using CrocoLanding.Logic.Settings.Statics;
 using CrocoLanding.Model.Entities.Clt;
 using CrocoLanding.Logic;
-using Clt.Logic.Settings;
+using Clt.Contract.Settings;
 
 namespace Clt.Logic.Workers.Account
 {
@@ -68,10 +68,6 @@ namespace Clt.Logic.Workers.Account
             return new BaseApiResponse(true, "Пользователь root создан");
         }
 
-        #region Методы изменения
-
-
-        #endregion
 
         #region Методы восстановления пароля
 

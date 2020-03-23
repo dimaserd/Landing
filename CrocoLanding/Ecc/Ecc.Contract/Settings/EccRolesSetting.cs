@@ -1,17 +1,12 @@
-﻿using Croco.Core.Abstractions.Settings;
-
-namespace Ecc.Contract.Settings
+﻿namespace Ecc.Contract.Settings
 {
-    public class EccRolesSetting : ICommonSetting<EccRolesSetting>
+    public class EccRolesSetting
     {
         public string AdminRoleName { get; set; }
 
-        public EccRolesSetting GetDefault()
+        public EccRolesSetting()
         {
-            return new EccRolesSetting
-            {
-                AdminRoleName = "Admin",
-            };
+            AdminRoleName = "Admin";
         }
     }
 }

@@ -1,20 +1,15 @@
-﻿using Croco.Core.Abstractions.Settings;
-
-namespace Clt.Contract.Settings
+﻿namespace Clt.Contract.Settings
 {
-    public class CltRolesSetting : ICommonSetting<CltRolesSetting>
+    public class CltRolesSetting
     {
         public string AdminRoleName { get; set; }
 
         public string RootRoleName { get; set; }
 
-        public CltRolesSetting GetDefault()
+        public CltRolesSetting()
         {
-            return new CltRolesSetting
-            {
-                AdminRoleName = "Admin",
-                RootRoleName = "Root"
-            };
+            AdminRoleName = "Admin";
+            RootRoleName = "Root";
         }
     }
 }

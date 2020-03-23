@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.94.2" />
     <PackageReference Include="NetCroco.Core.Documentation" Version="1.1.23" />
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.53" />
+    <PackageReference Include="NetCroco.WebApplication" Version="1.5.54" />
   </ItemGroup>
 
   <ItemGroup>

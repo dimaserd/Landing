@@ -1,9 +1,8 @@
-﻿using Croco.Core.Abstractions.Settings;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Clt.Contract.Settings
 {
-    public class AccountSettingsModel : ICommonSetting<AccountSettingsModel>
+    public class AccountSettingsModel
     {
         [Display(Name = "Разрешить авторизацию тем, кто не подтвердил почту")]
         public bool IsLoginEnabledForUsersWhoDidNotConfirmEmail { get; set; }
@@ -17,15 +16,12 @@ namespace Clt.Contract.Settings
         [Display(Name = "Тип подтверждения логина")]
         public ConfirmLoginType ConfirmLogin { get; set; }
 
-        public AccountSettingsModel GetDefault()
+        public AccountSettingsModel()
         {
-            return new AccountSettingsModel
-            {
-                IsLoginEnabledForUsersWhoDidNotConfirmEmail = true,
-                ShouldUsersConfirmEmail = false,
-                RegistrationEnabled = true,
-                ConfirmLogin = ConfirmLoginType.None
-            };
+            IsLoginEnabledForUsersWhoDidNotConfirmEmail = true;
+            ShouldUsersConfirmEmail = false;
+            RegistrationEnabled = true;
+            ConfirmLogin = ConfirmLoginType.None;
         }
 
         public enum ConfirmLoginType

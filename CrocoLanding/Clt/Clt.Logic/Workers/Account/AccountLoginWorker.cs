@@ -11,8 +11,8 @@ using CrocoLanding.Model.Entities.Clt.Default;
 using Croco.Core.Logic.Workers;
 using CrocoLanding.Model.Entities.Clt;
 using CrocoLanding.Logic.Settings.Statics;
-using Clt.Logic.Settings;
 using Clt.Logic.Workers.Users;
+using Clt.Contract.Settings;
 
 namespace Clt.Logic.Workers.Account
 {

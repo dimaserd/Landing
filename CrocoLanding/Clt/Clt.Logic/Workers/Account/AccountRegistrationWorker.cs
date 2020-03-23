@@ -13,10 +13,10 @@ using Clt.Contract.Models.Users;
 using Clt.Logic.Extensions;
 using Ecc.Model.Entities.External;
 using CrocoLanding.Model.Entities.Clt.Default;
-using Clt.Logic.Settings;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Entities.Clt;
 using CrocoLanding.Logic;
+using Clt.Contract.Settings;
 
 namespace Clt.Logic.Workers.Account
 {

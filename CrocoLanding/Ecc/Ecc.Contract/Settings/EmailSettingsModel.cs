@@ -1,8 +1,6 @@
-﻿using Croco.Core.Abstractions.Settings;
-
-namespace Ecc.Contract.Settings
+﻿namespace Ecc.Contract.Settings
 {
-    public class EmailSettingsModel : ICommonSetting<EmailSettingsModel>
+    public class EmailSettingsModel
     {
         public string FromAddress { get; set; }
         public bool IsBodyHtml { get; set; }
@@ -11,17 +9,14 @@ namespace Ecc.Contract.Settings
         public string UserName { get; set; }
         public string Password { get; set; }
 
-        public EmailSettingsModel GetDefault()
+        public EmailSettingsModel()
         {
-            return new EmailSettingsModel
-            {
-                FromAddress = "info@crocosoft.ru",
-                IsBodyHtml = true,
-                SmtpClientString = "smtp.yandex.ru",
-                SmtpPort = 25,
-                UserName = "info@crocosoft.ru",
-                Password = "Cthl.rjd"
-            };
+            FromAddress = "info@crocosoft.ru";
+            IsBodyHtml = true;
+            SmtpClientString = "smtp.yandex.ru";
+            SmtpPort = 25;
+            UserName = "info@crocosoft.ru";
+            Password = "Cthl.rjd";
         }
     }
 }

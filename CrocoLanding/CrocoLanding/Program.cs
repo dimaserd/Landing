@@ -15,6 +15,9 @@ namespace CrocoLanding
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).UseDefaultServiceProvider(opts =>
+                {
+                    opts.ValidateOnBuild = true;
                 });
     }
 }

@@ -28,18 +28,19 @@ namespace CrocoLanding.Api.Controllers
 
         
         public EccController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, 
-            IHttpContextAccessor httpContextAccessor,
-            IEccPixelUrlProvider pixelUrlProvider, IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor, IEccPixelUrlProvider pixelUrlProvider, 
+            IEccFilePathMapper filePathMapper, IEccEmailLinkSubstitutor emailLinkSubstitutor) : base(context, signInManager, userManager, httpContextAccessor)
         {
             PixelUrlProvider = pixelUrlProvider;
             FilePathMapper = filePathMapper;
+            EmailLinkSubstitutor = emailLinkSubstitutor;
         }
 
-        EmailSender EmailSender => new EmailSender(AmbientContext, PixelUrlProvider, FilePathMapper);
+        EmailSender EmailSender => new EmailSender(AmbientContext, PixelUrlProvider, FilePathMapper, EmailLinkSubstitutor);
 
         IEccPixelUrlProvider PixelUrlProvider { get; }
         IEccFilePathMapper FilePathMapper { get; }
-        
+        IEccEmailLinkSubstitutor EmailLinkSubstitutor { get; }
 
         [HttpPost("SendCallBackRequest")]
         public async Task<BaseApiResponse> SendCallBackRequest([FromForm]CreateCallBackApiModel model)

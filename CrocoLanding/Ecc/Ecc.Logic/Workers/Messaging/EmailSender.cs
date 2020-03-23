@@ -13,11 +13,13 @@ namespace Ecc.Logic.Workers.Messaging
     {
         IEccPixelUrlProvider UrlProvider { get; }
         IEccFilePathMapper FilePathMapper { get; }
+        IEccEmailLinkSubstitutor EmailLinkSubstitutor { get; }
 
-        public EmailSender(ICrocoAmbientContext ambientContext, IEccPixelUrlProvider urlProvider, IEccFilePathMapper filePathMapper) : base(ambientContext)
+        public EmailSender(ICrocoAmbientContext ambientContext, IEccPixelUrlProvider urlProvider, IEccFilePathMapper filePathMapper, IEccEmailLinkSubstitutor emailLinkSubstitutor) : base(ambientContext)
         {
             UrlProvider = urlProvider;
             FilePathMapper = filePathMapper;
+            EmailLinkSubstitutor = emailLinkSubstitutor;
         }
 
         
@@ -30,7 +32,7 @@ namespace Ecc.Logic.Workers.Messaging
                 return new BaseApiResponse(sendModel);
             }
 
-            var sender = new EmailDelayedSender(AmbientContext, UrlProvider);
+            var sender = new EmailDelayedSender(AmbientContext, UrlProvider, EmailLinkSubstitutor);
 
             var resp = sendModel.ResponseObject;
 

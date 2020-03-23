@@ -1,11 +1,9 @@
-﻿using Croco.Core.Implementations.TransactionHandlers;
-using Ecc.Logic.Abstractions;
+﻿using Ecc.Logic.Abstractions;
 using Ecc.Model.Entities.LinkCatch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Ecc.Implementation.Services
 {
@@ -26,7 +24,7 @@ namespace Ecc.Implementation.Services
             return string.Format(UrlRedirectFormat, id);
         }
 
-        public async Task<string> ProcessEmailText(string body)
+        public (string, EmailLinkCatch[]) ProcessEmailText(string body)
         {
             var list = new List<(string, string)>();
 
@@ -39,20 +37,11 @@ namespace Ecc.Implementation.Services
                 body = body.Replace(item.Value, GetUrlById(id));
             }
 
-            await CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(amb =>
+            return (body, list.Select(x => new EmailLinkCatch
             {
-                var repo = amb.RepositoryFactory.GetRepository<EmailLinkCatch>();
-
-                repo.CreateHandled(list.Select(x => new EmailLinkCatch
-                {
-                    Id = x.Item1,
-                    Url = x.Item2
-                }));
-
-                return amb.RepositoryFactory.SaveChangesAsync();
-            });
-
-            return body;
+                Id = x.Item1,
+                Url = x.Item2
+            }).ToArray());
         }
     }
 }

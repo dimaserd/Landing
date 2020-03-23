@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using Ecc.Model.Entities.LinkCatch;
 
 namespace Ecc.Logic.Abstractions
 {
     public interface IEccEmailLinkSubstitutor
     {
-        Task<string> ProcessEmailText(string body); 
+        (string, EmailLinkCatch[]) ProcessEmailText(string body); 
     }
 }

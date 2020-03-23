@@ -16,12 +16,14 @@ namespace Ecc.Logic.Handlers
     public class SendMailsForEmailGroupMessageHandler : CrocoMessageHandler<SendMailsForEmailGroup>
     {
         IEccPixelUrlProvider UrlProvider { get; }
+        IEccEmailLinkSubstitutor EmailLinkSubstitutor { get; }
 
         const int CountInPack = 100;
 
-        public SendMailsForEmailGroupMessageHandler(IEccPixelUrlProvider urlProvider)
+        public SendMailsForEmailGroupMessageHandler(IEccPixelUrlProvider urlProvider, IEccEmailLinkSubstitutor emailLinkSubstitutor)
         {
             UrlProvider = urlProvider;
+            EmailLinkSubstitutor = emailLinkSubstitutor;
         }
 
 
@@ -55,7 +57,7 @@ namespace Ecc.Logic.Handlers
             {
                 await CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(amb =>
                 {
-                    var sender = new EmailDelayedSender(amb, UrlProvider);
+                    var sender = new EmailDelayedSender(amb, UrlProvider, EmailLinkSubstitutor);
 
                     return sender.SendEmails(emails.Skip(count).Take(CountInPack).Select(x => new SendMailMessage
                     {

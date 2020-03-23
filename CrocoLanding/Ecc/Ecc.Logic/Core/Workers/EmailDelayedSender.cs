@@ -6,6 +6,7 @@ using Ecc.Logic.Abstractions;
 using Ecc.Model.Consts;
 using Ecc.Model.Entities.External;
 using Ecc.Model.Entities.Interactions;
+using Ecc.Model.Entities.LinkCatch;
 using Ecc.Model.Enumerations;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,10 +19,12 @@ namespace Ecc.Logic.Core.Workers
     public class EmailDelayedSender : BaseCrocoWorker
     {
         IEccPixelUrlProvider UrlProvider { get; }
+        IEccEmailLinkSubstitutor EmailLinkSubstitutor { get; }
 
-        public EmailDelayedSender(ICrocoAmbientContext ambientContext, IEccPixelUrlProvider urlProvider) : base(ambientContext)
+        public EmailDelayedSender(ICrocoAmbientContext ambientContext, IEccPixelUrlProvider urlProvider, IEccEmailLinkSubstitutor emailLinkSubstitutor) : base(ambientContext)
         {
             UrlProvider = urlProvider;
+            EmailLinkSubstitutor = emailLinkSubstitutor;
         }
 
 
@@ -32,6 +35,7 @@ namespace Ecc.Logic.Core.Workers
             GetRepository<MailMessageInteraction>().CreateHandled(toMes.Item1);
             GetRepository<InteractionStatusLog>().CreateHandled(toMes.Item2);
             GetRepository<InteractionAttachment>().CreateHandled(toMes.Item3);
+            GetRepository<EmailLinkCatch>().CreateHandled(toMes.Item4);
 
             return await TrySaveChangesAndReturnResultAsync("Email-сообщение добавлено в очередь");
         }
@@ -43,6 +47,7 @@ namespace Ecc.Logic.Core.Workers
             GetRepository<MailMessageInteraction>().CreateHandled(interations.Select(x => x.Item1));
             GetRepository<InteractionStatusLog>().CreateHandled(interations.Select(x => x.Item2));
             GetRepository<InteractionAttachment>().CreateHandled(interations.SelectMany(x => x.Item3));
+            GetRepository<EmailLinkCatch>().CreateHandled(interations.SelectMany(x => x.Item4));
 
             return await TrySaveChangesAndReturnResultAsync("Email-сообщения добавлено в очередь");
         }
@@ -85,7 +90,7 @@ namespace Ecc.Logic.Core.Workers
                     return ToMailMessage(x, emailAndId.Email);
                 }
 
-                return (null, null, null);
+                return (null, null, null, null);
             });
 
             var toCreate = mailMes.Where(x => x.Item1 != null);
@@ -93,6 +98,7 @@ namespace Ecc.Logic.Core.Workers
             GetRepository<MailMessageInteraction>().CreateHandled(toCreate.Select(x => x.Item1));
             GetRepository<InteractionStatusLog>().CreateHandled(toCreate.Select(x => x.Item2));
             GetRepository<InteractionAttachment>().CreateHandled(toCreate.SelectMany(x => x.Item3));
+            GetRepository<EmailLinkCatch>().CreateHandled(toCreate.SelectMany(x => x.Item4));
 
             return await TrySaveChangesAndReturnResultAsync("Email-сообщения добавлены в очередь");
         }
@@ -108,15 +114,17 @@ namespace Ecc.Logic.Core.Workers
             return attachments ?? new List<InteractionAttachment>();
         }
 
-        private (MailMessageInteraction, InteractionStatusLog, List<InteractionAttachment>) ToMailMessage(SendMailMessageToUser message, string email)
+        private (MailMessageInteraction, InteractionStatusLog, List<InteractionAttachment>, EmailLinkCatch[]) ToMailMessage(SendMailMessageToUser message, string email)
         {
             var id = Guid.NewGuid().ToString();
+
+            var res = EmailLinkSubstitutor.ProcessEmailText(message.Body);
 
             return (new MailMessageInteraction
             {
                 Id = id,
                 TitleText = message.Subject,
-                MessageText = AddReadingLink(message.Body, id),
+                MessageText = AddReadingLink(res.Item1, id),
                 SendNow = true,
                 UserId = message.UserId,
                 Type = EccConsts.EmailType,
@@ -128,18 +136,21 @@ namespace Ecc.Logic.Core.Workers
                 Status = InteractionStatus.Created,
                 StartedOn = Application.DateTimeProvider.Now
             },
-            GetAttachments(id, message.AttachmentFileIds));
+            GetAttachments(id, message.AttachmentFileIds),
+            res.Item2);
         }
 
-        public (MailMessageInteraction, InteractionStatusLog, List<InteractionAttachment>) ToMailMessage(SendMailMessage message)
+        public (MailMessageInteraction, InteractionStatusLog, List<InteractionAttachment>, EmailLinkCatch[]) ToMailMessage(SendMailMessage message)
         {
             var id = Guid.NewGuid().ToString();
+
+            var res = EmailLinkSubstitutor.ProcessEmailText(message.Body);
 
             return (new MailMessageInteraction
             {
                 Id = id,
                 TitleText = message.Subject,
-                MessageText = AddReadingLink(message.Body, id),
+                MessageText = AddReadingLink(res.Item1, id),
                 ReceiverEmail = message.Email,
                 SendNow = true,
                 UserId = null,
@@ -151,7 +162,7 @@ namespace Ecc.Logic.Core.Workers
                 Status = InteractionStatus.Created,
                 StartedOn = Application.DateTimeProvider.Now
             },
-            GetAttachments(id, message.AttachmentFileIds));
+            GetAttachments(id, message.AttachmentFileIds), res.Item2);
         }
 
         public string AddReadingLink(string body, string id)

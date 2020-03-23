@@ -4,7 +4,6 @@ using Ecc.Contract.Models.EmailGroup;
 using Ecc.Logic.Workers.Base;
 using Ecc.Model.Entities.Email;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ecc.Logic.Workers.Emails

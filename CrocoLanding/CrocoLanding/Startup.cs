@@ -8,9 +8,7 @@ using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Clt.Default;
 using Ecc.Implementation;
-using Ecc.Implementation.Services;
 using Ecc.Logic;
-using Ecc.Logic.Abstractions;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -186,7 +184,7 @@ namespace CrocoLanding
 
             app.ConfigureExceptionHandler(new ApplicationLoggerManager());
 
-            HangfireConfiguration.AddHangfire(app, env.EnvironmentName == DevelopmentEnvironmentName);
+            HangfireConfiguration.AddHangfire(app, x => env.EnvironmentName == DevelopmentEnvironmentName);
             Croco.SetCrocoActivatorAndApplication(app.ApplicationServices);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ecc.Model.Entities.LinkCatch
 {
@@ -7,6 +8,8 @@ namespace Ecc.Model.Entities.LinkCatch
         public string Id { get; set; }
 
         public string Url { get; set; }
+
+        public DateTime CreatedOnUtc { get; set; }
 
         public virtual ICollection<EmailLinkCatchRedirect> Redirects { get; set; }
     }

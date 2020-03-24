@@ -42,7 +42,8 @@ namespace Ecc.Implementation.Services
             return (body, list.Select(x => new EmailLinkCatch
             {
                 Id = x.Item1,
-                Url = x.Item2
+                Url = x.Item2,
+                CreatedOnUtc = DateTime.UtcNow
             }).ToArray());
         }
     }

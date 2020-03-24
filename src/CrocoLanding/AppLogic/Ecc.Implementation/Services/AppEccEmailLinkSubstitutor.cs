@@ -3,6 +3,7 @@ using Ecc.Model.Entities.LinkCatch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Ecc.Implementation.Services
 {
@@ -12,12 +13,12 @@ namespace Ecc.Implementation.Services
         /// Url вида https://crocosoft.ru/UrlCatcher/Redirect/{0}
         /// </summary>
         string UrlRedirectFormat { get; }
-        List<string> UrlsToReplace { get; }
+        HashSet<string> UrlDomains { get; }
 
-        public AppEccEmailLinkSubstitutor(string urlRedirectFormat, List<string> urlsToReplace)
+        public AppEccEmailLinkSubstitutor(string urlRedirectFormat, HashSet<string> urlDomains)
         {
             UrlRedirectFormat = urlRedirectFormat;
-            UrlsToReplace = urlsToReplace;
+            UrlDomains = urlDomains;
         }
 
         public string GetUrlById(string id)
@@ -29,17 +30,21 @@ namespace Ecc.Implementation.Services
         {
             var list = new HashSet<(string, string)>();
 
-            foreach(var toReplace in UrlsToReplace)
+            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            var matches = regex.Matches(body).ToList();
+
+            foreach(var match in matches)
             {
-                var id = Guid.NewGuid().ToString();
-
-                var url = GetUrlById(id);
-
-                while (body.Contains(toReplace))
+                if (UrlDomains.Any(x => match.Value.Contains(x)))
                 {
-                    list.Add((id, toReplace));
+                    var id = Guid.NewGuid().ToString();
 
-                    body = body.Replace(toReplace, url);
+                    var url = GetUrlById(id);
+
+                    list.Add((id, match.Value));
+
+                    body = body.Replace(match.Value, url);
                 }
             }
 

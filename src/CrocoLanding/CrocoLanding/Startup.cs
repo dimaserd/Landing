@@ -32,12 +32,8 @@ namespace CrocoLanding
         public const string DevelopmentEnvironmentName = "Development";
 
         const string SpaPath = "wwwroot";
-
-#if DEBUG
-        const string AppUrl = "https://localhost:5001";
-#else
+        
         const string AppUrl = "https://crocosoft.ru";
-#endif
 
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)

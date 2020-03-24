@@ -118,7 +118,7 @@ namespace Ecc.Logic.Core.Workers
         {
             var id = Guid.NewGuid().ToString();
 
-            var res = EmailLinkSubstitutor.ProcessEmailText(message.Body);
+            var res = EmailLinkSubstitutor.ProcessEmailText(message.Body, id);
 
             return (new MailMessageInteraction
             {
@@ -144,7 +144,7 @@ namespace Ecc.Logic.Core.Workers
         {
             var id = Guid.NewGuid().ToString();
 
-            var res = EmailLinkSubstitutor.ProcessEmailText(message.Body);
+            var res = EmailLinkSubstitutor.ProcessEmailText(message.Body, id);
 
             return (new MailMessageInteraction
             {

@@ -3,47 +3,52 @@ using Ecc.Model.Entities.LinkCatch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Ecc.Implementation.Services
 {
     public class AppEccEmailLinkSubstitutor : IEccEmailLinkSubstitutor
     {
-        public AppEccEmailLinkSubstitutor(string urlRedirectFormat)
-        {
-            UrlRedirectFormat = urlRedirectFormat;
-        }
-
         /// <summary>
         /// Url вида https://crocosoft.ru/UrlCatcher/Redirect/{0}
         /// </summary>
-        public string UrlRedirectFormat { get; }
+        string UrlRedirectFormat { get; }
+        List<string> UrlsToReplace { get; }
+
+        public AppEccEmailLinkSubstitutor(string urlRedirectFormat, List<string> urlsToReplace)
+        {
+            UrlRedirectFormat = urlRedirectFormat;
+            UrlsToReplace = urlsToReplace;
+        }
 
         public string GetUrlById(string id)
         {
             return string.Format(UrlRedirectFormat, id);
         }
 
-        public (string, EmailLinkCatch[]) ProcessEmailText(string body)
+        public (string, EmailLinkCatch[]) ProcessEmailText(string body, string mailMessageId)
         {
-            var list = new List<(string, string)>();
+            var list = new HashSet<(string, string)>();
 
-            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            var matches = regex.Matches(body);
-
-            foreach (Match item in matches)
+            foreach(var toReplace in UrlsToReplace)
             {
                 var id = Guid.NewGuid().ToString();
-                list.Add((id, item.Value));
-                body = body.Replace(item.Value, GetUrlById(id));
+
+                var url = GetUrlById(id);
+
+                while (body.Contains(toReplace))
+                {
+                    list.Add((id, toReplace));
+
+                    body = body.Replace(toReplace, url);
+                }
             }
 
             return (body, list.Select(x => new EmailLinkCatch
             {
                 Id = x.Item1,
                 Url = x.Item2,
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                MailMessageId = mailMessageId
             }).ToArray());
         }
     }

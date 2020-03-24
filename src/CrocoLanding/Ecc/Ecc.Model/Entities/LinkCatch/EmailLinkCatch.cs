@@ -9,6 +9,8 @@ namespace Ecc.Model.Entities.LinkCatch
 
         public string Url { get; set; }
 
+        public string MailMessageId { get; set; }
+
         public DateTime CreatedOnUtc { get; set; }
 
         public virtual ICollection<EmailLinkCatchRedirect> Redirects { get; set; }

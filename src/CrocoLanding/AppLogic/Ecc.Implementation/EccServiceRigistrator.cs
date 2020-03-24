@@ -5,6 +5,7 @@ using Ecc.Implementation.TaskGivers;
 using Ecc.Logic.Abstractions;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace Ecc.Implementation
 {
@@ -29,7 +30,10 @@ namespace Ecc.Implementation
             services.AddTransient<IEccFileService, AppEccFileService>();
             services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
             services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
-            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>(srv => new AppEccEmailLinkSubstitutor($"{applicationUrl}/Redirect/To/{{0}}"));
+            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>(srv => new AppEccEmailLinkSubstitutor($"{applicationUrl}/Redirect/To/{{0}}", new List<string> 
+            {
+                applicationUrl
+            }));
         }
     }
 }

@@ -28,7 +28,6 @@ namespace CrocoLanding.CrocoStuff
         IWebHostEnvironment Env { get; }
 
         List<Action<ICrocoApplication>> ApplicationActions { get; }
-
         List<Action<ICrocoApplicationOptions>> BuildActions { get; }
         List<Action<IServiceCollection>> ServiceRegistrations { get; }
         string ApplicationUrl { get; }

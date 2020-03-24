@@ -199,6 +199,16 @@ namespace CrocoLanding
 
             HangfireConfiguration.AddHangfire(app, x => env.EnvironmentName == DevelopmentEnvironmentName);
             Croco.SetCrocoActivatorAndApplication(app.ApplicationServices);
+            UpdateDatabase(app);
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope();
+            using var context = serviceScope.ServiceProvider.GetService<LandingDbContext>();
+            context.Database.Migrate();
         }
     }
 }

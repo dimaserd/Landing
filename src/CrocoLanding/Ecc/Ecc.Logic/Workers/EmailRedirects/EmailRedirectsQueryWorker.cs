@@ -5,7 +5,10 @@ using Croco.Core.Search.Extensions;
 using Ecc.Contract.Models.EmailRedirects;
 using Ecc.Model.Entities.LinkCatch;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Ecc.Logic.Workers.EmailRedirects
@@ -16,14 +19,24 @@ namespace Ecc.Logic.Workers.EmailRedirects
         {
         }
 
+
+        static readonly Expression<Func<EmailLinkCatch, EmailLinkCatchRedirectsCountModel>> SelectExpression = x => new EmailLinkCatchRedirectsCountModel
+        {
+            Id = x.Id,
+            Url = x.Url,
+            Count = x.Redirects.Count
+        };
+
+        public Task<List<EmailLinkCatchRedirectsCountModel>> GetCatchesByEmailId(string id)
+        {
+            return Query<EmailLinkCatch>().Where(x => x.MailMessageId == id)
+                .OrderByDescending(x => x.CreatedOnUtc).Select(SelectExpression)
+                .ToListAsync();
+        }
+
         public Task<GetListResult<EmailLinkCatchRedirectsCountModel>> Query(GetListSearchModel model)
         {
-            return EFCoreExtensions.GetAsync(model, Query<EmailLinkCatch>().OrderByDescending(x => x.CreatedOnUtc), x => new EmailLinkCatchRedirectsCountModel
-            {
-                Id = x.Id,
-                Url = x.Url,
-                Count = x.Redirects.Count
-            });
+            return EFCoreExtensions.GetAsync(model, Query<EmailLinkCatch>().OrderByDescending(x => x.CreatedOnUtc), SelectExpression);
         }
 
         public Task<EmailLinkCatchDetailedModel> GetById(string id)

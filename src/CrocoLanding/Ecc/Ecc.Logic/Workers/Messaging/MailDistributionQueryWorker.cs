@@ -2,6 +2,7 @@
 using Croco.Core.Abstractions.Models.Search;
 using Croco.Core.Search.Extensions;
 using Ecc.Logic.Models.Messaging;
+using Ecc.Logic.Workers.EmailRedirects;
 using Ecc.Model.Entities.Interactions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -15,9 +16,16 @@ namespace Ecc.Logic.Workers.Messaging
         {
         }
 
-        public Task<MailMessageDetailedModel> GetMailMessageDetailed(string id)
+        public async Task<MailMessageDetailedModel> GetMailMessageDetailed(string id)
         {
-            return Query<MailMessageInteraction>().Select(MailMessageDetailedModel.SelectExpression).FirstOrDefaultAsync(x => x.Id == id);
+            var result = await Query<MailMessageInteraction>().Select(MailMessageDetailedModel.SelectExpression).FirstOrDefaultAsync(x => x.Id == id);
+
+            if(result != null)
+            {
+                result.Redirects = await new EmailRedirectsQueryWorker(AmbientContext).GetCatchesByEmailId(id);
+            }
+
+            return result;
         }
 
         public Task<GetListResult<MailMessageModel>> GetClientMailMessages(GetClientInteractions model)

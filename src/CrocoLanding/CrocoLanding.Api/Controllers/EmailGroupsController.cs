@@ -39,6 +39,8 @@ namespace CrocoLanding.Api.Controllers
 
         EmailGroupWorker EmailGroupWorker => new EmailGroupWorker(AmbientContext);
 
+        EmailGroupQueryWorker QueryWorker => new EmailGroupQueryWorker(AmbientContext);
+
         EmailGroupFromFileCreator EmailGroupFromFileCreator => new EmailGroupFromFileCreator(AmbientContext, FileEmailsExtractor);
 
         [HttpPost("Send")]
@@ -87,7 +89,16 @@ namespace CrocoLanding.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("GetList")]
-        public Task<GetListResult<EmailGroupModel>> GetGroups([FromBody]GetListSearchModel model) => EmailGroupWorker.GetEmailGroups(model);
+        public Task<GetListResult<EmailGroupModel>> GetGroups([FromBody]GetListSearchModel model) => QueryWorker.GetEmailGroups(model);
+
+        /// <summary>
+        /// Получить группы
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("GetEmailsInGroup")]
+        public Task<GetListResult<string>> GetEmailsInGroup([FromBody]GetEmailsInGroup model) => QueryWorker.GetEmailsInGroup(model);
+
 
 
         /// <summary>

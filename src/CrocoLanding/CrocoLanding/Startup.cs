@@ -40,7 +40,6 @@ namespace CrocoLanding
 #endif
 
 
-
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -102,11 +101,7 @@ namespace CrocoLanding
             services.AddTransient<ApplicationUserManager>();
             services.AddTransient<ApplicationSignInManager>();
 
-            services.AddDbContext<LandingDbContext>(options =>
-            {
-                options.UseSqlServer(
-                    Configuration.GetConnectionString(LandingDbContext.ConnectionString));
-            });
+            services.AddScoped(srv => LandingDbContext.Create(Configuration));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(opts =>
             {
@@ -143,7 +138,6 @@ namespace CrocoLanding
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            
             //Установка приложения
             Croco.RegisterCrocoApplication(services);
         }
@@ -180,6 +174,8 @@ namespace CrocoLanding
 
             app.UseAuthorization();
 
+            HangfireConfiguration.AddHangfire(app, x => env.EnvironmentName == DevelopmentEnvironmentName);
+
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = SpaPath;
@@ -197,7 +193,6 @@ namespace CrocoLanding
 
             app.ConfigureExceptionHandler(new ApplicationLoggerManager());
 
-            HangfireConfiguration.AddHangfire(app, x => env.EnvironmentName == DevelopmentEnvironmentName);
             Croco.SetCrocoActivatorAndApplication(app.ApplicationServices);
             UpdateDatabase(app);
         }

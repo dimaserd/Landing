@@ -1,4 +1,5 @@
-﻿using Ecc.Model.Entities.Interactions;
+﻿using Ecc.Contract.Models.EmailRedirects;
+using Ecc.Model.Entities.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Ecc.Logic.Models.Messaging
         public string EmailAddress { get; set; }
 
         public List<InteractionStatusModel> Statuses { get; set; }
+
+        public List<EmailLinkCatchRedirectsCountModel> Redirects { get; set; }
 
         public static Expression<Func<MailMessageInteraction, MailMessageDetailedModel>> SelectExpression = x => new MailMessageDetailedModel
         {

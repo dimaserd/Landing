@@ -1,4 +1,4 @@
-﻿using Croco.Core.Search.Models;
+﻿using Croco.Core.Abstractions.Models.Search;
 using System.Collections.Generic;
 
 namespace Ecc.Contract.Models.EmailGroup

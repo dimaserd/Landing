@@ -1,5 +1,5 @@
 ﻿using Croco.Core.Abstractions.Models;
-using Croco.Core.Search.Models;
+using Croco.Core.Abstractions.Models.Search;
 using Croco.WebApplication.Models.Exceptions;
 using Croco.WebApplication.Models.Log;
 using Croco.WebApplication.Models.Log.Search;

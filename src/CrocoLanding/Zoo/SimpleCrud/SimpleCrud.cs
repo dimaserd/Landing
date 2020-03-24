@@ -1,7 +1,8 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Data.Entities.HaveId;
+using Croco.Core.Abstractions.Models.Search;
 using Croco.Core.Logic.Workers;
-using Croco.Core.Search.Models;
+using Croco.Core.Search.Extensions;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -22,7 +23,7 @@ namespace Zoo.SimpleCrud
 
         public Task<GetListResult<TModel>> GetList(GetListSearchModel model)
         {
-            return GetListResult<TModel>.GetAsync(model, Query<TEntity>().OrderBy(x => x.Id), SelectExpression);
+            return EFCoreExtensions.GetAsync(model, Query<TEntity>().OrderBy(x => x.Id), SelectExpression);
         }
     }
 }

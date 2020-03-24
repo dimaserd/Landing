@@ -1,5 +1,5 @@
-﻿using Croco.Core.Search.Extensions;
-using Croco.Core.Search.Models;
+﻿using Croco.Core.Abstractions.Models.Search;
+using Croco.Core.Search.Extensions;
 using Ecc.Model.Entities.Interactions;
 using System.Collections.Generic;
 

@@ -1,6 +1,7 @@
 ﻿using Croco.Core.Abstractions;
+using Croco.Core.Abstractions.Models.Search;
 using Croco.Core.Logic.Workers;
-using Croco.Core.Search.Models;
+using Croco.Core.Search.Extensions;
 using Ecc.Contract.Models.EmailRedirects;
 using Ecc.Model.Entities.LinkCatch;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace Ecc.Logic.Workers.EmailRedirects
 
         public Task<GetListResult<EmailLinkCatchRedirectsCountModel>> Query(GetListSearchModel model)
         {
-            return GetListResult<EmailLinkCatchRedirectsCountModel>.GetAsync(model, Query<EmailLinkCatch>().OrderByDescending(x => x.CreatedOnUtc), x => new EmailLinkCatchRedirectsCountModel
+            return EFCoreExtensions.GetAsync(model, Query<EmailLinkCatch>().OrderByDescending(x => x.CreatedOnUtc), x => new EmailLinkCatchRedirectsCountModel
             {
                 Id = x.Id,
                 Url = x.Url,

@@ -1,6 +1,7 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
-using Croco.Core.Search.Models;
+using Croco.Core.Abstractions.Models.Search;
+using Croco.Core.Search.Extensions;
 using Ecc.Contract.Models.EmailGroup;
 using Ecc.Logic.Workers.Base;
 using Ecc.Model.Entities.Email;
@@ -26,7 +27,7 @@ namespace Ecc.Logic.Workers.Emails
 
         public Task<GetListResult<EmailGroupModel>> GetEmailGroups(GetListSearchModel model)
         {
-            return GetListResult<EmailGroupModel>.GetAsync(model, Query<EmailGroup>().OrderByDescending(x => x.CreatedOn), SelectExpression);
+            return EFCoreExtensions.GetAsync(model, Query<EmailGroup>().OrderByDescending(x => x.CreatedOn), SelectExpression);
         }
 
 

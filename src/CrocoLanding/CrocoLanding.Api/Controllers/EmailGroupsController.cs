@@ -1,5 +1,5 @@
 ﻿using Croco.Core.Abstractions.Models;
-using Croco.Core.Search.Models;
+using Croco.Core.Abstractions.Models.Search;
 using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;

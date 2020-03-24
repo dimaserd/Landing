@@ -4,11 +4,11 @@ using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
 using Microsoft.EntityFrameworkCore;
 using Ecc.Logic.Models.Notifications;
-using Croco.Core.Search.Models;
 using Croco.Core.Search.Extensions;
 using Ecc.Model.Entities.Interactions;
 using Ecc.Model.Entities.External;
 using Ecc.Logic.Workers.Base;
+using Croco.Core.Abstractions.Models.Search;
 
 namespace Ecc.Logic.Workers.Messaging
 {
@@ -23,12 +23,12 @@ namespace Ecc.Logic.Workers.Messaging
 
         public Task<GetListResult<NotificationModelWithUserModel>> GetUserNotificationsIncludingUsersAsync(NotificationSearchQueryModel model)
         {
-            return GetListResult<NotificationModelWithUserModel>.GetAsync(model, GetFilteredQuery(model), NotificationModelWithUserModel.SelectExpression);
+            return EFCoreExtensions.GetAsync(model, GetFilteredQuery(model), NotificationModelWithUserModel.SelectExpression);
         }
 
         public Task<GetListResult<NotificationModel>> GetUserNotificationsAsync(NotificationSearchQueryModel model)
         {
-            return GetListResult<NotificationModel>.GetAsync(model, GetFilteredQuery(model), NotificationModel.SelectExpression);
+            return EFCoreExtensions.GetAsync(model, GetFilteredQuery(model), NotificationModel.SelectExpression);
         }
 
         public async Task<BaseApiResponse> RemoveNotificationAsync(string id)

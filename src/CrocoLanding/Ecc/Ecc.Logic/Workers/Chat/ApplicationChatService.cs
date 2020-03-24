@@ -1,7 +1,6 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Logic.Models.Users;
 using Croco.Core.Abstractions.Models;
-using Croco.Core.Search.Models;
 using Ecc.Contract.Events;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,6 +13,7 @@ using Ecc.Model.Entities.Chats;
 using Ecc.Model.Entities.External;
 using Ecc.Logic.Resources;
 using Ecc.Contract.Models.Chat;
+using Croco.Core.Abstractions.Models.Search;
 
 namespace Ecc.Logic.Workers.Chat
 {

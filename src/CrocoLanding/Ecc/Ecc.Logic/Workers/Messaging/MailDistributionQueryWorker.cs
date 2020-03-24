@@ -1,6 +1,6 @@
 ﻿using Croco.Core.Abstractions;
+using Croco.Core.Abstractions.Models.Search;
 using Croco.Core.Search.Extensions;
-using Croco.Core.Search.Models;
 using Ecc.Logic.Models.Messaging;
 using Ecc.Model.Entities.Interactions;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +24,7 @@ namespace Ecc.Logic.Workers.Messaging
         {
             var queryWithStatus = GetQueryWithStatus(Query<MailMessageInteraction>().BuildQuery(model.GetCriterias()));
 
-            return GetListResult<MailMessageModel>.GetAsync(model, queryWithStatus.OrderByDescending(x => x.Interaction.CreatedOn), MailMessageModel.SelectExpression);
+            return EFCoreExtensions.GetAsync(model, queryWithStatus.OrderByDescending(x => x.Interaction.CreatedOn), MailMessageModel.SelectExpression);
         }
     }
 }

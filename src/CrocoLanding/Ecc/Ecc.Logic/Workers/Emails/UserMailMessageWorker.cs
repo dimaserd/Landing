@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
+using Croco.Core.Abstractions.Models.Search;
 using Croco.Core.Logic.Workers;
-using Croco.Core.Search.Models;
+using Croco.Core.Search.Extensions;
 using Ecc.Logic.Models.Users;
 using Ecc.Model.Entities.Interactions;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Ecc.Logic.Workers.Emails
         {
             var initQuery = Query<MailMessageInteraction>().OrderByDescending(x => x.CreatedOn);
 
-            return GetListResult<UserMailMessageModel>.GetAsync(model, initQuery, UserMailMessageModel.SelectExpression);
+            return EFCoreExtensions.GetAsync(model, initQuery, UserMailMessageModel.SelectExpression);
         }
 
         public async Task<BaseApiResponse> DeterminingDateOfOpening(string id)

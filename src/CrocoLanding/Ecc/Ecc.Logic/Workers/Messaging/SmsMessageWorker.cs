@@ -1,6 +1,5 @@
 ﻿using Croco.Core.Abstractions;
 using Croco.Core.Abstractions.Models;
-using Croco.Core.Search.Models;
 using Ecc.Logic.Resources;
 using Ecc.Logic.Models.Messaging;
 using Ecc.Logic.Models.Sms;
@@ -13,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ecc.Model.Consts;
+using Croco.Core.Abstractions.Models.Search;
+using Croco.Core.Search.Extensions;
 
 namespace Ecc.Logic.Workers.Messaging
 {
@@ -53,7 +54,7 @@ namespace Ecc.Logic.Workers.Messaging
                 initQuery = initQuery.Where(x => x.UserId == model.ClientId);
             }
 
-            return GetListResult<SmsMessageModel>.GetAsync(model, GetQueryWithStatus(initQuery).OrderByDescending(x => x.Interaction.CreatedOn), SmsMessageModel.SelectExpression);
+            return EFCoreExtensions.GetAsync(model, GetQueryWithStatus(initQuery).OrderByDescending(x => x.Interaction.CreatedOn), SmsMessageModel.SelectExpression);
         }
 
         public (SmsMessageInteraction, InteractionStatusLog, List<InteractionAttachment>) ToSmsMessage(SendSmsToClient message, string phoneNumber)

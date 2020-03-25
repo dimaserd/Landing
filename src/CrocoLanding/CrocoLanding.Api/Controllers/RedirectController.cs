@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrocoLanding.Api.Controllers
 {
-    [Route("Redirect"), ApiController]
+    [Route("Redirect")]
     public class RedirectController : BaseApiController
     {
         public RedirectController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)
@@ -28,6 +28,17 @@ namespace CrocoLanding.Api.Controllers
             }
 
             return Redirect("~/");
+        }
+
+        [HttpGet("ToTest")]
+        public IActionResult To(string url, bool main = false)
+        {
+            if(main)
+            {
+                return Redirect("~/");
+            }
+
+            return Redirect(url);
         }
     }
 }

@@ -40,6 +40,7 @@ namespace Ecc.Model.Contexts
 
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
+            EmailLinkCatch.OnModelCreating(modelBuilder);
             Interaction.OnModelCreating(modelBuilder);
             InteractionAttachment.OnModelCreating(modelBuilder);
 

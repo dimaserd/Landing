@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrocoLanding.Api.Controllers
 {
-    [Route("Redirect"), ApiController]
+    [Route("Api/Redirect"), ApiController]
     public class RedirectController : BaseApiController
     {
         public RedirectController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)

@@ -30,7 +30,7 @@ namespace Ecc.Implementation
             services.AddTransient<IEccFileService, AppEccFileService>();
             services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
             services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
-            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>(srv => new AppEccEmailLinkSubstitutor($"{applicationUrl}/Redirect/To/{{0}}", new HashSet<string> 
+            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>(srv => new AppEccEmailLinkSubstitutor($"{applicationUrl}/Api/Redirect/To?id={{0}}", new HashSet<string> 
             {
                 applicationUrl
             }));

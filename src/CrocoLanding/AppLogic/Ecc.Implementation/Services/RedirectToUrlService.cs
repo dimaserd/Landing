@@ -4,7 +4,6 @@ using Croco.Core.Logic.Workers;
 using Ecc.Model.Entities.LinkCatch;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Ecc.Implementation.Services

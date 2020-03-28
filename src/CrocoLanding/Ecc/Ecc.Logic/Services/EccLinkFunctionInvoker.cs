@@ -34,14 +34,14 @@ namespace Ecc.Logic.Services
             var linkCatch = new EmailLinkCatch
             {
                 Id = id,
-                Url = GetUrlById(id),
+                Url = firstArg,
                 CreatedOnUtc = DateTime.UtcNow,
                 MailMessageId = interactionId
             };
 
             ambientContext.RepositoryFactory.CreateHandled(linkCatch);
 
-            return linkCatch.Url;
+            return GetUrlById(id);
         }
     }
 }

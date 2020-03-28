@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ecc.Model.Entities.LinkCatch
 {
+    [Table(nameof(EmailLinkCatchRedirect), Schema = Schemas.EccSchema)]
     public class EmailLinkCatchRedirect
     {
         public int Id { get; set; }

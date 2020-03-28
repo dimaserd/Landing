@@ -1,11 +1,13 @@
-﻿using Croco.Core.Abstractions.Application;
+﻿using Croco.Core.Abstractions;
+using Croco.Core.Abstractions.Application;
 using Ecc.Implementation.Services;
 using Ecc.Implementation.Settings;
 using Ecc.Implementation.TaskGivers;
 using Ecc.Logic.Abstractions;
+using Ecc.Logic.Core.Workers;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
+using System;
 
 namespace Ecc.Implementation
 {
@@ -30,10 +32,8 @@ namespace Ecc.Implementation
             services.AddTransient<IEccFileService, AppEccFileService>();
             services.AddTransient<IEccFilePathMapper, AppEccFilePathMapper>();
             services.AddTransient<IEccFileEmailsExtractor, AppEccEmailListExtractor>();
-            services.AddTransient<IEccEmailLinkSubstitutor, AppEccEmailLinkSubstitutor>(srv => new AppEccEmailLinkSubstitutor($"{applicationUrl}/Api/Redirect/To?id={{0}}", new HashSet<string> 
-            {
-                applicationUrl
-            }));
+            services.AddTransient<IEccTextFunctionsProvider, MyAppEccTextFunctionsProvider > (srv => new MyAppEccTextFunctionsProvider($"{applicationUrl}/Api/Redirect/To?id={{0}}"));
+            services.AddTransient(srv => new Func<ICrocoAmbientContext, EmailDelayedSender>(amb => new EmailDelayedSender(amb, srv.GetService<IEccPixelUrlProvider>(), srv.GetService<IEccTextFunctionsProvider>())));
         }
     }
 }

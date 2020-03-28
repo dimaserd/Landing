@@ -1,9 +1,11 @@
-﻿using CrocoLanding.Api.Controllers.Base;
+﻿using Croco.Core.Abstractions;
+using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
+using Ecc.Contract.Models;
 using Ecc.Logic.Abstractions;
+using Ecc.Logic.Core.Workers;
 using Ecc.Logic.Extensions;
-using Ecc.Model.Entities.LinkCatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -13,31 +15,43 @@ namespace CrocoLanding.Api.Controllers
     [Route("api/[controller]"), ApiController]
     public class TestController : BaseApiController
     {
-        IEccEmailLinkSubstitutor EmailLinkSubstitutor { get; }
+        EmailDelayedSender DelayedSender => DelayedSenderProvider(AmbientContext);
+        Func<ICrocoAmbientContext, EmailDelayedSender> DelayedSenderProvider { get; }
         IEccFilePathMapper FilePathMapper { get; }
 
-        public TestController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, 
-            IEccEmailLinkSubstitutor emailLinkSubstitutor, IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, null)
+        public TestController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager,
+
+            Func<ICrocoAmbientContext, EmailDelayedSender> delayedSenderProvider, IEccFilePathMapper filePathMapper) : base(context, signInManager, userManager, null)
         {
-            EmailLinkSubstitutor = emailLinkSubstitutor;
+            DelayedSenderProvider = delayedSenderProvider;
             FilePathMapper = filePathMapper;
         }
 
         [HttpPost("GetText")]
         public async Task<string> GetText()
         {
-            var testModel = EccController.GetTestModel("somemail@mail.com");
+            var email = "somemail@mail.com";
 
-            var nModel = testModel.ToSendEmailModel(FilePathMapper);
+            var testModel = EccController.GetTestModel(email)
+                .ToSendEmailModel(FilePathMapper);
 
-            var resp = nModel.ResponseObject;
+            if(!testModel.IsSucceeded)
+            {
+                return null;
+            }
 
-            var t = EmailLinkSubstitutor.ProcessEmailText(resp.Body, Guid.NewGuid().ToString());
+            var resp = testModel.ResponseObject;
 
-            AmbientContext.RepositoryFactory.GetRepository<EmailLinkCatch>().CreateHandled(t.Item2);
+            var t = DelayedSender.ToMailMessage(new SendMailMessage 
+            {
+                Email = email,
+                Body = resp.Body,
+                Subject = resp.Subject
+            });
+
             await AmbientContext.RepositoryFactory.SaveChangesAsync();
 
-            return t.Item1;
+            return t.Item1.MessageText;
         }
     }
 }

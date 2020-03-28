@@ -4,7 +4,7 @@ using Ecc.Model.Entities.LinkCatch;
 using System;
 using System.Linq;
 
-namespace Ecc.Implementation.Services
+namespace Ecc.Logic.Services
 {
     public class EccLinkFunctionInvoker : IEccTextFunctionInvoker
     {
@@ -24,7 +24,7 @@ namespace Ecc.Implementation.Services
         {
             var firstArg = replacing.Func.Args.FirstOrDefault();
 
-            if(firstArg == null)
+            if (firstArg == null)
             {
                 return replacing.TextToReplace;
             }

@@ -1,4 +1,4 @@
-﻿namespace Ecc.Implementation.Services
+﻿namespace Ecc.Logic.Services
 {
     public class EccReplacing
     {

@@ -1,10 +1,9 @@
 ﻿using Croco.Core.Abstractions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Ecc.Implementation.Services
+namespace Ecc.Logic.Services
 {
     public class EccGetMasksService
     {
@@ -22,9 +21,9 @@ namespace Ecc.Implementation.Services
         {
             var replacings = GetReplacings(text);
 
-            foreach(var replacing in replacings)
+            foreach (var replacing in replacings)
             {
-                if(replacing.Func != null && funcs.ContainsKey(replacing.Func.Name))
+                if (replacing.Func != null && funcs.ContainsKey(replacing.Func.Name))
                 {
                     var func = funcs[replacing.Func.Name];
 
@@ -62,13 +61,13 @@ namespace Ecc.Implementation.Services
                 TextToReplace = matchedText
             };
 
-            if(isFunc)
+            if (isFunc)
             {
                 var funcName = substr.Substring(0, substr.IndexOf('('));
 
                 var str = substr.Substring(substr.IndexOf('(') + 1);
                 str = str.Substring(0, str.IndexOf(')'));
-                    
+
                 var args = str.Split(',').Select(x => x.Trim()).ToList();
 
                 res.Func = new EccTextFunc

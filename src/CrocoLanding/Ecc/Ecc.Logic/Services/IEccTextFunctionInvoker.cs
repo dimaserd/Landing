@@ -1,6 +1,6 @@
 ﻿using Croco.Core.Abstractions;
 
-namespace Ecc.Implementation.Services
+namespace Ecc.Logic.Services
 {
     public interface IEccTextFunctionInvoker
     {

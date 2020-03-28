@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ecc.Implementation.Services
+namespace Ecc.Logic.Services
 {
     public class EccTextFunc
     {

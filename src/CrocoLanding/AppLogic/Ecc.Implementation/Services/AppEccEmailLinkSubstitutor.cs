@@ -26,9 +26,14 @@ namespace Ecc.Implementation.Services
             return string.Format(UrlRedirectFormat, id);
         }
 
-        static string SubstituteMatch(string text, Match match)
+        static string ReplaceFirst(string text, string search, string replace)
         {
-            return text.Substring(0, match.Index) + match.Value + text.Substring(match.Index + match.Length);
+            int pos = text.IndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
         }
 
         public (string, EmailLinkCatch[]) ProcessEmailText(string body, string mailMessageId)
@@ -49,7 +54,7 @@ namespace Ecc.Implementation.Services
 
                     list.Add((id, match.Value));
 
-                    body = SubstituteMatch(body, match);
+                    body = ReplaceFirst(body, match.Value, url);
                 }
             }
 

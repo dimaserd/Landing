@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Landing.ConsoleApp", "Landing.ConsoleApp\Landing.ConsoleApp.csproj", "{21D96B29-DCBB-4B1C-8E7B-16A67D3B72A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landing.ConsoleApp", "Landing.ConsoleApp\Landing.ConsoleApp.csproj", "{21D96B29-DCBB-4B1C-8E7B-16A67D3B72A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1D966E37-76BD-42C5-8921-01993E83E6FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrocoLanding.Tests", "Tests\CrocoLanding.Tests\CrocoLanding.Tests.csproj", "{74198CF8-7EA7-4B88-9FBD-DA3281E0BECE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{F5DA3AE7-899F-49E3-BA6E-93B53BA21BF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecc.Implementation", "..\..\src\CrocoLanding\AppLogic\Ecc.Implementation\Ecc.Implementation.csproj", "{3231DA72-9A05-4E1B-85EA-732E3368AEDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,21 @@ Global
 		{21D96B29-DCBB-4B1C-8E7B-16A67D3B72A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D96B29-DCBB-4B1C-8E7B-16A67D3B72A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D96B29-DCBB-4B1C-8E7B-16A67D3B72A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74198CF8-7EA7-4B88-9FBD-DA3281E0BECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74198CF8-7EA7-4B88-9FBD-DA3281E0BECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74198CF8-7EA7-4B88-9FBD-DA3281E0BECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74198CF8-7EA7-4B88-9FBD-DA3281E0BECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3231DA72-9A05-4E1B-85EA-732E3368AEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3231DA72-9A05-4E1B-85EA-732E3368AEDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3231DA72-9A05-4E1B-85EA-732E3368AEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3231DA72-9A05-4E1B-85EA-732E3368AEDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74198CF8-7EA7-4B88-9FBD-DA3281E0BECE} = {1D966E37-76BD-42C5-8921-01993E83E6FF}
+		{3231DA72-9A05-4E1B-85EA-732E3368AEDE} = {F5DA3AE7-899F-49E3-BA6E-93B53BA21BF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4ECCCEAD-0E20-42E1-B25B-1F28118160DD}

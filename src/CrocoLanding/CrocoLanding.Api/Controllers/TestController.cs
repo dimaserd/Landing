@@ -1,11 +1,9 @@
-﻿using Croco.Core.Abstractions.Models;
-using CrocoLanding.Api.Controllers.Base;
+﻿using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Extensions;
 using Ecc.Model.Entities.LinkCatch;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

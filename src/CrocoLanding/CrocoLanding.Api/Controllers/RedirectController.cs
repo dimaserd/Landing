@@ -24,7 +24,7 @@ namespace CrocoLanding.Api.Controllers
 
             if(res.IsSucceeded)
             {
-                return Redirect(res.ResponseObject);
+                return Content($"<script>window.location = '{res.ResponseObject}';</script>");
             }
 
             return Redirect("~/");

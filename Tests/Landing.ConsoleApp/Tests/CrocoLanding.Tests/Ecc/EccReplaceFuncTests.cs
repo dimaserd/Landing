@@ -1,12 +1,49 @@
-﻿using Ecc.Implementation.Services;
+﻿using Ecc.Logic.Services;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using Croco.Testing.Impelementations;
+using System.Linq;
+using Ecc.Model.Entities.LinkCatch;
 
 namespace CrocoLanding.Tests.Ecc
 {
     [TestFixture]
     public class EccReplaceFuncTests
     {
+        [Test]
+        public void TestEccLinkFunctionInvoker()
+        {
+            var invoker = new EccLinkFunctionInvoker("https://domain.com?RedirId={0}");
+
+            var ambContext = new TestCrocoAmbientContext();
+
+            var mailId = Guid.NewGuid().ToString();
+
+            var text = invoker.ProccessText(mailId, new EccReplacing
+            {
+                Func = new EccTextFunc
+                {
+                    Args = new List<string>
+                    {
+                        "'crocosoft.ru'"
+                    },
+                    Name = "SomeName"
+                },
+                TextToReplace = "SomeText"
+            }, ambContext);
+
+            Assert.IsTrue(text.StartsWith("https://domain.com?RedirId="));
+
+            //Сохраняем то что добавил процессор текста
+            ambContext.RepositoryFactory.SaveChangesAsync().Wait();
+
+            var linkCatch = ambContext.TestRepositoryFactory.GetDataList<EmailLinkCatch>().First();
+
+            Assert.AreEqual(mailId, linkCatch.MailMessageId);
+            Assert.AreEqual("crocosoft.ru", linkCatch.Url);
+        }
+
         [Test]
         public void Test()
         {

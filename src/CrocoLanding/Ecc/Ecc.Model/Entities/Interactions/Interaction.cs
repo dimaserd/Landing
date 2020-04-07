@@ -7,6 +7,7 @@ using Ecc.Model.Entities.External;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Ecc.Model.Consts;
+using Ecc.Model.Entities.Email;
 
 namespace Ecc.Model.Entities.Interactions
 {
@@ -58,21 +59,28 @@ namespace Ecc.Model.Entities.Interactions
 
         public virtual EccUser User { get; set; }
 
+        [MaxLength(128)]
+        public string MessageDistributionId { get; set; }
+
         public virtual ICollection<InteractionStatusLog> Statuses { get; set; }
 
         public virtual ICollection<InteractionAttachment> Attachments { get; set; }
 
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Interaction>()
+            var entityBuilder = modelBuilder.Entity<Interaction>();
+
+            entityBuilder
                 .Property(x => x.Id)
                 .ValueGeneratedNever();
 
-            modelBuilder.Entity<Interaction>()
+            entityBuilder.HasIndex(x => x.MessageDistributionId).IsUnique(false);
+
+            entityBuilder
                 .HasIndex(x => new { x.Type })
                 .IsUnique(false);
 
-            modelBuilder.Entity<Interaction>()
+            entityBuilder
                 .HasDiscriminator<string>(nameof(Type))
                 .HasValue<UserNotificationInteraction>(EccConsts.InAppNotificationType)
                 .HasValue<MailMessageInteraction>(EccConsts.EmailType)

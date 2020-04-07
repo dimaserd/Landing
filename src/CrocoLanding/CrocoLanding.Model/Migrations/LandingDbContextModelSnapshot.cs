@@ -15,7 +15,7 @@ namespace CrocoLanding.Model.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -613,6 +613,25 @@ namespace CrocoLanding.Model.Migrations
                     b.ToTable("EmailTemplate","Ecc");
                 });
 
+            modelBuilder.Entity("Ecc.Model.Entities.Email.MessageDistribution", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Type");
+
+                    b.ToTable("MessageDistribution","Ecc");
+                });
+
             modelBuilder.Entity("Ecc.Model.Entities.External.EccFile", b =>
                 {
                     b.Property<int>("Id")
@@ -760,6 +779,10 @@ namespace CrocoLanding.Model.Migrations
                     b.Property<string>("MaskItemsJson")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MessageDistributionId")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
                     b.Property<string>("MessageText")
                         .HasColumnType("nvarchar(max)");
 
@@ -792,6 +815,8 @@ namespace CrocoLanding.Model.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MessageDistributionId");
 
                     b.HasIndex("Type");
 

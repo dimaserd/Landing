@@ -1,6 +1,7 @@
 ﻿using Croco.Core.Abstractions.Models;
 using Croco.Core.EventSourcing.Implementations;
 using Croco.Core.Implementations.TransactionHandlers;
+using Croco.Core.Utils;
 using Ecc.Contract.Models;
 using Ecc.Contract.Models.EmailGroup;
 using Ecc.Logic.Abstractions;
@@ -53,6 +54,20 @@ namespace Ecc.Logic.Handlers
 
             var count = 0;
 
+            var messageDistribution = Guid.NewGuid().ToString();
+
+            await CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(amb =>
+            {
+                amb.RepositoryFactory.GetRepository<MessageDistribution>().CreateHandled(new MessageDistribution
+                {
+                    Id = messageDistribution,
+                    Type = "SendMailsByEmailGroup",
+                    Data = Tool.JsonConverter.Serialize(model)
+                });
+
+                return amb.RepositoryFactory.SaveChangesAsync();
+            });
+
             while (count < emails.Count)
             {
                 await CrocoTransactionHandler.System.ExecuteAndCloseTransactionSafe(amb =>
@@ -64,6 +79,7 @@ namespace Ecc.Logic.Handlers
                         Email = x,
                         Body = model.Body,
                         Subject = model.Subject,
+                        MessageDistributionId = messageDistribution,
                         AttachmentFileIds = model.AttachmentFileIds
                     }));
                 });

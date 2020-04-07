@@ -35,5 +35,7 @@ namespace CrocoLanding.Model.Contexts
         public DbSet<EmailLinkCatch> EmailLinkCatches { get; set; }
 
         public DbSet<EmailLinkCatchRedirect> EmailLinkCatchRedirects { get; set; }
+
+        public DbSet<MessageDistribution> MessageDistributions { get; set; }
     }
 }

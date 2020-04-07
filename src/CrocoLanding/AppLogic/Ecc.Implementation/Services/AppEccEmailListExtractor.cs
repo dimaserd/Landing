@@ -1,9 +1,9 @@
 ﻿using Croco.Core.Abstractions.Application;
 using Croco.Core.Abstractions.Models;
-using Croco.Core.Utils;
 using Ecc.Logic.Abstractions;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ecc.Implementation.Services
@@ -28,8 +28,8 @@ namespace Ecc.Implementation.Services
                 return new BaseApiResponse<List<string>>(false, "Файл не существует по указанному пути");
             }
 
-            var res = Tool.JsonConverter.Deserialize<List<string>>(await File.ReadAllTextAsync(filePath));
-
+            var res = (await File.ReadAllTextAsync(filePath)).Split(',').ToList();
+    
             return new BaseApiResponse<List<string>>(true, "Ok", res);
         }
 

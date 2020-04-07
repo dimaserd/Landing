@@ -27,7 +27,7 @@ namespace Ecc.Logic.Workers.Emails
                 return validation;
             }
 
-            if (await Query<EmailGroup>().AnyAsync(x => x.Id == model.EmailGroupId))
+            if (!await Query<EmailGroup>().AnyAsync(x => x.Id == model.EmailGroupId))
             {
                 return new BaseApiResponse(false, "Группа не найдена по указанному идентификатору");
             }

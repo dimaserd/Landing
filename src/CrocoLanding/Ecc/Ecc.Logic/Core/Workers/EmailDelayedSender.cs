@@ -125,7 +125,7 @@ namespace Ecc.Logic.Core.Workers
                 SendNow = true,
                 UserId = message.UserId,
                 Type = EccConsts.EmailType,
-                ReceiverEmail = email,
+                ReceiverEmail = email
             },
             new InteractionStatusLog
             {
@@ -150,7 +150,8 @@ namespace Ecc.Logic.Core.Workers
                 ReceiverEmail = message.Email,
                 SendNow = true,
                 UserId = null,
-                Type = EccConsts.EmailType
+                Type = EccConsts.EmailType,
+                MessageDistributionId = message.MessageDistributionId
             },
             new InteractionStatusLog
             {

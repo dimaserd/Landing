@@ -34,5 +34,7 @@ namespace Ecc.Model.Abstractions
         DbSet<EmailLinkCatch> EmailLinkCatches { get; set; }
 
         DbSet<EmailLinkCatchRedirect> EmailLinkCatchRedirects { get; set; }
+
+        DbSet<MessageDistribution> MessageDistributions { get; set; }
     }
 }

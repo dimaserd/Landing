@@ -45,7 +45,7 @@ namespace Ecc.Logic.Handlers
                 throw new Exception(emailsFromFileResult.Message);
             }
 
-            var newEmails = emailsFromFileResult.ResponseObject.Where(x => emailsDict.ContainsKey(x)).ToList();
+            var newEmails = emailsFromFileResult.ResponseObject.Where(x => !emailsDict.ContainsKey(x)).ToList();
 
             var count = 0;
 

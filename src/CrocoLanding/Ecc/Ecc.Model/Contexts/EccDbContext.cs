@@ -38,6 +38,8 @@ namespace Ecc.Model.Contexts
 
         public DbSet<EmailLinkCatchRedirect> EmailLinkCatchRedirects { get; set; }
 
+        public DbSet<MessageDistribution> MessageDistributions { get; set; }
+
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
             EmailLinkCatch.OnModelCreating(modelBuilder);
@@ -51,6 +53,7 @@ namespace Ecc.Model.Contexts
             EmailInEmailGroupRelation.OnModelCreating(modelBuilder);
             EccChatUserRelation.OnModelCreating(modelBuilder);
             IntegratedApp.OnModelCreating(modelBuilder);
+            MessageDistribution.OnModelCreating(modelBuilder);
         }
     }
 }

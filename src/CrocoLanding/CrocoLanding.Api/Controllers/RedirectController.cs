@@ -1,6 +1,7 @@
 ﻿using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
+using DocumentFormat.OpenXml.Drawing;
 using Ecc.Implementation.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace CrocoLanding.Api.Controllers
 
             if(res.IsSucceeded)
             {
-                return Redirect(res.ResponseObject);
+                return Content($"<script>window.location = '{res.ResponseObject}';</script>", "text/html");
             }
 
             return Redirect("~/");

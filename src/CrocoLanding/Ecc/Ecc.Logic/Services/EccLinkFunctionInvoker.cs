@@ -34,7 +34,8 @@ namespace Ecc.Logic.Services
             var linkCatch = new EmailLinkCatch
             {
                 Id = id,
-                Url = firstArg,
+                //обрезаем кавычки от аргумента
+                Url = firstArg.Trim('\'').Trim('\"'),
                 CreatedOnUtc = DateTime.UtcNow,
                 MailMessageId = interactionId
             };

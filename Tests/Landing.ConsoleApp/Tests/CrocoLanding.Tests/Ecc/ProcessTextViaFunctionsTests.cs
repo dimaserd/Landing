@@ -1,5 +1,5 @@
 ﻿using Croco.Core.Abstractions;
-using Ecc.Implementation.Services;
+using Ecc.Logic.Services;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;

@@ -13,6 +13,7 @@ using Ecc.Implementation.Models;
 using Ecc.Implementation.Workers;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Workers.Messaging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace CrocoLanding.Api.Controllers
 {
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class EccController : BaseApiController
     {
         readonly bool IsDevelopment = CrocoApp.Application.As<LandingWebApplication>().IsDevelopment;

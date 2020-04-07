@@ -54,6 +54,9 @@ namespace Ecc.Model.Contexts
             EccChatUserRelation.OnModelCreating(modelBuilder);
             IntegratedApp.OnModelCreating(modelBuilder);
             MessageDistribution.OnModelCreating(modelBuilder);
+
+            EmailGroup.OnModelCreating(modelBuilder);
+            MessageDistribution.OnModelCreating(modelBuilder);
         }
     }
 }

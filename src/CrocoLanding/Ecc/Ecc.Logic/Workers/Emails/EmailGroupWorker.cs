@@ -23,14 +23,13 @@ namespace Ecc.Logic.Workers.Emails
                 return new BaseApiResponse(false, "У вас недостаточно прав");
             }
 
-            var emailGroup = await Query<EmailGroup>().Include(x => x.Emails).FirstOrDefaultAsync(x => x.Id == id);
+            var emailGroup = await Query<EmailGroup>().FirstOrDefaultAsync(x => x.Id == id);
             
             if(emailGroup == null)
             {
                 return new BaseApiResponse(false, "Группа не найдена по указанному идентификатору");
             }
 
-            DeleteHandled(emailGroup.Emails.ToList());
             DeleteHandled(emailGroup);
 
             return await TrySaveChangesAndReturnResultAsync("Группа для эмелов удалена");

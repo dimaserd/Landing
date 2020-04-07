@@ -1,7 +1,6 @@
 ﻿using CrocoLanding.Api.Controllers.Base;
 using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
-using DocumentFormat.OpenXml.Drawing;
 using Ecc.Implementation.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

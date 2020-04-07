@@ -19,6 +19,12 @@ namespace Ecc.Model.Entities.Email
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmailGroup>().HasIndex(x => new { x.Name }).IsUnique();
+
+            modelBuilder.Entity<EmailInEmailGroupRelation>()
+                .HasOne(i => i.EmailGroup)
+                .WithMany(c => c.Emails)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

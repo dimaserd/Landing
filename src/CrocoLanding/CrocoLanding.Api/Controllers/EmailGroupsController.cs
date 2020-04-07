@@ -7,6 +7,7 @@ using Ecc.Contract.Models.EmailGroup;
 using Ecc.Logic.Abstractions;
 using Ecc.Logic.Extensions;
 using Ecc.Logic.Workers.Emails;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace CrocoLanding.Api.Controllers
     /// <summary>
     /// Группы для эмейлов
     /// </summary>
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class EmailGroupsController : BaseApiController
     {
         IEccFilePathMapper FilePathMapper { get; }

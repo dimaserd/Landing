@@ -4,13 +4,14 @@ using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
 using Ecc.Logic.Models.Messaging;
 using Ecc.Logic.Workers.Messaging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CrocoLanding.Api.Controllers
 {
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class MailMessageController : BaseApiController
     {
         public MailMessageController(LandingDbContext context, ApplicationSignInManager signInManager, ApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) : base(context, signInManager, userManager, httpContextAccessor)

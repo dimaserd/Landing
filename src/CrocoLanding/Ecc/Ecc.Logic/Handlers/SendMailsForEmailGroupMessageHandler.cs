@@ -36,12 +36,6 @@ namespace Ecc.Logic.Handlers
                     .Where(x => x.EmailGroupId == model.EmailGroupId)
                     .OrderBy(x => x.Email);
                 
-                if(model.Count.HasValue && model.Count.Value > 0)
-                {
-                    initQuery = initQuery.Skip(model.OffSet)
-                        .Take(model.Count.Value);
-                }
-
                 return initQuery.Select(x => x.Email).ToListAsync();
             });
                 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ecc.Contract.Models.EmailGroup
 {
-    public class SendMailsForEmailGroup : GetListSearchModel
+    public class SendMailsForEmailGroup
     {
         public string EmailGroupId { get; set; }
 

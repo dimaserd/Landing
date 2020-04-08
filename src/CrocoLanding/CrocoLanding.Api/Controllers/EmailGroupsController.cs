@@ -57,7 +57,7 @@ namespace CrocoLanding.Api.Controllers
         }
 
         [HttpPost("Send/ViaTemplate")]
-        public async Task<BaseApiResponse> SendViaTemplate(string emailGroupId, int? count = 50, int offSet = 0)
+        public async Task<BaseApiResponse> SendViaTemplate(string emailGroupId)
         {
             var testModel = EccController.GetTestModel("somemail@mail.com");
 
@@ -74,9 +74,7 @@ namespace CrocoLanding.Api.Controllers
             {
                 Body = m.Body,
                 Subject = m.Subject,
-                Count = count,
-                EmailGroupId = emailGroupId,
-                OffSet = offSet
+                EmailGroupId = emailGroupId
             });
         }
 

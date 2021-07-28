@@ -1,21 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <FrameworkReference>Microsoft.AspNetCore.App</FrameworkReference>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.94.2" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="NetCroco.Core.Hangfire" Version="1.0.31" />
-    <PackageReference Include="NetCroco.WebApplication" Version="1.5.56" />
-    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.58" />
-    <PackageReference Include="Zoo.GenericUserInterface" Version="0.9.18" />
-    <PackageReference Include="Zoo.ServerJs" Version="0.9.2" />
+    <PackageReference Include="Croco.WebApplication" Version="2.1.6" />
+    <PackageReference Include="Croco.Core.Logic" Version="1.1.9" />
+    <PackageReference Include="Zoo.GenericUserInterface" Version="1.0.13" />
+    <PackageReference Include="Zoo.ServerJs" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

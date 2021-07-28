@@ -1,5 +1,4 @@
-﻿using Croco.Core.Model.Entities.Store;
-using CrocoLanding.Model.Entities.Ecc;
+﻿using CrocoLanding.Model.Entities.Ecc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrocoLanding.Model.Contexts
@@ -14,8 +13,6 @@ namespace CrocoLanding.Model.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            LoggedApplicationAction.OnModelCreating(modelBuilder);
-
             base.OnModelCreating(modelBuilder);
         }
     }

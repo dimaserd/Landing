@@ -1,5 +1,5 @@
-﻿using Croco.Core.Abstractions.Models;
-using CrocoLanding.Api.Models;
+﻿using Croco.Core.Contract.Models;
+using CrocoLanding.Logic.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

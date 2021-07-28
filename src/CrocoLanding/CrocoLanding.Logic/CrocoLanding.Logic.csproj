@@ -6,13 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Croco.WebApplication" Version="2.1.6" />
     <PackageReference Include="Croco.Core.Logic" Version="1.1.9" />
     <PackageReference Include="Zoo.GenericUserInterface" Version="1.0.13" />
     <PackageReference Include="Zoo.ServerJs" Version="1.0.3" />
+    <PackageReference Include="Zoo.Croco.Ecc" Version="0.9.14" />
   </ItemGroup>
 
   <ItemGroup>

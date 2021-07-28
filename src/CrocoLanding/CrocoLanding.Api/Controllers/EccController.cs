@@ -1,14 +1,27 @@
 ﻿using Croco.Core.Contract.Models;
 using CrocoLanding.Logic.Models;
+using CrocoLanding.Logic.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading.Tasks;
 
 namespace CrocoLanding.Api.Controllers
 {
-    [Route("api/[controller]"), ApiController]
+    [Route("api/Ecc"), ApiController]
     public class EccController : Controller
     {
+        CallBackRequestWorker CallBackRequestWorker { get; }
+        bool IsDevelopment { get; }
+
+        public EccController(CallBackRequestWorker callBackRequestWorker, IWebHostEnvironment environment)
+        {
+            CallBackRequestWorker = callBackRequestWorker;
+            IsDevelopment = environment.IsDevelopment();
+        }
+
+        
         [HttpPost("SendCallBackRequest")]
         public async Task<BaseApiResponse> SendCallBackRequest([FromForm] CreateCallBackApiModel model)
         {
@@ -32,10 +45,7 @@ namespace CrocoLanding.Api.Controllers
                 Ip = ip
             };
 
-            return CrocoTransactionHandler.System.ExecuteAndCloseTransaction(amb =>
-            {
-                return new CallBackRequestWorker(amb, IsDevelopment).CreateCallBackRequest(nModel);
-            });
+            return CallBackRequestWorker.CreateCallBackRequest(nModel, IsDevelopment);
         }
     }
 }

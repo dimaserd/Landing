@@ -5,6 +5,7 @@ using Croco.Core.Logic.Services;
 using CrocoLanding.Logic.Models;
 using CrocoLanding.Model.Contexts;
 using CrocoLanding.Model.Entities.Ecc;
+using Ecc.Contract.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,12 @@ namespace CrocoLanding.Logic.Services
 
             if (res.IsSucceeded)
             {
-                Application.JobManager.Enqueue<SendEmailTaskGiverByCallBackRequest>(srv => srv.GetTask());
+                await PublishMessageAsync(new SendMailMessage
+                {
+                    Email = "dimaserd96@yandex.ru",
+                    Body = $"Перезвонилка на {model.EmailOrPhoneNumber}",
+                    Subject = "Заявка на перезвон"
+                });
             }
 
             return res;

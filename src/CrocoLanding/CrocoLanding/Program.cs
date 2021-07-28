@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
+using System;
 
 namespace CrocoLanding
 {
@@ -7,17 +10,42 @@ namespace CrocoLanding
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var logger = GetNLogLogger();
+
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Exception on setup phase");
+                throw;
+            }
+            finally
+            {
+                NLog.LogManager.Shutdown();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                }).UseDefaultServiceProvider(opts =>
+                    webBuilder.UseStartup<Startup>()
+                        .ConfigureLogging(logging =>
+                        {
+                            logging.SetMinimumLevel(LogLevel.Trace);
+                        })
+                        .UseNLog();
+                })
+                .UseDefaultServiceProvider((context, options) =>
                 {
-                    opts.ValidateOnBuild = true;
+                    options.ValidateOnBuild = true;
                 });
+
+        private static NLog.Logger GetNLogLogger()
+        {
+            return NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+        }
     }
 }

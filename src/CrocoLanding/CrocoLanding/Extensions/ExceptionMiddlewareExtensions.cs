@@ -1,7 +1,6 @@
 ﻿using Croco.Core.Application;
 using Croco.Core.Extensions;
 using CrocoLanding.Abstractions;
-using Ecc.Contract.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 

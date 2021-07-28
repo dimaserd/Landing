@@ -1,27 +1,17 @@
-using Croco.Core.Abstractions.Application;
-using CrocoLanding.Configuration.Hangfire;
-using CrocoLanding.Configuration.Swagger;
-using CrocoLanding.CrocoStuff;
 using CrocoLanding.Extensions;
 using CrocoLanding.Implementations;
-using CrocoLanding.Logic.Services;
 using CrocoLanding.Model.Contexts;
-using CrocoLanding.Model.Entities.Clt.Default;
-using Ecc.Implementation;
-using Ecc.Logic;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -38,27 +28,7 @@ namespace CrocoLanding
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-            Croco = new StartupCroco(new StartUpCrocoOptions
-            {
-                Configuration = configuration,
-                Env = env,
-                BuildActions = new List<Action<ICrocoApplicationOptions>>
-                {
-                    EccLogicRegistrator.AddMessageHandlers
-                },
-                ApplicationActions = new List<Action<ICrocoApplication>>
-                {
-                    EccServiceRegistrator.AddJobs,
-                },
-                ServiceRegistrations = new List<Action<IServiceCollection>>
-                {
-                    srv => EccServiceRegistrator.ConfigureServices(srv, AppUrl)
-                },
-                ApplicationUrl = AppUrl
-            });
         }
-
-        StartupCroco Croco { get; }
 
         IConfiguration Configuration { get; }
 
@@ -93,27 +63,7 @@ namespace CrocoLanding
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<ApplicationUserManager>();
-            services.AddTransient<ApplicationSignInManager>();
-
-            services.AddScoped(srv => LandingDbContext.Create(Configuration));
-
-            services.AddIdentity<ApplicationUser, ApplicationRole>(opts =>
-            {
-                opts.Password.RequiredLength = 5;
-                opts.Password.RequireNonAlphanumeric = false;
-                opts.Password.RequireLowercase = false;
-                opts.Password.RequireUppercase = false;
-                opts.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<LandingDbContext>()
-            .AddDefaultTokenProviders();
-
-            SwaggerConfiguration.ConfigureSwagger(services, new List<string>
-            {
-            });
-
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(LandingDbContext.ConnectionString)));
-
+            
             services.ConfigureApplicationCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromDays(5);
@@ -168,8 +118,6 @@ namespace CrocoLanding
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            HangfireConfiguration.AddHangfire(app, x => env.EnvironmentName == DevelopmentEnvironmentName);
 
             app.UseSpa(spa =>
             {

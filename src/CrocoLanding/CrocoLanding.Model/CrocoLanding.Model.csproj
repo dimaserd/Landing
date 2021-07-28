@@ -21,13 +21,4 @@
     <PackageReference Include="NetCroco.WebApplication" Version="1.5.56" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Ecc\Ecc.Model\Ecc.Model.csproj" />
-    <ProjectReference Include="..\Zoo\Zoo.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\Clt\" />
-  </ItemGroup>
-
 </Project>

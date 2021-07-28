@@ -19,10 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppLogic\Ecc.Implementation\Ecc.Implementation.csproj" />
     <ProjectReference Include="..\Common\Cmn.Enums\Cmn.Enums.csproj" />
     <ProjectReference Include="..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
-    <ProjectReference Include="..\Ecc\Ecc.Logic\Ecc.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>

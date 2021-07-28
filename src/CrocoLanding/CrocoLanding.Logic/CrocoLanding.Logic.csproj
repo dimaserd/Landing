@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Cmn.Enums\Cmn.Enums.csproj" />
     <ProjectReference Include="..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,4 @@
-﻿using Croco.Core.Application;
-using Croco.Core.Extensions;
-using CrocoLanding.Abstractions;
+﻿using CrocoLanding.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 
@@ -20,12 +18,6 @@ namespace CrocoLanding.Extensions
                         var ex = contextFeature.Error;
 
                         await logger.LogExceptionAsync(ex);
-
-                        await CrocoApp.Application.EventSourcer.Publisher.PublishAsync(SystemCrocoExtensions.GetRequestContext(), new ExceptionData
-                        {
-                            ExceptionName = ex.GetType().FullName,
-                            ExceptionString = ex.ToString()
-                        });
                     }
                 });
             });

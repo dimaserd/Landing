@@ -6,7 +6,6 @@ namespace CrocoLanding.Model.Contexts
 {
     public partial class LandingDbContext : DbContext
     {
-        
         public LandingDbContext(DbContextOptions<LandingDbContext> options) : base(options)
         {
         }

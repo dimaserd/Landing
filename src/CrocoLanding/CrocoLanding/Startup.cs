@@ -1,7 +1,5 @@
 using CrocoLanding.Extensions;
-using CrocoLanding.Implementations;
 using CrocoLanding.Model.Contexts;
-using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,9 +21,7 @@ namespace CrocoLanding
 
         const string SpaPath = "wwwroot";
 
-        const string AppUrl = "https://crocosoft.ru";
-
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -82,9 +78,6 @@ namespace CrocoLanding
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            //Установка приложения
-            Croco.RegisterCrocoApplication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -133,11 +126,6 @@ namespace CrocoLanding
                     "Admin/{controller=Home}/{action=Index}/{id?}");
 
             });
-
-            app.ConfigureExceptionHandler(new ApplicationLoggerManager());
-
-            Croco.SetCrocoActivatorAndApplication(app.ApplicationServices);
-            UpdateDatabase(app);
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)

@@ -42,11 +42,6 @@
     <ProjectReference Include="..\CrocoLanding.Api\CrocoLanding.Api.csproj" />
     <ProjectReference Include="..\CrocoLanding.Logic\CrocoLanding.Logic.csproj" />
     <ProjectReference Include="..\CrocoLanding.Model\CrocoLanding.Model.csproj" />
-    <ProjectReference Include="..\Zoo\Zoo.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Implementations\" />
   </ItemGroup>
 
 </Project>

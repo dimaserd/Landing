@@ -13,10 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrocoLanding.Logic", "Croco
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppLogic", "AppLogic", "{7BC80610-EABE-48E6-A099-85579D4A1A1F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5E217082-7B64-45F6-98DB-9F9F483B33C2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmn.Enums", "Common\Cmn.Enums\Cmn.Enums.csproj", "{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,17 +35,12 @@ Global
 		{F07F2062-F781-493E-802C-D4F58613B2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F07F2062-F781-493E-802C-D4F58613B2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F07F2062-F781-493E-802C-D4F58613B2C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F07F2062-F781-493E-802C-D4F58613B2C2} = {7BC80610-EABE-48E6-A099-85579D4A1A1F}
-		{863CAE98-6FD9-4AD6-8C0E-9798F80B3212} = {5E217082-7B64-45F6-98DB-9F9F483B33C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0442B5F-5405-49D9-BE55-C2608812E971}

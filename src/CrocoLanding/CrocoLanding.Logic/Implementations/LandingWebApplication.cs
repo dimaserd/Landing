@@ -20,7 +20,5 @@ namespace CrocoLanding.Logic
         {
             return GetMimeMapping(fileName).StartsWith("image/");
         }
-
-        public bool IsDevelopment { get; set; }
     }
 }

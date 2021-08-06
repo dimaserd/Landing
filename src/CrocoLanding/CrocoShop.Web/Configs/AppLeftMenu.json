@@ -1,0 +1,91 @@
+{
+  "Items": [
+    {
+      "Title": "Главная",
+      "Link": ""
+    },
+    {
+      "Title": "Пользователи",
+      "Link": "/users",
+      "VisibleCheckName": "IsAuthorized"
+    },
+    {
+      "Title": "Файлы",
+      "Link": "/files",
+      "VisibleCheckName": "IsAuthorized"
+    },
+    {
+      "Title": "Задания на день",
+      "Link": "/tms",
+      "VisibleCheckName": "IsAuthorized"
+    },
+    {
+      "Title": "Коммуникации",
+      "Link": "",
+      "VisibleCheckName": "IsAuthorized",
+      "Children": [
+        {
+          "Title": "Уведомления",
+          "Link": "/ecc/notifications"
+        }
+      ]
+    },
+    {
+      "Title": "Интернет магазин",
+      "Link": "",
+      "VisibleCheckName": "IsDeveloper",
+      "Children": [
+        {
+          "Title": "Магазины",
+          "Link": "/crocoshop/shops"
+        },
+        {
+          "Title": "Товары",
+          "Link": "/crocoshop/products"
+        }
+      ]
+    },
+    {
+      "Title": "FOC-LAB",
+      "Link": "",
+      "VisibleCheckName": "IsAuthorized",
+      "Children": [
+        {
+          "Title": "Задания",
+          "Link": "/foc-lab/tasks"
+        },
+        {
+          "Title": "Реагенты",
+          "Link": "/foc-lab/reagents"
+        },
+        {
+          "Title": "Методы решений",
+          "Link": "/foc-lab/methods"
+        },
+        {
+          "Title": "Эксперименты",
+          "Link": "/foc-lab/experiments"
+        }
+      ]
+    },
+    {
+      "Title": "Для разработчиков",
+      "Link": "",
+      "VisibleCheckName": "IsDeveloper",
+      "Children": [
+        {
+          "Title": "JS OPEN API",
+          "Link": "/js-open-api"
+        },
+        {
+          "Title": "Описания типов",
+          "Link": "/type-description"
+        },
+        {
+          "Title": "Настройки приложения",
+          "Link": "/app-settings"
+        }
+      ]
+    }
+  ]
+}

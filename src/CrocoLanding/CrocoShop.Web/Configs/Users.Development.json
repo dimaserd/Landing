@@ -1,0 +1,33 @@
+{
+  "Users": [
+    {
+      "Email": "zolin@mail.ru",
+      "Name": "Степан",
+      "Surname": "Золин",
+      "Patronymic": "Николаевич",
+      "PhoneNumber": "79883463456",
+      "Password": "1234@Abc"
+    },
+    {
+      "Email": "serdyukov@mail.ru",
+      "Name": "Дмитрий",
+      "Surname": "Сердюков",
+      "Patronymic": "Александрович",
+      "PhoneNumber": "79166044960",
+      "Password": "1234@Abc"
+    },
+    {
+      "Email": "chebukkk@mail.ru",
+      "Name": "Влад",
+      "Surname": "Шульгин",
+      "Patronymic": "Олегович",
+      "PhoneNumber": "89169457451",
+      "Password": "1234@Abc"
+    }
+  ],
+  "Roles": [
+    "Admin",
+    "Developer"
+  ],
+  "CreateRoot": true
+}

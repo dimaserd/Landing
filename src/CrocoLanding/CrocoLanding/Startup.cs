@@ -1,6 +1,7 @@
 using Clt.Logic.Extensions;
 using Croco.Common;
 using Croco.Common.Options;
+using Croco.Common.Services;
 using Croco.Core.Application;
 using Croco.Core.Logic.DbContexts;
 using Croco.WebApplication.Extensions;
@@ -114,8 +115,9 @@ namespace CrocoLanding
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, DbCreator dbCreator)
         {
+            dbCreator.CreateDatabases();
             app.UseDeveloperExceptionPage();
 
             if (!Environment.IsDevelopment())

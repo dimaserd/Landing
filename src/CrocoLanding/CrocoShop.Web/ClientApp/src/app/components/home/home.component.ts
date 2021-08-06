@@ -11,6 +11,6 @@ export class HomeComponent {
   constructor(
     title: Title,
   ) {
-    title.setTitle("Теннисные корты");
+    title.setTitle("Главная CrocoSoft");
   }
 }

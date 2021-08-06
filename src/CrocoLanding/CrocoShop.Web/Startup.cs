@@ -1,9 +1,6 @@
-using Clt.Logic.Extensions;
 using Croco.Common;
 using Croco.Core.Application;
-using Croco.Core.Logic.DbContexts;
 using Croco.WebApplication.Extensions;
-using CrocoShop.Web.Logic.Services.Background;
 using CrocoShop.Web.Extensions;
 using CrocoShop.Web.Registrators;
 using Microsoft.AspNetCore.Builder;
@@ -20,11 +17,12 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Zoo.DataImporter;
 using Croco.Common.Registrators;
 using Croco.Common.Options;
 using Croco.Common.Services;
-using CrocoShop.Web.Logic;
+using Clt.Logic.Extensions;
+using Croco.Core.Logic.DbContexts;
+using CrocoLanding.Logic;
 
 namespace CrocoShop.Web
 {
@@ -74,8 +72,6 @@ namespace CrocoShop.Web
                 };
             });
 
-            services.AddHostedService<DequeueIntegrationMessagesBackgroundService>();
-
             services
                 .AddSignalR()
                 .AddJsonProtocol(opts => ConfigureJsonSerializer(opts.PayloadSerializerOptions));
@@ -90,9 +86,7 @@ namespace CrocoShop.Web
             });
 
             Builder = CrocoStartUp.SetCrocoApplicationAndRegistratorAndGetBuilder<CrocoInternalDbContext>(services);
-            ShopRegistrator.Register(Builder);
-            DataImporterRegistrar.RegisterShopDataImporter(services);
-            CourtRecordsRegistrator.RegisterServices(services);
+            CrocoLandingLogicRegistrator.RegisterServices(Builder);
         }
 
         private static void ConfigureJsonSerializer(JsonSerializerOptions settings)
@@ -182,8 +176,6 @@ namespace CrocoShop.Web
             });
 
             Builder.SetAppAndActivator(app.ApplicationServices);
-
-            CourtSettingsRegistrator.RegisterCourtSettings(app);
         }
     }
 }

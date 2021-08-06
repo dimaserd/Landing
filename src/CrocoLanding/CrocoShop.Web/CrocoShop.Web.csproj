@@ -35,12 +35,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Croco.Common\Croco.Common.csproj" />
-    <ProjectReference Include="..\CrocoShop.Web.Api\CrocoShop.Web.Api.csproj" />
-    <ProjectReference Include="..\CrocoShop.Web.Logic\CrocoShop.Web.Logic.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <Content Update="Configs\CourtSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -26,8 +26,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule, Resolve } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,18 +54,14 @@ import { MAIN_COMPONENTS } from './components/main-components';
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 import { NouisliderModule } from 'ng2-nouislider';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-import { TimePlainRecordsComponent } from './components/time-plain-records/time-plain-records.component';
 @NgModule({
   declarations: [
     ...MAIN_COMPONENTS,
-    TimePlainRecordsComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    NgxMaterialTimepickerModule,
     ClipboardModule,
     FormsModule,
     ReactiveFormsModule,

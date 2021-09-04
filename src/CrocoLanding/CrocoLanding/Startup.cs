@@ -34,11 +34,13 @@ namespace CrocoLanding
         IWebHostEnvironment Environment { get; }
         StartupCroco CrocoStartUp { get; set; }
         CrocoApplicationBuilder Builder { get; set; }
+        bool UseAngular { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
+            UseAngular = Configuration.GetValue<bool>(nameof(UseAngular));
         }
 
         private static void ConfigureJsonSerializer(JsonSerializerOptions settings)
@@ -53,10 +55,19 @@ namespace CrocoLanding
         {
             services.AddControllersWithViews();
 
-            services.AddSpaStaticFiles(configuration =>
+            if (UseAngular)
             {
-                configuration.RootPath = SpaPath;
-            });
+                AngularRegistrator.RegisterAngular(services);
+            }
+            else
+            {
+                services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = SpaPath;
+                });
+            }
+            
+            
 
             services.Configure<FormOptions>(options =>
             {
@@ -74,7 +85,6 @@ namespace CrocoLanding
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
             
             services.ConfigureApplicationCookie(options =>
             {
@@ -173,10 +183,18 @@ namespace CrocoLanding
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
+            if (UseAngular)
             {
-                spa.Options.SourcePath = SpaPath;
-            });
+                AngularRegistrator.UseAngular(app, Environment);
+            }
+            else
+            {
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = SpaPath;
+                });
+            }
+            
 
             Builder.SetAppAndActivator(app.ApplicationServices);
         }

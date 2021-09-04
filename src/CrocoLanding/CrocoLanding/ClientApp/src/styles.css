@@ -1,0 +1,50 @@
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import '../node_modules/angular-calendar/css/angular-calendar.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css';
+@import '~angular-notifier/styles/core.css';
+@import '~angular-notifier/styles/themes/theme-material.css';
+@import '~angular-notifier/styles/types/type-error.css';
+@import '~angular-notifier/styles/types/type-success.css';
+
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+.mat-drawer-container {
+  height: 100%;
+}
+.mat-drawer {
+  min-width: 30%;
+}
+
+.notifier__notification--info {
+  background-color: rgb(186 239 255);
+}
+
+.notifier__notification-button.notification-button-ok {
+  background-color: rgba(1, 1, 1, 0.6);
+  border-radius: 3px;
+  color: white;
+}

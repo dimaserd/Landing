@@ -1,0 +1,17 @@
+<div class="container-develop">
+  <div class="container-tittle">
+    <h2 class="develop-tittle">Мы разрабатываем</h2>
+  </div>
+  <div class="develop-cards">
+    <div *ngFor="let dev of developmentList" class="develop-card">
+      <div class="icon-lg icon-color">
+        <i
+          *ngFor="let iconClass of dev.icons"
+          class="fa fa-5x {{ iconClass }}"
+        ></i>
+      </div>
+      <h4>{{ dev.title }}</h4>
+      <p>{{ dev.description }}</p>
+    </div>
+  </div>
+</div>

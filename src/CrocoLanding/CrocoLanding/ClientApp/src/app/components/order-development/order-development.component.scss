@@ -1,0 +1,90 @@
+@import "/src/styles/mixins";
+
+.container-order-develop {
+  margin-right: auto;
+  margin-left: auto;
+  box-sizing: border-box;
+  @include onTablet {
+    width: 750px;
+  }
+  @include onBigTablet {
+    width: 970px;
+  }
+  @include onDesktop {
+    width: 1170px;
+  }
+}
+
+.order-development-title {
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.wrapper-order-development-title {
+  margin-bottom: 20px;
+  padding: 0 15px;
+}
+
+.order-development-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.width-content-image {
+  @include onTablet {
+    width: 470px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @include onBigTablet {
+    width: 455px;
+  }
+
+  @include onDesktop {
+    width: 555px;
+  }
+}
+
+.width-content-text {
+  @include onTablet {
+    width: 720px;
+  }
+  @include onBigTablet {
+    width: 455px;
+  }
+
+  @include onDesktop {
+    width: 555px;
+  }
+}
+
+.computer-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transform: translateY(-20px);
+}
+
+.padding-wrapper {
+  padding: 16px 15px;
+}
+
+.order-development-text {
+  margin: 40px 0 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+
+  @include onBigTablet {
+    margin-top: 24%;
+  }
+}
+
+.logo-visible {
+  transition: transform 0.8s linear 0.4s, opacity 0.8s linear 0.4s;
+  transform: translateY(0);
+}

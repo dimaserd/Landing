@@ -1,0 +1,10 @@
+<div class="container-tech">
+  <div class="container-tech-title">
+    <h2 class="tech-title">Используемые технологии</h2>
+  </div>
+  <div class="tech-icons">
+    <div *ngFor="let image of images" class="image-container">
+      <img [src]="image" class="tech-image" />
+    </div>
+  </div>
+</div>

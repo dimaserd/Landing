@@ -1,0 +1,131 @@
+@import "/src/styles/mixins";
+
+.news-letter-overlay {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.news-letter-container {
+  position: relative;
+  box-sizing: border-box;
+  padding: 60px 0 55px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include onTablet {
+    width: 750px;
+  }
+  @include onBigTablet {
+    width: 970px;
+  }
+  @include onDesktop {
+    width: 1170px;
+  }
+}
+
+.wrapper-padding {
+  padding: 16px 15px;
+  margin: auto;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #444;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.message {
+  margin: 0;
+  font-size: 11.9px;
+  line-height: 1.5;
+  color: #444;
+}
+
+.message-wrapper {
+  @include onTablet {
+    width: 345px;
+  }
+  @include onBigTablet {
+    width: 455px;
+  }
+  @include onDesktop {
+    width: 550px;
+  }
+}
+.form-group {
+  background-color: transparent;
+  border: 1px solid #b2b2b2;
+  outline: none;
+}
+
+.form-message {
+  border-right: none;
+  padding: 6px 16px;
+  border-top-left-radius: 17px;
+  border-bottom-left-radius: 17px;
+  color: rgb(178, 178, 178);
+  height: 20px;
+  @include notTablet {
+    width: 65.8%;
+  }
+  @include onTablet {
+    width: 327px;
+  }
+  @include onBigTablet {
+    width: 195.328px;
+  }
+  @include onDesktop {
+    width: 262px;
+  }
+}
+
+.form-button {
+  border-left: none;
+  padding: 6px 20px;
+  border-top-right-radius: 17px;
+  border-bottom-right-radius: 17px;
+  color: #3aafd6;
+  height: 34px;
+  width: 65px;
+}
+
+.form-message:focus {
+  border-color: rgb(61, 175, 213);
+}
+
+.form-message:focus + .form-button {
+  border-color: rgb(61, 175, 213);
+}
+
+.form-message::placeholder {
+  color: rgb(178, 178, 178);
+}
+
+.input-wrapper {
+  margin-bottom: 15px;
+  @include onTablet {
+    margin-left: 16.66666667%;
+    width: 470px;
+  }
+  @include onBigTablet {
+    width: 293.328px;
+    margin-left: 323.328px;
+  }
+  @include onDesktop {
+    width: 360px;
+    margin-left: 390px;
+  }
+}
+
+.fa-paper-plane {
+  margin-right: 10px;
+}

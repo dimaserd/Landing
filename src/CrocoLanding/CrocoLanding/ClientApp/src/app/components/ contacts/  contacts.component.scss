@@ -1,0 +1,62 @@
+@import "/src/styles/mixins";
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 16px 0;
+
+  @include onTablet {
+    width: 750px;
+  }
+  @include onBigTablet {
+    width: 970px;
+  }
+  @include onDesktop {
+    width: 1170px;
+  }
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  @include onBigTablet {
+    width: 83.333%;
+    margin-left: 9.9%;
+  }
+}
+
+.contact {
+  display: flex;
+  box-sizing: border-box;
+  padding: 5px 0;
+  width: 50%;
+  justify-content: center;
+
+  @include notTablet {
+    width: 100%;
+  }
+
+  @include onBigTablet {
+    justify-content: start;
+  }
+}
+
+.icon {
+  color: rgb(58, 175, 214);
+  padding-right: 9px;
+}
+
+.link-wrapper {
+  padding-left: 6px;
+  line-height: 1.5;
+  margin: auto 0;
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(68, 68, 68);
+  font-size: 14px;
+}

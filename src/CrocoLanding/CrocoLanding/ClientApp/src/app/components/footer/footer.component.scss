@@ -1,0 +1,30 @@
+@import "/src/styles/mixins";
+
+.container {
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include onTablet {
+    width: 750px;
+  }
+  @include onBigTablet {
+    width: 970px;
+  }
+  @include onDesktop {
+    width: 1170px;
+  }
+}
+
+.copyright {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.copyright-wrapper {
+  padding: 5px 15px;
+  @include notBigTablet {
+    text-align: center;
+    padding-bottom: 15px;
+  }
+}

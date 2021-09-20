@@ -1,0 +1,8 @@
+<div
+  class="scroll-button"
+  *ngIf="showScrollButton$ | async"
+  @fadeInFadeOut
+  (click)="scrollTop()"
+>
+  <i class="fa fa-angle-up"></i>
+</div>

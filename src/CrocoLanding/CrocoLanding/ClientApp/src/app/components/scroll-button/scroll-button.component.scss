@@ -1,0 +1,27 @@
+.scroll-button {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  height: 42px;
+  width: 42px;
+  font-size: 24px;
+  line-height: 40px;
+  color: #fff;
+  background-color: #3aafd6;
+  text-decoration: none;
+  opacity: 0.4;
+  border: none;
+  border-radius: 50%;
+  transition: background 0.3s ease-in-out;
+}
+
+.scroll-button:hover {
+  opacity: 1;
+  background-color: #379bbc;
+}
+
+.fa {
+  margin-top: 8px;
+}

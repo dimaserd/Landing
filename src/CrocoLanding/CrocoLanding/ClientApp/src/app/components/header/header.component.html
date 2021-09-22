@@ -1,0 +1,51 @@
+<div class="header">
+  <div class="container">
+    <div class="nav-wrapper">
+      <div class="logo-link" (click)="scrollTop()">
+        <div class="logo"></div>
+      </div>
+
+      <ul class="navigation-links only-big-tablet">
+        <li class="bold-header-text">
+          <a href="https://demoshop.crocosoft.ru/Catalogue" class="nav-link"
+            >Демо-магазин</a
+          >
+        </li>
+        <li class="bold-header-text">
+          <a class="nav-link" (click)="scrollToNewsletter()">Связаться</a>
+        </li>
+      </ul>
+      <div class="not-big-tablet">
+        <ul
+          *ngIf="navBarOpened"
+          @fadeInFadeOut
+          class="navigation-links overflow-hide"
+        >
+          <li class="bold-header-text">
+            <a href="https://demoshop.crocosoft.ru/Catalogue" class="nav-link"
+              >Демо-магазин</a
+            >
+          </li>
+          <li class="bold-header-text">
+            <span
+              href="#newsletter"
+              class="nav-link"
+              (click)="scrollToNewsletter()"
+              >Связаться</span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="menu-nav"
+        [class.menu-nav-open]="navBarOpened"
+        (click)="toggleNavBar()"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>

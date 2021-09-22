@@ -1,0 +1,145 @@
+@import "/src/styles/mixins";
+
+.logo-link {
+  padding: 4px 15px 4px 0;
+  height: 40px;
+  width: 90px;
+}
+
+.logo {
+  height: 40px;
+  width: 90px;
+  background: url("^./assets/logo-blue.png") no-repeat center;
+  background-size: auto 40px;
+}
+
+.header {
+  padding: 28px 5px 22px;
+  background: #ffffff;
+}
+
+.container {
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include onTablet {
+    width: 750px;
+  }
+
+  @include onBigTablet {
+    width: 970px;
+  }
+
+  @include onDesktop {
+    width: 1170px;
+  }
+}
+
+.nav-wrapper {
+  position: relative;
+
+  @include onBigTablet {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  line-height: 20px;
+  color: #444;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  @include onBigTablet {
+    padding-left: 15px;
+  }
+}
+
+.navigation-links {
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+
+  @include onBigTablet {
+    display: flex;
+  }
+
+  &.overflow-hide {
+    overflow: hidden;
+  }
+}
+
+.menu-nav {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 20px;
+  width: 30px;
+  margin: 10px 0;
+  cursor: pointer;
+  transform: rotate(0deg);
+  //transition: 0.5s ease-in-out;
+  @include onBigTablet {
+    display: none;
+  }
+}
+
+.menu-nav span {
+  position: absolute;
+  left: 0;
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #3aafd6;
+  border-radius: 9px;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+.menu-nav span:nth-child(1) {
+  top: 0;
+}
+
+.menu-nav span:nth-child(2) {
+  top: 8px;
+}
+
+.menu-nav span:nth-child(3) {
+  top: 16px;
+}
+
+.menu-nav-open span:nth-child(2) {
+  left: -40px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.menu-nav-open span:nth-child(1) {
+  top: 8px;
+  transform: rotate(135deg);
+}
+
+.menu-nav-open span:nth-child(3) {
+  top: 8px;
+  transform: rotate(-135deg);
+}
+
+.only-big-tablet {
+  @include notBigTablet {
+    display: none;
+  }
+}
+
+.not-big-tablet {
+  @include onBigTablet {
+    display: none;
+  }
+}

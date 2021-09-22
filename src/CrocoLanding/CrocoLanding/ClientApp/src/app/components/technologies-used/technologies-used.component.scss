@@ -1,0 +1,57 @@
+@import "src/styles/mixins";
+
+.container-tech {
+  margin-right: auto;
+  margin-left: auto;
+
+  @include onTablet {
+    width: 750px;
+  }
+
+  @include onBigTablet {
+    width: 970px;
+  }
+  @include onDesktop {
+    width: 1170px;
+  }
+}
+
+.container-tech-title {
+  margin-bottom: 20px;
+  padding: 0 15px;
+}
+
+.tech-title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  margin: 0;
+  color: rgb(68, 68, 68);
+}
+
+.tech-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.image-container {
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex-basis: 25%;
+  box-sizing: border-box;
+
+  @include onTablet {
+    flex-basis: calc(100% / 6);
+  }
+  @include onBigTablet {
+    flex-basis: calc(100% / 12);
+  }
+}
+
+.tech-icons {
+  display: flex;
+  flex-wrap: wrap;
+}

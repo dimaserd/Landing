@@ -1,0 +1,49 @@
+.header-wrapper {
+  display: block;
+  box-sizing: border-box;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo-wrapper {
+  padding-top: 90px;
+  position: relative;
+}
+
+.develop-wrapper {
+  display: block;
+  box-sizing: border-box;
+  padding: 55px 0 60px;
+  background-color: #fff;
+}
+
+.tech-stack-wrapper {
+  display: block;
+  box-sizing: border-box;
+  padding: 55px 0 60px;
+  background-color: #fff;
+}
+
+.order-develop-wrap {
+  padding: 55px 0 60px;
+  background-color: #fff;
+  color: #444;
+}
+
+.newsletter-wrapper {
+  position: relative;
+  background: url("^/assets/newsletter-image-bg.jpg") center no-repeat #fcfcfc;
+  background-size: cover;
+}
+
+.contacts-wrapper {
+  padding: 20px 0;
+}
+
+.footer-wrapper {
+  display: block;
+  padding: 20px 0;
+  background-color: #444444;
+  color: #fff;
+}

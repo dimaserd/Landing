@@ -13,6 +13,7 @@ import { NewsLetterComponent } from './components/news-letter/news-letter.compon
 import { ContactsComponent } from './components/ contacts/contacts.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ScrollButtonComponent } from './components/scroll-button/scroll-button.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { ScrollButtonComponent } from './components/scroll-button/scroll-button.
     FooterComponent,
     ScrollButtonComponent,
   ],
-  imports: [BrowserModule, BrowserAnimationsModule],
+  imports: [BrowserModule, BrowserAnimationsModule, FormsModule],
   providers: [ScrollService],
   bootstrap: [AppComponent],
 })

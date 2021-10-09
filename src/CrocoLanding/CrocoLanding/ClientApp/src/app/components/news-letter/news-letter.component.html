@@ -7,12 +7,12 @@
     <!-- Input & Submit-Button -->
 
     <input
+      [(ngModel)]="phoneNumberOrEmail"
       type="text"
       class="form-message form-group"
-      name="callbackReq.EmailOrPhoneNumber"
       placeholder="Номер телефона или Email"
     />
-    <button id="send-callback-request-btn" class="form-button form-group">
+    <button (click)="send()" class="form-button form-group">
       <i class="fa fa-paper-plane"></i>
     </button>
     <!-- /End Input & Submit-Button -->
